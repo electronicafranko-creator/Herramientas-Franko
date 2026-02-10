@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ElectroFranko - App</title>
+    <title>ElectroFranko - Suite de Ingeniería</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,29 +15,21 @@
 
     <main id="app-content">
         <section id="dashboard" class="menu-grid">
-            <div class="menu-card" onclick="showSection('colors')">
-                <div class="icon">🎨</div>
-                <span>Resistencias</span>
-            </div>
-            <div class="menu-card" onclick="showSection('ohm')">
-                <div class="icon">⚡</div>
-                <span>Ley de Ohm</span>
-            </div>
-            <div class="menu-card" onclick="showSection('watt')">
-                <div class="icon">🔋</div>
-                <span>Potencia</span>
-            </div>
+            <div class="menu-card" onclick="showSection('colors')"><div class="icon">🎨</div><span>Resistencias</span></div>
+            <div class="menu-card" onclick="showSection('ohm')"><div class="icon">⚡</div><span>Ley de Ohm</span></div>
+            <div class="menu-card" onclick="showSection('watt')"><div class="icon">🔋</div><span>Potencia</span></div>
+            <div class="menu-card" onclick="showSection('induct')"><div class="icon">🌀</div><span>Inductores</span></div>
+            <div class="menu-card" onclick="showSection('capac')"><div class="icon">🔲</div><span>Capacitores</span></div>
+            <div class="menu-card" onclick="showSection('smd')"><div class="icon">📟</div><span>Lector SMD</span></div>
         </section>
 
         <section id="colors" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Código de Colores</h2>
             <div class="config-bar">
-                <label>Bandas:</label>
                 <select id="num-bands" onchange="changeBandType()">
                     <option value="4">4 Bandas</option>
                     <option value="5">5 Bandas</option>
-                    <option value="6">6 Bandas</option>
                 </select>
             </div>
             <div class="resistor-preview">
@@ -48,7 +40,6 @@
                     <div id="v-band3" class="band"></div>
                     <div id="v-mul" class="band"></div>
                     <div id="v-tol" class="band spacer"></div>
-                    <div id="v-temp" class="band"></div>
                 </div>
                 <div class="wire"></div>
             </div>
@@ -59,24 +50,43 @@
         <section id="ohm" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Ley de Ohm</h2>
-            <div class="input-group">
-                <input type="number" id="v" placeholder="Voltaje (V)">
-                <input type="number" id="i" placeholder="Corriente (A)">
-                <input type="number" id="r" placeholder="Resistencia (Ω)">
-            </div>
+            <input type="number" id="v" placeholder="Voltaje (V)">
+            <input type="number" id="i" placeholder="Corriente (A)">
+            <input type="number" id="r" placeholder="Resistencia (Ω)">
             <button class="action-btn" onclick="calcOhm()">Calcular</button>
             <div id="res-ohm" class="result">Resultado</div>
         </section>
 
         <section id="watt" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Potencia Eléctrica</h2>
-            <div class="input-group">
-                <input type="number" id="w_v" placeholder="Voltaje (V)">
-                <input type="number" id="w_i" placeholder="Corriente (A)">
-            </div>
+            <h2>Potencia</h2>
+            <input type="number" id="w_v" placeholder="Voltaje (V)">
+            <input type="number" id="w_i" placeholder="Corriente (A)">
             <button class="action-btn" onclick="calcWatt()">Calcular</button>
             <div id="res-watt" class="result">Resultado</div>
+        </section>
+
+        <section id="induct" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Inductores (µH)</h2>
+            <div id="controls-induct"></div>
+            <div id="res-induct" class="result">0 µH</div>
+        </section>
+
+        <section id="capac" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Lector de Capacitores</h2>
+            <p>Ingresa el código (Ej: 104)</p>
+            <input type="number" id="cap-code" placeholder="104" oninput="calcCap()">
+            <div id="res-capac" class="result">Resultado</div>
+        </section>
+
+        <section id="smd" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Resistencias SMD</h2>
+            <p>Ejemplos: 472, 1003, 4R7</p>
+            <input type="text" id="smd-code" placeholder="Código" oninput="calcSMD()">
+            <div id="res-smd" class="result">Resultado</div>
         </section>
     </main>
 
