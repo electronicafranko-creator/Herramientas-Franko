@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ElectroFranko - Suite de Ingeniería</title>
+    <title>ElectroFranko Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,17 +21,19 @@
             <div class="menu-card" onclick="showSection('induct')"><div class="icon">🌀</div><span>Inductores</span></div>
             <div class="menu-card" onclick="showSection('capac')"><div class="icon">🔲</div><span>Capacitores</span></div>
             <div class="menu-card" onclick="showSection('smd')"><div class="icon">📟</div><span>Lector SMD</span></div>
+            <div class="menu-card" onclick="showSection('led')"><div class="icon">💡</div><span>Calc. LED</span></div>
+            <div class="menu-card" onclick="showSection('divisor')"><div class="icon">📉</div><span>Divisor V</span></div>
+            <div class="menu-card" onclick="showSection('lm317')"><div class="icon">🔌</div><span>LM317</span></div>
+            <div class="menu-card" onclick="showSection('empaques')"><div class="icon">📦</div><span>Empaques</span></div>
         </section>
 
         <section id="colors" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Código de Colores</h2>
-            <div class="config-bar">
-                <select id="num-bands" onchange="changeBandType()">
-                    <option value="4">4 Bandas</option>
-                    <option value="5">5 Bandas</option>
-                </select>
-            </div>
+            <select id="num-bands" onchange="changeBandType()">
+                <option value="4">4 Bandas</option>
+                <option value="5">5 Bandas</option>
+            </select>
             <div class="resistor-preview">
                 <div class="wire"></div>
                 <div class="resistor-body">
@@ -59,7 +61,7 @@
 
         <section id="watt" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Potencia</h2>
+            <h2>Potencia Eléctrica</h2>
             <input type="number" id="w_v" placeholder="Voltaje (V)">
             <input type="number" id="w_i" placeholder="Corriente (A)">
             <button class="action-btn" onclick="calcWatt()">Calcular</button>
@@ -75,18 +77,59 @@
 
         <section id="capac" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Lector de Capacitores</h2>
-            <p>Ingresa el código (Ej: 104)</p>
-            <input type="number" id="cap-code" placeholder="104" oninput="calcCap()">
+            <h2>Capacitores Cerámicos</h2>
+            <input type="number" id="cap-code" placeholder="Código (Ej: 104)" oninput="calcCap()">
             <div id="res-capac" class="result">Resultado</div>
         </section>
 
         <section id="smd" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Resistencias SMD</h2>
-            <p>Ejemplos: 472, 1003, 4R7</p>
-            <input type="text" id="smd-code" placeholder="Código" oninput="calcSMD()">
+            <input type="text" id="smd-code" placeholder="Código (Ej: 472 o 1R0)" oninput="calcSMD()">
             <div id="res-smd" class="result">Resultado</div>
+        </section>
+
+        <section id="led" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Resistencia para LED</h2>
+            <input type="number" id="v_fuente" placeholder="Voltaje Fuente (V)">
+            <label>Color del LED:</label>
+            <select id="v_led">
+                <option value="2.0">Rojo / Amarillo (2.0V)</option>
+                <option value="3.2">Azul / Blanco / Verde (3.2V)</option>
+            </select>
+            <button class="action-btn" onclick="calcLED()">Calcular</button>
+            <div id="res-led" class="result">Resultado</div>
+        </section>
+
+        <section id="divisor" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Divisor de Voltaje</h2>
+            <input type="number" id="div_vin" placeholder="Vin (Voltaje Entrada)">
+            <input type="number" id="div_r1" placeholder="R1 (Ω)">
+            <input type="number" id="div_r2" placeholder="R2 (Ω)">
+            <button class="action-btn" onclick="calcDivisor()">Calcular</button>
+            <div id="res-divisor" class="result">Vout = 0V</div>
+        </section>
+
+        <section id="lm317" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Regulador LM317</h2>
+            <input type="number" id="lm_r1" value="240" placeholder="R1 (Ω)">
+            <input type="number" id="lm_r2" placeholder="R2 (Ω)">
+            <button class="action-btn" onclick="calcLM317()">Calcular</button>
+            <div id="res-lm" class="result">Vout = 1.25V</div>
+        </section>
+
+        <section id="empaques" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Guía de Empaques</h2>
+            <div class="info-box">
+                <p><b>Resistencias SMD:</b> 0402, 0603, 0805, 1206</p>
+                <p><b>Transistores:</b> SOT-23, TO-92, TO-220, TO-3</p>
+                <p><b>Diodos:</b> DO-41, SOD-123, SMA, SMB</p>
+            </div>
+            <div class="result">Consultar disponibilidad</div>
         </section>
     </main>
 
@@ -98,4 +141,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
