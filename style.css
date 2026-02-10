@@ -1,104 +1,36 @@
-:root { 
-    --azul: #007bff; 
-    --verde: #25d366; 
-    --oscuro: #1a1a1a; 
-}
+:root { --azul: #007bff; --verde: #25d366; --oscuro: #1a1a1a; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-* { box-sizing: border-box; }
+body { background: #f4f7f6; font-family: sans-serif; margin: 0; padding-bottom: 100px; overflow-x: hidden; }
 
-body { 
-    background: #f4f7f6; 
-    font-family: 'Segoe UI', sans-serif; 
-    margin: 0; 
-    padding-bottom: 100px;
-}
+header { background: #fff; padding: 15px; display: flex; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+#main-logo { height: 55px; width: auto; max-width: 90%; }
 
-header { 
-    background: #ffffff; 
-    padding: 20px; 
-    display: flex; 
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; max-width: 500px; margin: auto; }
+.menu-card { background: white; padding: 20px 10px; border-radius: 15px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.05); cursor: pointer; }
+.menu-card .icon { font-size: 2rem; margin-bottom: 8px; }
+.menu-card span { font-weight: bold; color: #444; font-size: 0.9rem; }
 
-#main-logo { height: 50px; width: auto; }
+.calc-section { padding: 20px; width: 100%; max-width: 450px; margin: auto; animation: fadeIn 0.3s; }
+.back-btn { background: none; border: none; color: var(--azul); font-weight: bold; margin-bottom: 15px; cursor: pointer; }
 
-/* ESTILO DEL MENÚ PRINCIPAL */
-.menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 20px;
-    max-width: 500px;
-    margin: auto;
-}
+input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+.action-btn { background: var(--azul); color: white; border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: bold; cursor: pointer; }
 
-.menu-card {
-    background: white;
-    padding: 25px 10px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.menu-card:active { transform: scale(0.95); }
-
-.menu-card .icon { font-size: 2.5rem; margin-bottom: 10px; }
-.menu-card span { font-weight: bold; color: #333; display: block; }
-
-/* SECCIONES Y BOTONES */
-.calc-section { 
-    padding: 20px; 
-    width: 100%; 
-    max-width: 450px; 
-    margin: auto; 
-    animation: slideUp 0.3s ease-out;
-}
-
-.back-btn {
-    background: none;
-    border: none;
-    color: var(--azul);
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.action-btn { 
-    background: var(--azul); color: white; border: none; padding: 15px; 
-    width: 100%; border-radius: 30px; font-weight: bold; margin-top: 15px; font-size: 1.1rem;
-}
-
-.result { 
-    margin-top: 20px; padding: 20px; background: #e8f5e9; border-radius: 10px; 
-    color: #2e7d32; font-weight: bold; font-size: 1.5rem; border: 2px solid #2e7d32; text-align: center;
-}
+.result { margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 10px; color: #2e7d32; font-weight: bold; font-size: 1.3rem; border: 2px solid #2e7d32; text-align: center; }
 
 /* RESISTENCIA VISUAL */
-.resistor-preview { display: flex; align-items: center; justify-content: center; margin: 30px 0; }
+.resistor-preview { display: flex; align-items: center; justify-content: center; margin: 20px 0; }
 .wire { width: 30px; height: 6px; background: #ccc; }
-.resistor-body { 
-    width: 200px; height: 60px; background: #d1b48c; border-radius: 15px; 
-    display: flex; justify-content: space-between; padding: 0 10px; align-items: center; 
-}
-.band { width: 12px; height: 100%; }
-.spacer { margin-left: 15px; }
+.resistor-body { width: 180px; height: 50px; background: #d1b48c; border-radius: 12px; display: flex; justify-content: space-between; padding: 0 10px; align-items: center; }
+.band { width: 10px; height: 100%; }
+.spacer { margin-left: 10px; }
 
-.control-group { 
-    display: flex; align-items: center; justify-content: space-between; 
-    margin-bottom: 10px; background: white; padding: 12px; border-radius: 10px; 
-}
-select, input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 60%; font-size: 1rem; margin-bottom: 5px; }
+.control-group { display: flex; align-items: center; justify-content: space-between; background: white; padding: 8px 12px; margin-bottom: 5px; border-radius: 8px; }
+.control-group label { font-size: 0.9rem; font-weight: bold; }
+.control-group select { width: 50%; padding: 5px; }
 
-#whatsapp-btn { 
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
-    background: var(--verde); color: white; padding: 15px 30px; border-radius: 50px; 
-    display: flex; align-items: center; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); 
-    z-index: 100; width: 90%; max-width: 320px; justify-content: center; font-weight: bold;
-}
-#whatsapp-btn img { width: 25px; margin-right: 12px; }
+#whatsapp-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--verde); color: white; padding: 12px 25px; border-radius: 50px; display: flex; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 100; width: 90%; max-width: 320px; justify-content: center; font-weight: bold; }
+#whatsapp-btn img { width: 22px; margin-right: 10px; }
 
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
