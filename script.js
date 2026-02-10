@@ -1,5 +1,4 @@
-// REEMPLAZA ESTE N�MERO
-const MI_TELEFONO = "51956484667"; 
+const MI_TELEFONO = "51987654321"; // <--- PON TU NÚMERO AQUÍ
 
 const colorMap = [
     { name: "Negro", val: 0, mul: 1, tol: null, hex: "#000000" },
@@ -86,21 +85,21 @@ function calcOhm() {
     let i = parseFloat(document.getElementById('i').value);
     let r = parseFloat(document.getElementById('r').value);
     let res = document.getElementById('res-ohm');
-    if(v && i) res.innerHTML = "R = " + (v/i).toFixed(1) + " &Omega;";
-    else if(v && r) res.innerHTML = "I = " + (v/r).toFixed(2) + " A";
-    else if(i && r) res.innerHTML = "V = " + (i*r).toFixed(1) + " V";
+    if(v && i) res.innerHTML = (v/i).toFixed(1) + " &Omega;";
+    else if(v && r) res.innerHTML = (v/r).toFixed(2) + " A";
+    else if(i && r) res.innerHTML = (i*r).toFixed(1) + " V";
 }
 
 function calcWatt() {
     let v = parseFloat(document.getElementById('w_v').value);
     let i = parseFloat(document.getElementById('w_i').value);
-    if(v && i) document.getElementById('res-watt').innerHTML = (v*i).toFixed(1) + " Watts";
+    if(v && i) document.getElementById('res-watt').innerHTML = (v*i).toFixed(1) + " W";
 }
 
 function sendWhatsApp() {
     const activeSection = document.querySelector('.calc-section:not([style*="display: none"])');
     const result = activeSection.querySelector('.result').innerText;
-    const msg = `Hola ElectroFranko! Necesito pedido de: ${result}`;
+    const msg = `Hola Franko! Quiero hacer un pedido de: ${result}`;
     window.open(`https://wa.me/${MI_TELEFONO}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
