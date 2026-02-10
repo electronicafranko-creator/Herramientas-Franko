@@ -1,16 +1,4 @@
-const MI_TELEFONO = "51956484667"; // REEMPLAZA CON TU NÚMERO
-
-function showSection(id) {
-    document.getElementById('dashboard').style.display = 'none';
-    document.querySelectorAll('.calc-section').forEach(s => s.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-    if(id === 'colors') changeBandType();
-}
-
-function showDashboard() {
-    document.querySelectorAll('.calc-section').forEach(s => s.style.display = 'none');
-    document.getElementById('dashboard').style.display = 'grid';
-}
+const MI_TELEFONO = "51987654321"; // <--- TU NÚMERO AQUÍ
 
 const colorMap = [
     { name: "Negro", val: 0, mul: 1, tol: null, hex: "#000000" },
@@ -27,17 +15,27 @@ const colorMap = [
     { name: "Plata", val: null, mul: 0.01, tol: 10, hex: "#C0C0C0" }
 ];
 
+function showDashboard() {
+    document.querySelectorAll('.calc-section').forEach(s => s.style.display = 'none');
+    document.getElementById('dashboard').style.display = 'grid';
+}
+
+function showSection(id) {
+    document.getElementById('dashboard').style.display = 'none';
+    document.querySelectorAll('.calc-section').forEach(s => s.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    if(id === 'colors') changeBandType();
+    if(id === 'induct') initInduct();
+}
+
+// LÓGICA RESISTENCIAS
 function changeBandType() {
     const type = document.getElementById('num-bands').value;
     const container = document.getElementById('controls-container');
     container.innerHTML = "";
-    const struct = { 
-        "4":["Banda 1", "Banda 2", "Multiplicador", "Tolerancia"], 
-        "5":["Banda 1", "Banda 2", "Banda 3", "Multiplicador", "Tolerancia"], 
-        "6":["Banda 1", "Banda 2", "Banda 3", "Multiplicador", "Tolerancia", "Temp"] 
-    };
+    const struct = type === "4" ? ["Banda 1", "Banda 2", "Multiplicador", "Tolerancia"] : ["Banda 1", "Banda 2", "Banda 3", "Multiplicador", "Tolerancia"];
     
-    struct[type].forEach((label, i) => {
+    struct.forEach((label, i) => {
         let opt = "";
         colorMap.forEach((c, idx) => {
             if(label.includes("Banda") && c.val === null) return;
@@ -53,7 +51,6 @@ function calculate() {
     const type = document.getElementById('num-bands').value;
     const resDiv = document.getElementById('res-colors');
     document.getElementById('v-band3').style.display = (type === "4") ? "none" : "block";
-    document.getElementById('v-temp').style.display = (type === "6") ? "block" : "none";
 
     let v1 = colorMap[document.getElementById('sel-0').value];
     let v2 = colorMap[document.getElementById('sel-1').value];
@@ -64,7 +61,7 @@ function calculate() {
         let tol = colorMap[document.getElementById('sel-3').value];
         let val = (v1.val * 10 + v2.val) * mul.mul;
         resDiv.innerHTML = format(val) + " ±" + tol.tol + "%";
-        colors = [v1.hex, v2.hex, "transparent", mul.hex, tol.hex, "transparent"];
+        colors = [v1.hex, v2.hex, "transparent", mul.hex, tol.hex];
     } else {
         let v3 = colorMap[document.getElementById('sel-2').value];
         let mul = colorMap[document.getElementById('sel-3').value];
@@ -73,12 +70,8 @@ function calculate() {
         resDiv.innerHTML = format(val) + " ±" + tol.tol + "%";
         colors = [v1.hex, v2.hex, v3.hex, mul.hex, tol.hex];
     }
-    updateBands(colors);
-}
-
-function updateBands(c) {
-    const ids = ['v-band1','v-band2','v-band3','v-mul','v-tol','v-temp'];
-    ids.forEach((id, i) => { if(c[i]) document.getElementById(id).style.backgroundColor = c[i]; });
+    const ids = ['v-band1','v-band2','v-band3','v-mul','v-tol'];
+    ids.forEach((id, i) => { if(colors[i]) document.getElementById(id).style.backgroundColor = colors[i]; });
 }
 
 function format(v) {
@@ -87,26 +80,65 @@ function format(v) {
     return v.toFixed(0) + " Ω";
 }
 
+// LÓGICA INDUCTORES
+function initInduct() {
+    const container = document.getElementById('controls-induct');
+    container.innerHTML = "";
+    ["Banda 1", "Banda 2", "Multiplicador", "Tolerancia"].forEach((label, i) => {
+        let opt = "";
+        colorMap.forEach((c, idx) => {
+            if(i < 2 && c.val === null) return;
+            opt += `<option value="${idx}">${c.name}</option>`;
+        });
+        container.innerHTML += `<div class="control-group"><label>${label}</label><select id="sel-ind-${i}" onchange="calcInduct()"> ${opt} </select></div>`;
+    });
+}
+
+function calcInduct() {
+    let v1 = colorMap[document.getElementById('sel-ind-0').value].val;
+    let v2 = colorMap[document.getElementById('sel-ind-1').value].val;
+    let mul = colorMap[document.getElementById('sel-ind-2').value].mul;
+    let tol = colorMap[document.getElementById('sel-ind-3').value].tol;
+    let val = (v1 * 10 + v2) * mul;
+    document.getElementById('res-induct').innerHTML = val.toFixed(1) + " µH ±" + tol + "%";
+}
+
+// CAPACITORES Y SMD
+function calcCap() {
+    let code = document.getElementById('cap-code').value;
+    if(code.length === 3) {
+        let val = parseInt(code.substring(0,2)) * Math.pow(10, parseInt(code.substring(2)));
+        document.getElementById('res-capac').innerHTML = `${val} pF | ${val/1000} nF | ${val/1000000} µF`;
+    }
+}
+
+function calcSMD() {
+    let code = document.getElementById('smd-code').value.toUpperCase();
+    let res = document.getElementById('res-smd');
+    if(code.includes('R')) { res.innerHTML = code.replace('R','.') + " Ω"; return; }
+    if(code.length >= 3) {
+        let val = parseInt(code.slice(0,-1)) * Math.pow(10, parseInt(code.slice(-1)));
+        res.innerHTML = format(val);
+    }
+}
+
+// OHM Y WATT
 function calcOhm() {
-    let v = parseFloat(document.getElementById('v').value);
-    let i = parseFloat(document.getElementById('i').value);
-    let r = parseFloat(document.getElementById('r').value);
-    let res = document.getElementById('res-ohm');
-    if(v && i) res.innerHTML = "Resistencia: " + (v/i).toFixed(1) + " Ω";
-    else if(v && r) res.innerHTML = "Corriente: " + (v/r).toFixed(2) + " A";
-    else if(i && r) res.innerHTML = "Voltaje: " + (i*r).toFixed(1) + " V";
+    let v = parseFloat(document.getElementById('v').value), i = parseFloat(document.getElementById('i').value), r = parseFloat(document.getElementById('r').value);
+    if(v && i) document.getElementById('res-ohm').innerHTML = (v/i).toFixed(1) + " Ω";
+    else if(v && r) document.getElementById('res-ohm').innerHTML = (v/r).toFixed(2) + " A";
+    else if(i && r) document.getElementById('res-ohm').innerHTML = (i*r).toFixed(1) + " V";
 }
 
 function calcWatt() {
-    let v = parseFloat(document.getElementById('w_v').value);
-    let i = parseFloat(document.getElementById('w_i').value);
-    if(v && i) document.getElementById('res-watt').innerHTML = "Potencia: " + (v*i).toFixed(1) + " Watts";
+    let v = parseFloat(document.getElementById('w_v').value), i = parseFloat(document.getElementById('w_i').value);
+    if(v && i) document.getElementById('res-watt').innerHTML = (v*i).toFixed(1) + " Watts";
 }
 
 function sendWhatsApp() {
-    const activeSection = document.querySelector('.calc-section:not([style*="display: none"])');
-    let result = activeSection ? activeSection.querySelector('.result').innerText : "Consulta general";
-    const msg = `Hola Franko! Consulto por: ${result}`;
-    window.open(`https://wa.me/${MI_TELEFONO}?text=${encodeURIComponent(msg)}`, '_blank');
+    const active = document.querySelector('.calc-section:not([style*="display: none"])');
+    let txt = active ? active.querySelector('.result').innerText : "Consulta";
+    window.open(`https://wa.me/${MI_TELEFONO}?text=Hola Franko! Necesito: ${txt}`, '_blank');
 }
+
 
