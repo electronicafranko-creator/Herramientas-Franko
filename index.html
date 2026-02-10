@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ElectroFranko - Calculadoras</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -41,12 +41,11 @@
             </div>
 
             <div id="controls-container"></div>
-            <div id="res-colors" class="result">Cargando...</div>
+            <div id="res-colors" class="result">Esperando valores...</div>
         </section>
 
         <section id="ohm" class="calc-section" style="display:none;">
             <h2>Calculadora Ley de Ohm</h2>
-            <div class="visual-help">V / (I x R)</div>
             <input type="number" id="v" placeholder="Voltaje (V)">
             <input type="number" id="i" placeholder="Corriente (A)">
             <input type="number" id="r" placeholder="Resistencia (&Omega;)">
@@ -56,7 +55,6 @@
 
         <section id="watt" class="calc-section" style="display:none;">
             <h2>Calculadora de Potencia</h2>
-            <div class="visual-help">P = V x I</div>
             <input type="number" id="w_v" placeholder="Voltaje (V)">
             <input type="number" id="w_i" placeholder="Corriente (A)">
             <button class="action-btn" onclick="calcWatt()">Calcular</button>
@@ -66,7 +64,7 @@
 
     <div id="whatsapp-btn" onclick="sendWhatsApp()">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
-        <span>Haz tu Pedido Aqui</span>
+        <span>Realiza tu Pedido Aquí</span>
     </div>
 
     <script src="script.js"></script>
