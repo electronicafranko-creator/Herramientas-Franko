@@ -12,25 +12,34 @@
             <img src="logo.png" alt="FRANKO ELECTRONICA" id="main-logo">
         </div>
     </header>
-    
-    <nav id="menu">
-        <button onclick="showSection('colors')">Resistencias</button>
-        <button onclick="showSection('ohm')">Ley de Ohm</button>
-        <button onclick="showSection('watt')">Potencia</button>
-    </nav>
 
     <main id="app-content">
-        <section id="colors" class="calc-section">
-            <h2>Calculadora de Resistencias</h2>
+        <section id="dashboard" class="menu-grid">
+            <div class="menu-card" onclick="showSection('colors')">
+                <div class="icon">🎨</div>
+                <span>Resistencias</span>
+            </div>
+            <div class="menu-card" onclick="showSection('ohm')">
+                <div class="icon">⚡</div>
+                <span>Ley de Ohm</span>
+            </div>
+            <div class="menu-card" onclick="showSection('watt')">
+                <div class="icon">🔋</div>
+                <span>Potencia</span>
+            </div>
+        </section>
+
+        <section id="colors" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Código de Colores</h2>
             <div class="config-bar">
-                <label>Tipo:</label>
+                <label>Bandas:</label>
                 <select id="num-bands" onchange="changeBandType()">
                     <option value="4">4 Bandas</option>
                     <option value="5">5 Bandas</option>
                     <option value="6">6 Bandas</option>
                 </select>
             </div>
-
             <div class="resistor-preview">
                 <div class="wire"></div>
                 <div class="resistor-body">
@@ -43,26 +52,31 @@
                 </div>
                 <div class="wire"></div>
             </div>
-
             <div id="controls-container"></div>
-            <div id="res-colors" class="result">Esperando valores...</div>
+            <div id="res-colors" class="result">0 Ω</div>
         </section>
 
         <section id="ohm" class="calc-section" style="display:none;">
-            <h2>Calculadora Ley de Ohm</h2>
-            <input type="number" id="v" placeholder="Voltaje (V)">
-            <input type="number" id="i" placeholder="Corriente (A)">
-            <input type="number" id="r" placeholder="Resistencia (&Omega;)">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Ley de Ohm</h2>
+            <div class="input-group">
+                <input type="number" id="v" placeholder="Voltaje (V)">
+                <input type="number" id="i" placeholder="Corriente (A)">
+                <input type="number" id="r" placeholder="Resistencia (Ω)">
+            </div>
             <button class="action-btn" onclick="calcOhm()">Calcular</button>
-            <div id="res-ohm" class="result"></div>
+            <div id="res-ohm" class="result">Resultado</div>
         </section>
 
         <section id="watt" class="calc-section" style="display:none;">
-            <h2>Calculadora de Potencia</h2>
-            <input type="number" id="w_v" placeholder="Voltaje (V)">
-            <input type="number" id="w_i" placeholder="Corriente (A)">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Potencia Eléctrica</h2>
+            <div class="input-group">
+                <input type="number" id="w_v" placeholder="Voltaje (V)">
+                <input type="number" id="w_i" placeholder="Corriente (A)">
+            </div>
             <button class="action-btn" onclick="calcWatt()">Calcular</button>
-            <div id="res-watt" class="result"></div>
+            <div id="res-watt" class="result">Resultado</div>
         </section>
     </main>
 
@@ -74,3 +88,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
