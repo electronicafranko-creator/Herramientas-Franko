@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroFranko - Calculadoras</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header><div class="logo">ELECTRO<span>FRANKO</span></div></header>
+    
+    <nav id="menu">
+        <button onclick="showSection('colors')">Resistencias</button>
+        <button onclick="showSection('ohm')">Ley de Ohm</button>
+        <button onclick="showSection('watt')">Potencia</button>
+    </nav>
+
+    <main id="app-content">
+        <section id="colors" class="calc-section">
+            <h2>Calculadora de Resistencias</h2>
+            <div class="config-bar">
+                <label>Tipo:</label>
+                <select id="num-bands" onchange="changeBandType()">
+                    <option value="4">4 Bandas</option>
+                    <option value="5">5 Bandas</option>
+                    <option value="6">6 Bandas</option>
+                </select>
+            </div>
+
+            <div class="resistor-preview">
+                <div class="wire"></div>
+                <div class="resistor-body">
+                    <div id="v-band1" class="band"></div>
+                    <div id="v-band2" class="band"></div>
+                    <div id="v-band3" class="band"></div>
+                    <div id="v-mul" class="band"></div>
+                    <div id="v-tol" class="band spacer"></div>
+                    <div id="v-temp" class="band"></div>
+                </div>
+                <div class="wire"></div>
+            </div>
+
+            <div id="controls-container"></div>
+            <div id="res-colors" class="result">Cargando...</div>
+        </section>
+
+        <section id="ohm" class="calc-section" style="display:none;">
+            <h2>Calculadora Ley de Ohm</h2>
+            <div class="visual-help">V / (I x R)</div>
+            <input type="number" id="v" placeholder="Voltaje (V)">
+            <input type="number" id="i" placeholder="Corriente (A)">
+            <input type="number" id="r" placeholder="Resistencia (&Omega;)">
+            <button class="action-btn" onclick="calcOhm()">Calcular</button>
+            <div id="res-ohm" class="result"></div>
+        </section>
+
+        <section id="watt" class="calc-section" style="display:none;">
+            <h2>Calculadora de Potencia</h2>
+            <div class="visual-help">P = V x I</div>
+            <input type="number" id="w_v" placeholder="Voltaje (V)">
+            <input type="number" id="w_i" placeholder="Corriente (A)">
+            <button class="action-btn" onclick="calcWatt()">Calcular</button>
+            <div id="res-watt" class="result"></div>
+        </section>
+    </main>
+
+    <div id="whatsapp-btn" onclick="sendWhatsApp()">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
+        <span>Haz tu Pedido Aqui</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
