@@ -7,67 +7,98 @@
 * { box-sizing: border-box; }
 
 body { 
-    background: #f0f2f5; 
+    background: #f4f7f6; 
     font-family: 'Segoe UI', sans-serif; 
     margin: 0; 
     padding-bottom: 100px;
-    overflow-x: hidden;
 }
 
 header { 
     background: #ffffff; 
-    padding: 15px; 
+    padding: 20px; 
     display: flex; 
     justify-content: center;
-    border-bottom: 2px solid #eee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-#main-logo {
-    height: 50px;
-    width: auto;
-    max-width: 90%;
-    object-fit: contain;
+#main-logo { height: 50px; width: auto; }
+
+/* ESTILO DEL MENÚ PRINCIPAL */
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
 }
 
-nav { display: flex; background: #333; position: sticky; top: 0; z-index: 10; }
-nav button { 
-    flex: 1; padding: 15px 5px; border: none; color: white; background: none; 
-    font-weight: bold; cursor: pointer; font-size: 0.85rem;
+.menu-card {
+    background: white;
+    padding: 25px 10px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.calc-section { padding: 15px; width: 100%; max-width: 450px; margin: auto; }
-.config-bar { background: white; padding: 12px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.menu-card:active { transform: scale(0.95); }
 
-/* RESISTENCIA */
-.resistor-preview { display: flex; align-items: center; justify-content: center; margin: 20px 0; }
-.wire { width: 15%; height: 6px; background: #bbb; }
-.resistor-body { 
-    width: 70%; height: 55px; background: #d1b48c; border-radius: 12px; 
-    display: flex; justify-content: space-between; padding: 0 10px; align-items: center; 
-}
-.band { width: 10px; height: 100%; }
-.spacer { margin-left: 10px; }
+.menu-card .icon { font-size: 2.5rem; margin-bottom: 10px; }
+.menu-card span { font-weight: bold; color: #333; display: block; }
 
-.control-group { 
-    display: flex; align-items: center; justify-content: space-between; 
-    margin-bottom: 8px; background: white; padding: 10px; border-radius: 8px; 
+/* SECCIONES Y BOTONES */
+.calc-section { 
+    padding: 20px; 
+    width: 100%; 
+    max-width: 450px; 
+    margin: auto; 
+    animation: slideUp 0.3s ease-out;
 }
-select, input { padding: 12px; border: 1px solid #ccc; border-radius: 6px; width: 60%; font-size: 1rem; }
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--azul);
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: block;
+}
 
 .action-btn { 
     background: var(--azul); color: white; border: none; padding: 15px; 
-    width: 100%; border-radius: 30px; font-weight: bold; margin-top: 15px; 
+    width: 100%; border-radius: 30px; font-weight: bold; margin-top: 15px; font-size: 1.1rem;
 }
 
 .result { 
-    margin-top: 20px; padding: 15px; background: white; border-radius: 10px; 
-    color: #28a745; font-weight: bold; font-size: 1.4rem; border: 3px solid #28a745; text-align: center;
+    margin-top: 20px; padding: 20px; background: #e8f5e9; border-radius: 10px; 
+    color: #2e7d32; font-weight: bold; font-size: 1.5rem; border: 2px solid #2e7d32; text-align: center;
 }
+
+/* RESISTENCIA VISUAL */
+.resistor-preview { display: flex; align-items: center; justify-content: center; margin: 30px 0; }
+.wire { width: 30px; height: 6px; background: #ccc; }
+.resistor-body { 
+    width: 200px; height: 60px; background: #d1b48c; border-radius: 15px; 
+    display: flex; justify-content: space-between; padding: 0 10px; align-items: center; 
+}
+.band { width: 12px; height: 100%; }
+.spacer { margin-left: 15px; }
+
+.control-group { 
+    display: flex; align-items: center; justify-content: space-between; 
+    margin-bottom: 10px; background: white; padding: 12px; border-radius: 10px; 
+}
+select, input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 60%; font-size: 1rem; margin-bottom: 5px; }
 
 #whatsapp-btn { 
     position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
-    background: var(--verde); color: white; padding: 12px 25px; border-radius: 50px; 
-    display: flex; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-    z-index: 100; width: 90%; max-width: 300px; justify-content: center; font-weight: bold;
+    background: var(--verde); color: white; padding: 15px 30px; border-radius: 50px; 
+    display: flex; align-items: center; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); 
+    z-index: 100; width: 90%; max-width: 320px; justify-content: center; font-weight: bold;
 }
-#whatsapp-btn img { width: 24px; margin-right: 10px; }
+#whatsapp-btn img { width: 25px; margin-right: 12px; }
+
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
