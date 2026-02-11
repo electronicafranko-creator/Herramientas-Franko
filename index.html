@@ -23,7 +23,7 @@
             <div class="menu-card" onclick="showSection('smd')"><div class="icon">📟</div><span>Lector SMD</span></div>
             <div class="menu-card" onclick="showSection('led')"><div class="icon">💡</div><span>Calc. LED</span></div>
             <div class="menu-card" onclick="showSection('divisor')"><div class="icon">📉</div><span>Divisor V</span></div>
-            <div class="menu-card" onclick="showSection('watt')"><div class="icon">🔋</div><span>Potencia</span></div>
+            <div class="menu-card" onclick="showSection('watt')"><div class="icon">🔋</div><span>Potencia (W)</span></div>
         </section>
 
         <section id="conexiones" class="calc-section" style="display:none;">
@@ -38,14 +38,14 @@
             </div>
             <div id="ventana-calculo" style="display:none;">
                 <button class="back-btn" onclick="backToSubMenu()">← Cambiar Tipo</button>
-                <h3 id="titulo-sub-calc" style="text-align:center;">Calculadora</h3>
+                <h3 id="titulo-sub-calc">Calculadora</h3>
                 <div id="inputs-dinamicos"></div>
                 <button class="add-btn" onclick="agregarCampo()">+ AGREGAR VALOR</button>
                 <div class="btn-group-mobile">
-                    <button class="action-btn" onclick="ejecutarCalculoDinamico('serie')">SERIE</button>
-                    <button class="action-btn secondary" onclick="ejecutarCalculoDinamico('paralelo')">PARALELO</button>
+                    <button class="action-btn" onclick="ejecutarCalculoDinamico('serie')">CALCULAR SERIE</button>
+                    <button class="action-btn secondary" onclick="ejecutarCalculoDinamico('paralelo')">CALCULAR PARALELO</button>
                 </div>
-                <div id="res-circuito" class="result">Esperando valores...</div>
+                <div id="res-circuito" class="result">Resultado</div>
             </div>
         </section>
 
@@ -63,57 +63,20 @@
             <div id="res-ohm" class="result">Resultado</div>
         </section>
 
-        <section id="smd" class="calc-section" style="display:none;">
-            <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Lector SMD</h2>
-            <input type="text" id="smd-code" placeholder="Ej: 472 o 10R5">
-            <button class="action-btn" onclick="calcSMD()">Decodificar</button>
-            <div id="res-smd" class="result">Resultado</div>
-        </section>
-
-        <section id="led" class="calc-section" style="display:none;">
-            <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Resistencia para LED</h2>
-            <input type="number" id="led-vcc" placeholder="Voltaje Fuente (V)" inputmode="decimal">
-            <input type="number" id="led-vf" placeholder="Voltaje LED (V) Ej: 2.0" inputmode="decimal">
-            <input type="number" id="led-if" placeholder="Corriente LED (mA) Ej: 20" inputmode="decimal">
-            <button class="action-btn" onclick="calcLED()">Calcular</button>
-            <div id="res-led" class="result">Resultado</div>
-        </section>
-
-        <section id="divisor" class="calc-section" style="display:none;">
-            <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Divisor de Voltaje</h2>
-            <input type="number" id="div-vin" placeholder="Vin (Voltaje Entrada)" inputmode="decimal">
-            <input type="number" id="div-r1" placeholder="R1 (Ω)" inputmode="decimal">
-            <input type="number" id="div-r2" placeholder="R2 (Ω)" inputmode="decimal">
-            <button class="action-btn" onclick="calcDivisor()">Calcular Vout</button>
-            <div id="res-divisor" class="result">Resultado</div>
-        </section>
-
-        <section id="watt" class="calc-section" style="display:none;">
-            <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Potencia Eléctrica</h2>
-            <input type="number" id="w-v" placeholder="Voltaje (V)" inputmode="decimal">
-            <input type="number" id="w-i" placeholder="Corriente (A)" inputmode="decimal">
-            <button class="action-btn" onclick="calcWatt()">Calcular Watts</button>
-            <div id="res-watt" class="result">Resultado</div>
-        </section>
-
         <section id="colors" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Colores Resistencia</h2>
-            <div id="controls-res"></div>
+            <div id="controls-res" class="colores-grid"></div>
             <div id="res-colors" class="result">0 Ω</div>
         </section>
 
         <section id="induct" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Colores Inductor</h2>
-            <div id="controls-ind"></div>
+            <div id="controls-ind" class="colores-grid"></div>
             <div id="res-ind" class="result">0 µH</div>
         </section>
-        
+
         <section id="capac" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Código Capacitores</h2>
@@ -122,15 +85,52 @@
             <div id="res-cap-code" class="result">Resultado</div>
         </section>
 
+        <section id="smd" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Resistencias SMD</h2>
+            <input type="text" id="smd-code" placeholder="Ej: 472 o 1R0">
+            <button class="action-btn" onclick="calcSMD()">Calcular</button>
+            <div id="res-smd" class="result">Resultado</div>
+        </section>
+
+        <section id="led" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Cálculo LED</h2>
+            <input type="number" id="led-vcc" placeholder="V. Fuente (V)" inputmode="decimal">
+            <input type="number" id="led-vf" placeholder="V. LED (V)" inputmode="decimal">
+            <input type="number" id="led-if" placeholder="I. LED (mA)" inputmode="decimal">
+            <button class="action-btn" onclick="calcLED()">Calcular Resistencia</button>
+            <div id="res-led" class="result">Resultado</div>
+        </section>
+
+        <section id="divisor" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Divisor de Tensión</h2>
+            <input type="number" id="div-vin" placeholder="Vin (V)" inputmode="decimal">
+            <input type="number" id="div-r1" placeholder="R1 (Ω)" inputmode="decimal">
+            <input type="number" id="div-r2" placeholder="R2 (Ω)" inputmode="decimal">
+            <button class="action-btn" onclick="calcDivisor()">Calcular Vout</button>
+            <div id="res-divisor" class="result">Resultado</div>
+        </section>
+
+        <section id="watt" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Potencia (P = V * I)</h2>
+            <input type="number" id="w-v" placeholder="Voltaje (V)" inputmode="decimal">
+            <input type="number" id="w-i" placeholder="Corriente (A)" inputmode="decimal">
+            <button class="action-btn" onclick="calcWatt()">Calcular</button>
+            <div id="res-watt" class="result">Resultado</div>
+        </section>
     </main>
 
     <div id="whatsapp-btn" onclick="sendWhatsApp()">
-        <span>📩 Consultar a Franko</span>
+        <span>📩 Enviar a Franko</span>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
