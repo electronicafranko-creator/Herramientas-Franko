@@ -17,37 +17,50 @@
         <section id="dashboard" class="menu-grid">
             <div class="menu-card" onclick="showSection('colors')"><div class="icon">🎨</div><span>Resistencias</span></div>
             <div class="menu-card" onclick="showSection('ohm')"><div class="icon">⚡</div><span>Ley de Ohm</span></div>
-            <div class="menu-card" onclick="showSection('watt')"><div class="icon">🔋</div><span>Potencia</span></div>
             <div class="menu-card" onclick="showSection('induct')"><div class="icon">🌀</div><span>Inductores</span></div>
             <div class="menu-card" onclick="showSection('capac')"><div class="icon">🔲</div><span>Capacitores</span></div>
+            <div class="menu-card" onclick="showSection('conexiones')"><div class="icon">🔗</div><span>Serie/Paralelo</span></div>
             <div class="menu-card" onclick="showSection('smd')"><div class="icon">📟</div><span>Lector SMD</span></div>
             <div class="menu-card" onclick="showSection('led')"><div class="icon">💡</div><span>Calc. LED</span></div>
             <div class="menu-card" onclick="showSection('divisor')"><div class="icon">📉</div><span>Divisor V</span></div>
-            <div class="menu-card" onclick="showSection('lm317')"><div class="icon">🔌</div><span>LM317</span></div>
-            <div class="menu-card" onclick="showSection('conexiones')"><div class="icon">🔗</div><span>Serie/Paralelo</span></div>
-            <div class="menu-card" onclick="showSection('empaques')"><div class="icon">📦</div><span>Empaques</span></div>
+            <div class="menu-card" onclick="showSection('watt')"><div class="icon">🔋</div><span>Potencia</span></div>
+        </section>
+
+        <section id="conexiones" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <div id="sub-menu-conexiones">
+                <h2>Cálculo de Redes</h2>
+                <div class="menu-grid">
+                    <div class="menu-card" onclick="openSubCalc('R')"><span>🔌 Resistencias</span></div>
+                    <div class="menu-card" onclick="openSubCalc('C')"><span>🔲 Capacitores</span></div>
+                    <div class="menu-card" onclick="openSubCalc('L')"><span>🌀 Bobinas</span></div>
+                </div>
+            </div>
+            <div id="ventana-calculo" style="display:none;">
+                <button class="back-btn" onclick="backToSubMenu()">← Cambiar Componente</button>
+                <h3 id="titulo-sub-calc" style="text-align:center;">Calculadora</h3>
+                <div id="inputs-dinamicos"></div>
+                <button class="add-btn" onclick="agregarCampo()">+ AGREGAR VALOR</button>
+                <div class="btn-group-mobile">
+                    <button class="action-btn" onclick="ejecutarCalculoDinamico('serie')">SERIE</button>
+                    <button class="action-btn secondary" onclick="ejecutarCalculoDinamico('paralelo')">PARALELO</button>
+                </div>
+                <div id="res-circuito" class="result">Esperando valores...</div>
+            </div>
         </section>
 
         <section id="colors" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Código de Colores</h2>
-            <select id="num-bands" onchange="changeBandType()">
-                <option value="4">4 Bandas</option>
-                <option value="5">5 Bandas</option>
-            </select>
-            <div class="resistor-preview">
-                <div class="wire"></div>
-                <div class="resistor-body">
-                    <div id="v-band1" class="band"></div>
-                    <div id="v-band2" class="band"></div>
-                    <div id="v-band3" class="band"></div>
-                    <div id="v-mul" class="band"></div>
-                    <div id="v-tol" class="band spacer"></div>
-                </div>
-                <div class="wire"></div>
-            </div>
             <div id="controls-container"></div>
             <div id="res-colors" class="result">0 Ω</div>
+        </section>
+
+        <section id="induct" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Colores: Bobinas</h2>
+            <div id="controls-induct"></div>
+            <div id="res-induct" class="result">0 µH</div>
         </section>
 
         <section id="ohm" class="calc-section" style="display:none;">
@@ -59,61 +72,15 @@
             <button class="action-btn" onclick="calcOhm()">Calcular</button>
             <div id="res-ohm" class="result">Resultado</div>
         </section>
-
-        <section id="conexiones" class="calc-section" style="display:none;">
-            <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <div id="sub-menu-conexiones">
-                <h2>¿Qué conectarás?</h2>
-                <div class="menu-grid">
-                    <div class="menu-card" onclick="openSubCalc('R')"><span>🔌 Resistencias</span></div>
-                    <div class="menu-card" onclick="openSubCalc('C')"><span>🔲 Capacitores</span></div>
-                    <div class="menu-card" onclick="openSubCalc('L')"><span>🌀 Bobinas</span></div>
-                </div>
-            </div>
-            <div id="ventana-calculo" style="display:none;">
-                <button class="back-btn" onclick="backToSubMenu()">← Cambiar Tipo</button>
-                <h3 id="titulo-sub-calc" style="text-align:center;">Calculadora</h3>
-                <div id="diagrama-container" class="diagrama-box"></div>
-                
-
-[Image of series and parallel circuit schematic diagrams]
-
-                <div id="inputs-dinamicos"></div>
-                <button class="add-btn" onclick="agregarCampo()">+ AGREGAR VALOR</button>
-                <div class="btn-group-mobile">
-                    <button class="action-btn" onclick="ejecutarCalculoDinamico('serie')">SERIE</button>
-                    <button class="action-btn secondary" onclick="ejecutarCalculoDinamico('paralelo')">PARALELO</button>
-                </div>
-                <div id="res-circuito" class="result">Resultado</div>
-            </div>
-        </section>
-
-        <section id="capac" class="calc-section" style="display:none;">
-            <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Capacitores</h2>
-            <input type="number" id="cap-code" placeholder="Código (104)" inputmode="numeric">
-            <button class="action-btn" onclick="calcCap()">Calcular</button>
-            <div id="res-capac" class="result">Resultado</div>
-        </section>
-
-        <section id="smd" class="calc-section" style="display:none;">
-            <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Resistencias SMD</h2>
-            <input type="text" id="smd-code" placeholder="Código (472)">
-            <button class="action-btn" onclick="calcSMD()">Calcular</button>
-            <div id="res-smd" class="result">Resultado</div>
-        </section>
-
     </main>
 
     <div id="whatsapp-btn" onclick="sendWhatsApp()">
-        <span>📩 Enviar a Franko</span>
+        <span>📩 Enviar Consulta a Franko</span>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
