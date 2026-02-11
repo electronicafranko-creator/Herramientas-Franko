@@ -48,15 +48,12 @@
 
         <section id="herram-resistencias" class="ventana-capa" style="display:none;">
             <button class="btn-atras" onclick="cerrarHerramienta('herram-resistencias')">← Volver a Conexiones</button>
-            
             <div class="contenido-herramienta">
                 <h3>Resistencias</h3>
-                
                 <div class="contenedor-esquemas">
                     <img src="esquema-serie.png" id="img-serie" class="img-circuito" alt="Esquema Serie">
                     <img src="esquema-paralelo.png" id="img-paralelo" class="img-circuito" alt="Esquema Paralelo" style="display:none;">
                 </div>
-                
                 <div class="selector-modo">
                     <label>Tipo de Conexión:</label>
                     <select id="modo-calculo" onchange="cambiarEsquema()">
@@ -64,11 +61,8 @@
                         <option value="paralelo">Paralelo</option>
                     </select>
                 </div>
-
                 <div id="lista-valores"></div>
-
                 <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Añadir Valor</button>
-                
                 <div class="seccion-resultado">
                     <button class="btn-calcular" onclick="calcularResistencias()">CALCULAR TOTAL</button>
                     <div id="resultado-final" class="caja-resultado">Total: --</div>
@@ -83,17 +77,12 @@
 
         <section id="herram-bobinas" class="ventana-capa" style="display:none;">
             <button class="btn-atras" onclick="cerrarHerramienta('herram-bobinas')">← Volver a Conexiones</button>
-            
             <div class="contenido-herramienta">
                 <h3>Bobinas / Inductores</h3>
-                
                 <div class="contenedor-esquemas">
                     <img src="bobina-serie.png" id="img-serie-bobina" class="img-circuito" alt="Bobina Serie">
                     <img src="bobina-paralelo.png" id="img-paralelo-bobina" class="img-circuito" alt="Bobina Paralelo" style="display:none;">
                 </div>
-                
-                
-
                 <div class="selector-modo">
                     <label>Tipo de Conexión:</label>
                     <select id="modo-calculo-bobina" onchange="cambiarEsquemaBobina()">
@@ -101,11 +90,8 @@
                         <option value="paralelo">Paralelo</option>
                     </select>
                 </div>
-
                 <div id="lista-valores-bobina"></div>
-
                 <button class="btn-agregar" onclick="agregarFilaBobina()">+ Añadir Valor</button>
-                
                 <div class="seccion-resultado">
                     <button class="btn-calcular" onclick="calcularBobinas()">CALCULAR TOTAL</button>
                     <div id="resultado-final-bobina" class="caja-resultado">Total: --</div>
@@ -123,7 +109,6 @@
     <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
