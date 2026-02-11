@@ -25,6 +25,12 @@ function abrirHerramienta(id) {
         agregarFilaBobina();
         cambiarEsquemaBobina();
     }
+    else if(id === 'herram-capacitores') {
+        document.getElementById('lista-valores-cap').innerHTML = '';
+        agregarFilaCapacitor();
+        agregarFilaCapacitor();
+        cambiarEsquemaCapacitor();
+    }
 }
 
 function cerrarHerramienta(id) {
@@ -32,7 +38,7 @@ function cerrarHerramienta(id) {
     document.getElementById('cat-conexiones').style.display = 'block';
 }
 
-// --- LÓGICA DE RESISTENCIAS (SIN TOCAR) ---
+// --- LÓGICA DE RESISTENCIAS ---
 function cambiarEsquema() {
     const modo = document.getElementById('modo-calculo').value;
     const imgSerie = document.getElementById('img-serie');
@@ -86,7 +92,7 @@ function calcularResistencias() {
     document.getElementById('resultado-final').innerText = `Total: ${final.toLocaleString(undefined, {maximumFractionDigits: 3})}`;
 }
 
-// --- LÓGICA DE BOBINAS (NUEVA) ---
+// --- LÓGICA DE BOBINAS ---
 function cambiarEsquemaBobina() {
     const modo = document.getElementById('modo-calculo-bobina').value;
     const imgSerie = document.getElementById('img-serie-bobina');
@@ -140,3 +146,57 @@ function calcularBobinas() {
     document.getElementById('resultado-final-bobina').innerText = `Total: ${final.toLocaleString(undefined, {maximumFractionDigits: 4})}`;
 }
 
+// --- LÓGICA DE CAPACITORES ---
+function cambiarEsquemaCapacitor() {
+    const modo = document.getElementById('modo-calculo-cap').value;
+    const imgSerie = document.getElementById('img-serie-cap');
+    const imgParalelo = document.getElementById('img-paralelo-cap');
+    if (modo === 'serie') {
+        imgSerie.style.display = 'block';
+        imgParalelo.style.display = 'none';
+    } else {
+        imgSerie.style.display = 'none';
+        imgParalelo.style.display = 'block';
+    }
+    calcularCapacitores();
+}
+
+function agregarFilaCapacitor() {
+    const contenedor = document.getElementById('lista-valores-cap');
+    const div = document.createElement('div');
+    div.className = 'fila-valor';
+    div.innerHTML = `
+        <input type="number" class="cap-input" placeholder="0" oninput="calcularCapacitores()" inputmode="decimal">
+        <select class="unit-select-cap" onchange="calcularCapacitores()">
+            <option value="0.000000000001">pF</option>
+            <option value="0.000000001">nF</option>
+            <option value="0.000001" selected>µF</option>
+            <option value="1">F</option>
+        </select>
+    `;
+    contenedor.appendChild(div);
+}
+
+function calcularCapacitores() {
+    const filas = document.querySelectorAll('#lista-valores-cap .fila-valor');
+    const modo = document.getElementById('modo-calculo-cap').value;
+    const factorSalida = parseFloat(document.getElementById('unidad-resultado-cap').value);
+    let faradios = [];
+    filas.forEach(f => {
+        const val = parseFloat(f.querySelector('.cap-input').value);
+        const uni = parseFloat(f.querySelector('.unit-select-cap').value);
+        if(!isNaN(val) && val > 0) faradios.push(val * uni);
+    });
+    if(faradios.length < 2) {
+        document.getElementById('resultado-final-cap').innerText = "Total: --";
+        return;
+    }
+    let total = 0;
+    if(modo === 'paralelo') {
+        total = faradios.reduce((a, b) => a + b, 0);
+    } else {
+        total = 1 / faradios.reduce((a, b) => a + (1/b), 0);
+    }
+    let final = total / factorSalida;
+    document.getElementById('resultado-final-cap').innerText = `Total: ${final.toLocaleString(undefined, {maximumFractionDigits: 6})}`;
+}
