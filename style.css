@@ -1,34 +1,45 @@
-:root { --fondo: #f4f7f9; --blanco: #ffffff; --azul: #007bff; --texto: #333; --verde: #28a745; }
-* { box-sizing: border-box; font-family: sans-serif; }
-body { margin: 0; background: var(--fondo); color: var(--texto); }
-header { background: var(--blanco); padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-#main-logo { max-height: 50px; }
+:root { --fondo: #f4f7f9; --blanco: #fff; --azul: #007bff; --verde: #28a745; }
+* { box-sizing: border-box; font-family: sans-serif; margin: 0; padding: 0; }
+body { background: var(--fondo); }
+header { background: var(--blanco); padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+#main-logo { max-height: 50px; width: auto; }
 main { padding: 15px; max-width: 500px; margin: 0 auto; }
 
-.menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-.card, .card-mini { background: var(--blanco); padding: 20px; border-radius: 15px; border: 1px solid #ddd; text-align: center; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-.ventana-icon { width: 60px; height: 60px; margin-bottom: 10px; }
-.ventana-icon-mini { width: 50px; height: 50px; margin-bottom: 5px; }
+.menu-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px; 
+}
 
-.ventana-capa { display: none; }
-.btn-atras { background: none; border: none; color: var(--azul); font-weight: bold; cursor: pointer; padding: 10px 0; font-size: 1rem; }
-.contenido-herramienta { background: var(--blanco); padding: 20px; border-radius: 15px; border: 1px solid #ddd; }
+.card, .card-mini { 
+    background: var(--blanco); 
+    padding: 15px; 
+    border-radius: 15px; 
+    text-align: center; 
+    cursor: pointer; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-.contenedor-esquemas { background: #fff; padding: 10px; border: 1px solid #eee; margin-bottom: 15px; min-height: 100px; display: flex; justify-content: center; align-items: center; border-radius: 10px; }
-.img-circuito { max-width: 100%; max-height: 120px; }
+.card-icon-container { width: 100%; height: 60%; display: flex; align-items: center; justify-content: center; }
+.ventana-icon, .ventana-icon-mini { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.card-text, p { font-size: 0.85rem; font-weight: bold; margin-top: 10px; }
+
+.btn-atras { color: var(--azul); background: none; border: none; font-weight: bold; margin-bottom: 15px; cursor: pointer; }
+.contenido-herramienta { background: var(--blanco); padding: 20px; border-radius: 20px; }
 
 .fila-valor { display: flex; gap: 5px; margin-bottom: 10px; }
-.fila-valor input { flex: 2; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; }
-.fila-valor select { flex: 1; border-radius: 8px; border: 1px solid #ccc; }
-
-.btn-agregar { width: 100%; padding: 12px; border: none; background: #6c757d; color: #fff; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 10px 0; }
-.btn-calcular { width: 100%; padding: 15px; background: var(--verde); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; }
-.caja-resultado { font-size: 1.4rem; font-weight: bold; margin: 10px 0; text-align: center; }
+.fila-valor input { flex: 2; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+.btn-calcular { width: 100%; padding: 15px; background: var(--verde); color: #fff; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; }
+.caja-resultado { text-align: center; font-size: 1.2rem; font-weight: bold; margin-top: 15px; }
 
 /* Ley de Ohm */
 .form-ohm { display: flex; flex-direction: column; gap: 10px; }
 .input-group { display: flex; flex-direction: column; text-align: left; }
-.input-group label { font-size: 0.9rem; font-weight: bold; color: var(--azul); margin-bottom: 3px; }
-.input-group input { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; }
-
-select { width: 100%; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ccc; background: #fff; }
+.input-group label { font-weight: bold; font-size: 0.8rem; color: var(--azul); }
+.input-group input { padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
