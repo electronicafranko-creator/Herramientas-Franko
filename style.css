@@ -75,3 +75,4 @@ main { padding: 15px; max-width: 500px; margin: 0 auto; }
 .caja-resultado { font-size: 1.5rem; font-weight: bold; color: var(--azul); margin: 15px 0; text-align: center; }
 #unidad-resultado, #unidad-resultado-bobina { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
 .card-text { font-weight: bold; font-size: 1.1rem; }
+
