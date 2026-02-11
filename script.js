@@ -1,4 +1,4 @@
-const MI_TELEFONO = "51956484667"; // <--- TU NÚMERO AQUÍ
+const MI_TELEFONO = "51987654321"; // <--- REEMPLAZA CON TU NÚMERO
 
 const colorMap = [
     { name: "Negro", val: 0, mul: 1, tol: null, hex: "#000000" },
@@ -28,12 +28,10 @@ function showSection(id) {
     if(id === 'induct') initInduct();
 }
 
-// --- LOGICA DE CALCULADORAS ---
-
+// RESISTENCIAS
 function changeBandType() {
     const type = document.getElementById('num-bands').value;
-    const container = document.getElementById('controls-container');
-    container.innerHTML = "";
+    const container = document.getElementById('controls-container'); container.innerHTML = "";
     const struct = type === "4" ? ["Banda 1", "Banda 2", "Multiplicador", "Tolerancia"] : ["Banda 1", "Banda 2", "Banda 3", "Multiplicador", "Tolerancia"];
     struct.forEach((label, i) => {
         let opt = "";
@@ -75,10 +73,9 @@ function format(v) {
 
 function calcOhm() {
     let v = parseFloat(document.getElementById('v').value), i = parseFloat(document.getElementById('i').value), r = parseFloat(document.getElementById('r').value);
-    let res = document.getElementById('res-ohm');
-    if(v && i) res.innerHTML = (v/i).toFixed(1) + " Ω";
-    else if(v && r) res.innerHTML = (v/r).toFixed(2) + " A";
-    else if(i && r) res.innerHTML = (i*r).toFixed(1) + " V";
+    if(v && i) document.getElementById('res-ohm').innerHTML = (v/i).toFixed(1) + " Ω";
+    else if(v && r) document.getElementById('res-ohm').innerHTML = (v/r).toFixed(2) + " A";
+    else if(i && r) document.getElementById('res-ohm').innerHTML = (i*r).toFixed(1) + " V";
 }
 
 function calcWatt() {
@@ -117,7 +114,7 @@ function calcSMD() {
 
 function calcLED() {
     let vf = parseFloat(document.getElementById('v_fuente').value), vl = parseFloat(document.getElementById('v_led').value);
-    if(vf > vl) document.getElementById('res-led').innerHTML = ((vf-vl)/0.02).toFixed(0) + " Ω (1/4W)";
+    if(vf > vl) document.getElementById('res-led').innerHTML = ((vf-vl)/0.02).toFixed(0) + " Ω";
 }
 
 function calcDivisor() {
@@ -130,9 +127,19 @@ function calcLM317() {
     if(r1 && r2) document.getElementById('res-lm').innerHTML = (1.25 * (1 + (r2/r1))).toFixed(2) + " V";
 }
 
+function calcCircuito(modo) {
+    let tipo = document.getElementById('comp-type').value, v1 = parseFloat(document.getElementById('c_val1').value), v2 = parseFloat(document.getElementById('c_val2').value);
+    if(!v1 || !v2) return;
+    let total = 0;
+    if(tipo === "res-ind") total = (modo === "serie") ? (v1 + v2) : ((v1 * v2) / (v1 + v2));
+    else total = (modo === "serie") ? ((v1 * v2) / (v1 + v2)) : (v1 + v2);
+    document.getElementById('res-circuito').innerHTML = `Total: ${total.toFixed(2)}`;
+}
+
 function sendWhatsApp() {
     const active = document.querySelector('.calc-section:not([style*="display: none"])');
     let txt = active ? active.querySelector('.result').innerText : "Consulta";
     window.open(`https://wa.me/${MI_TELEFONO}?text=Hola Franko! Consulto por: ${txt}`, '_blank');
 }
+
 
