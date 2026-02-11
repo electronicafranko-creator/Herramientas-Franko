@@ -139,3 +139,4 @@ function calcularBobinas() {
     let final = total / factorSalida;
     document.getElementById('resultado-final-bobina').innerText = `Total: ${final.toLocaleString(undefined, {maximumFractionDigits: 4})}`;
 }
+
