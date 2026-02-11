@@ -1,26 +1,28 @@
-// --- FUNCIONES DE NAVEGACIÓN ---
+// --- SISTEMA DE NAVEGACIÓN POR CAPAS ---
 
-// Abre una categoría desde el menú principal
-function abrirSubventana(idSub) {
+// 1. Abrir una categoría (Nivel 2) desde el Inicio
+function abrirSubventana(id) {
     document.getElementById('ventana-inicio').style.display = 'none';
-    document.getElementById(idSub).style.display = 'block';
+    document.getElementById(id).style.display = 'block';
+    window.scrollTo(0, 0); // Sube al inicio de la página
 }
 
-// Cierra la categoría y vuelve al inicio
-function cerrarSubventana(idSub) {
-    document.getElementById(idSub).style.display = 'none';
+// 2. Volver al Inicio desde una categoría
+function cerrarSubventana(id) {
+    document.getElementById(id).style.display = 'none';
     document.getElementById('ventana-inicio').style.display = 'block';
 }
 
-// Abre la herramienta final (Nivel 3)
-function abrirHerramienta(idHerram) {
-    // Buscamos la categoría abierta para ocultarla
+// 3. Abrir herramienta específica (Nivel 3)
+function abrirHerramienta(id) {
+    // Ocultamos la categoría de calculadoras
     document.getElementById('cat-calculadoras').style.display = 'none';
-    document.getElementById(idHerram).style.display = 'block';
+    document.getElementById(id).style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
-// Cierra la herramienta y vuelve a su categoría (Nivel 2)
-function cerrarHerramienta(idHerram) {
-    document.getElementById(idHerram).style.display = 'none';
+// 4. Volver a la categoría desde la herramienta
+function cerrarHerramienta(id) {
+    document.getElementById(id).style.display = 'none';
     document.getElementById('cat-calculadoras').style.display = 'block';
 }
