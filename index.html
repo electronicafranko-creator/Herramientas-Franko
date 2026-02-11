@@ -30,7 +30,7 @@
 
         <section id="colors" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            <h2>Colores Resistencia</h2>
+            <h2>Código de Colores</h2>
             <select id="num-bands" onchange="changeBandType()">
                 <option value="4">4 Bandas</option>
                 <option value="5">5 Bandas</option>
@@ -62,7 +62,6 @@
 
         <section id="conexiones" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
-            
             <div id="sub-menu-conexiones">
                 <h2>¿Qué conectarás?</h2>
                 <div class="menu-grid">
@@ -71,21 +70,16 @@
                     <div class="menu-card" onclick="openSubCalc('L')"><span>🌀 Bobinas</span></div>
                 </div>
             </div>
-
             <div id="ventana-calculo" style="display:none;">
                 <button class="back-btn" onclick="backToSubMenu()">← Cambiar Tipo</button>
-                <h3 id="titulo-sub-calc">Calculadora</h3>
-                
+                <h3 id="titulo-sub-calc" style="text-align:center;">Calculadora</h3>
                 <div id="diagrama-container" class="diagrama-box"></div>
                 
 
 [Image of series and parallel circuit schematic diagrams]
 
-
                 <div id="inputs-dinamicos"></div>
-                
                 <button class="add-btn" onclick="agregarCampo()">+ AGREGAR VALOR</button>
-
                 <div class="btn-group-mobile">
                     <button class="action-btn" onclick="ejecutarCalculoDinamico('serie')">SERIE</button>
                     <button class="action-btn secondary" onclick="ejecutarCalculoDinamico('paralelo')">PARALELO</button>
@@ -94,16 +88,31 @@
             </div>
         </section>
 
-        </main>
+        <section id="capac" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Capacitores</h2>
+            <input type="number" id="cap-code" placeholder="Código (104)" inputmode="numeric">
+            <button class="action-btn" onclick="calcCap()">Calcular</button>
+            <div id="res-capac" class="result">Resultado</div>
+        </section>
+
+        <section id="smd" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Resistencias SMD</h2>
+            <input type="text" id="smd-code" placeholder="Código (472)">
+            <button class="action-btn" onclick="calcSMD()">Calcular</button>
+            <div id="res-smd" class="result">Resultado</div>
+        </section>
+
+    </main>
 
     <div id="whatsapp-btn" onclick="sendWhatsApp()">
-        <span>Consultar Pedido</span>
+        <span>📩 Enviar a Franko</span>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
