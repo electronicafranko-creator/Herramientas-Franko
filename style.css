@@ -6,27 +6,29 @@ header { background: var(--blanco); padding: 10px; text-align: center; box-shado
 main { padding: 15px; max-width: 500px; margin: 0 auto; }
 
 .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-.card, .card-mini { background: var(--blanco); padding: 20px; border-radius: 15px; border: 1px solid #ddd; text-align: center; cursor: pointer; }
+.card, .card-mini { background: var(--blanco); padding: 20px; border-radius: 15px; border: 1px solid #ddd; text-align: center; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
 .ventana-icon { width: 60px; height: 60px; margin-bottom: 10px; }
-.ventana-icon-mini { width: 50px; height: 50px; }
+.ventana-icon-mini { width: 50px; height: 50px; margin-bottom: 5px; }
 
 .ventana-capa { display: none; }
-.btn-atras { background: none; border: none; color: var(--azul); font-weight: bold; cursor: pointer; padding: 10px 0; }
+.btn-atras { background: none; border: none; color: var(--azul); font-weight: bold; cursor: pointer; padding: 10px 0; font-size: 1rem; }
 .contenido-herramienta { background: var(--blanco); padding: 20px; border-radius: 15px; border: 1px solid #ddd; }
 
-.contenedor-esquemas { background: #fff; padding: 10px; border: 1px solid #eee; margin-bottom: 10px; min-height: 100px; display: flex; justify-content: center; align-items: center; }
+.contenedor-esquemas { background: #fff; padding: 10px; border: 1px solid #eee; margin-bottom: 15px; min-height: 100px; display: flex; justify-content: center; align-items: center; border-radius: 10px; }
 .img-circuito { max-width: 100%; max-height: 120px; }
 
 .fila-valor { display: flex; gap: 5px; margin-bottom: 10px; }
-.fila-valor input { flex: 2; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
-.fila-valor select { flex: 1; border-radius: 8px; }
+.fila-valor input { flex: 2; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; }
+.fila-valor select { flex: 1; border-radius: 8px; border: 1px solid #ccc; }
 
-.btn-agregar { width: 100%; padding: 12px; border: none; background: #6c757d; color: #fff; border-radius: 8px; font-weight: bold; }
-.btn-calcular { width: 100%; padding: 15px; background: var(--verde); color: #fff; border: none; border-radius: 8px; font-weight: bold; margin-top: 10px; }
-.caja-resultado { font-size: 1.4rem; font-weight: bold; margin: 15px 0; text-align: center; }
+.btn-agregar { width: 100%; padding: 12px; border: none; background: #6c757d; color: #fff; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 10px 0; }
+.btn-calcular { width: 100%; padding: 15px; background: var(--verde); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; }
+.caja-resultado { font-size: 1.4rem; font-weight: bold; margin: 10px 0; text-align: center; }
 
 /* Ley de Ohm */
 .form-ohm { display: flex; flex-direction: column; gap: 10px; }
 .input-group { display: flex; flex-direction: column; text-align: left; }
-.input-group label { font-size: 0.9rem; font-weight: bold; color: var(--azul); }
-.input-group input { padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+.input-group label { font-size: 0.9rem; font-weight: bold; color: var(--azul); margin-bottom: 3px; }
+.input-group input { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; }
+
+select { width: 100%; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ccc; background: #fff; }
