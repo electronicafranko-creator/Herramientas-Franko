@@ -47,26 +47,19 @@
                 <h3>Resistencias</h3>
                 
                 <div class="contenedor-esquemas">
-                    <div id="esquema-serie" class="esquema-box">
-                        <p>Esquema Serie</p>
-                        
-                    </div>
-                    <div id="esquema-paralelo" class="esquema-box" style="display:none;">
-                        <p>Esquema Paralelo</p>
-                        
-                    </div>
+                    <img src="esquema-serie.png" id="img-serie" class="img-circuito" alt="Circuito Serie">
+                    <img src="esquema-paralelo.png" id="img-paralelo" class="img-circuito" alt="Circuito Paralelo" style="display:none;">
                 </div>
                 
                 <div class="selector-modo">
-                    <label>Conexión:</label>
+                    <label>Tipo de Conexión:</label>
                     <select id="modo-calculo" onchange="cambiarEsquema()">
                         <option value="serie">Serie</option>
                         <option value="paralelo">Paralelo</option>
                     </select>
                 </div>
 
-                <div id="lista-valores">
-                    </div>
+                <div id="lista-valores"></div>
 
                 <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Añadir Valor</button>
                 
@@ -87,8 +80,6 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-
 
 
 
