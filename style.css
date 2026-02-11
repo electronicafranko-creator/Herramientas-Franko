@@ -8,7 +8,7 @@
 
 * {
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Quita el cuadro azul al tocar en móvil */
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -18,7 +18,7 @@ body {
     color: var(--texto);
 }
 
-/* --- LOGO PEQUEÑO Y HEADER --- */
+/* --- LOGO Y HEADER --- */
 header {
     background: var(--blanco);
     padding: 10px;
@@ -30,7 +30,7 @@ header {
 }
 
 #main-logo {
-    max-height: 35px; /* Tamaño reducido para que no sea gigante en el cel */
+    max-height: 35px; /* Ajuste para que no sea muy grande en el celular */
     width: auto;
     display: block;
     margin: 0 auto;
@@ -63,13 +63,13 @@ main {
 /* --- TARJETAS --- */
 .menu-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas para que quepan más botones */
+    grid-template-columns: 1fr; /* Una columna por defecto */
     gap: 12px;
 }
 
-/* La tarjeta del inicio la dejamos de 1 sola columna para que destaque */
-#ventana-inicio .menu-grid {
-    grid-template-columns: 1fr;
+/* En el nivel 2 usamos 2 columnas para que se vea más organizado */
+#cat-conexiones .menu-grid {
+    grid-template-columns: 1fr 1fr;
 }
 
 .card, .card-mini {
@@ -80,6 +80,7 @@ main {
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .card:active, .card-mini:active {
@@ -87,9 +88,9 @@ main {
     transform: scale(0.98);
 }
 
-.card-icon { font-size: 2rem; display: block; margin-bottom: 5px; }
-.mini-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
-.card-text { font-weight: bold; }
+.card-icon { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+.mini-icon { font-size: 1.8rem; display: block; margin-bottom: 5px; }
+.card-text { font-weight: bold; font-size: 1.1rem; }
 
 /* --- CONTENIDO --- */
 .contenido-herramienta {
@@ -98,9 +99,11 @@ main {
     border-radius: 15px;
     border: 1px solid #ddd;
     text-align: center;
+    min-height: 150px;
 }
 
 .ventana-capa {
-    display: none; /* Se controla con JS */
+    display: none;
 }
+
 
