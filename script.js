@@ -1,29 +1,26 @@
-// Función para cambiar entre pantallas principales
-function irA(seccionId) {
-    // Ocultar todas las secciones del app
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('seccion-calculos').style.display = 'none';
+// --- FUNCIONES DE NAVEGACIÓN ---
 
-    // Mostrar solo la que necesitamos
-    document.getElementById(seccionId).style.display = 'block';
+// Abre una categoría desde el menú principal
+function abrirSubventana(idSub) {
+    document.getElementById('ventana-inicio').style.display = 'none';
+    document.getElementById(idSub).style.display = 'block';
 }
 
-// Función para entrar a la configuración de R, C o L
-function abrirConfiguracion(tipo) {
-    document.getElementById('submenu-componentes').style.display = 'none';
-    document.getElementById('configuracion-final').style.display = 'block';
-    
-    let nombre = "";
-    if(tipo === 'R') nombre = "Configurar Resistencias";
-    if(tipo === 'C') nombre = "Configurar Capacitores";
-    if(tipo === 'L') nombre = "Configurar Bobinas";
-    
-    document.getElementById('titulo-componente').innerText = nombre;
+// Cierra la categoría y vuelve al inicio
+function cerrarSubventana(idSub) {
+    document.getElementById(idSub).style.display = 'none';
+    document.getElementById('ventana-inicio').style.display = 'block';
 }
 
-// Función para retroceder un paso dentro de calculadoras
-function volverAlSubmenu() {
-    document.getElementById('configuracion-final').style.display = 'none';
-    document.getElementById('submenu-componentes').style.display = 'block';
+// Abre la herramienta final (Nivel 3)
+function abrirHerramienta(idHerram) {
+    // Buscamos la categoría abierta para ocultarla
+    document.getElementById('cat-calculadoras').style.display = 'none';
+    document.getElementById(idHerram).style.display = 'block';
 }
 
+// Cierra la herramienta y vuelve a su categoría (Nivel 2)
+function cerrarHerramienta(idHerram) {
+    document.getElementById(idHerram).style.display = 'none';
+    document.getElementById('cat-calculadoras').style.display = 'block';
+}
