@@ -75,7 +75,9 @@
                     <img src="serie.png" id="img-serie" class="img-circuito">
                     <img src="paralelo.png" id="img-paralelo" class="img-circuito" style="display:none;">
                 </div>
-                <select id="modo-calculo" onchange="cambiarEsquema()"><option value="serie">Serie</option><option value="paralelo">Paralelo</option></select>
+                <div class="selector-modo">
+                    <select id="modo-calculo" onchange="cambiarEsquema()"><option value="serie">Serie</option><option value="paralelo">Paralelo</option></select>
+                </div>
                 <div id="lista-valores"></div>
                 <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Añadir Valor</button>
                 <div class="seccion-resultado">
@@ -100,7 +102,6 @@
                 <div class="seccion-resultado">
                     <button class="btn-calcular" onclick="calcularBobinas()">CALCULAR TOTAL</button>
                     <div id="resultado-final-bobina" class="caja-resultado">Total: --</div>
-                    <select id="unidad-resultado-bobina" onchange="calcularBobinas()"><option value="0.000001">µH</option><option value="1">H</option></select>
                 </div>
             </div>
         </section>
@@ -119,7 +120,6 @@
                 <div class="seccion-resultado">
                     <button class="btn-calcular" onclick="calcularCapacitores()">CALCULAR TOTAL</button>
                     <div id="resultado-final-cap" class="caja-resultado">Total: --</div>
-                    <select id="unidad-resultado-cap" onchange="calcularCapacitores()"><option value="0.000001" selected>µF</option><option value="1">F</option></select>
                 </div>
             </div>
         </section>
@@ -137,8 +137,8 @@
                 <button class="btn-agregar" onclick="agregarFilaFuente()">+ Añadir Fuente</button>
                 <div class="seccion-resultado">
                     <button class="btn-calcular" onclick="calcularFuentes()">CALCULAR TOTAL</button>
-                    <div id="resultado-v" class="caja-resultado" style="font-size: 1.2rem; color: #d32f2f;">Total V: --</div>
-                    <div id="resultado-a" class="caja-resultado" style="font-size: 1.2rem; color: #388e3c;">Total A: --</div>
+                    <div id="resultado-v" class="caja-resultado" style="color: #d32f2f;">-- V</div>
+                    <div id="resultado-a" class="caja-resultado" style="color: #388e3c;">-- A</div>
                 </div>
             </div>
         </section>
@@ -148,12 +148,12 @@
             <div class="contenido-herramienta">
                 <h3>Ley de Ohm</h3>
                 <div class="form-ohm">
-                    <div class="input-group"><label>Voltaje (V)</label><input type="number" id="ohm-v" oninput="calcularLeyOhm()"></div>
-                    <div class="input-group"><label>Corriente (I)</label><input type="number" id="ohm-i" oninput="calcularLeyOhm()"></div>
-                    <div class="input-group"><label>Resistencia (R)</label><input type="number" id="ohm-r" oninput="calcularLeyOhm()"></div>
-                    <div class="input-group"><label>Potencia (P)</label><input type="number" id="ohm-p" oninput="calcularLeyOhm()"></div>
+                    <div class="input-group"><label>Voltaje (V)</label><input type="number" id="ohm-v" oninput="calcularLeyOhm()" placeholder="V"></div>
+                    <div class="input-group"><label>Corriente (I)</label><input type="number" id="ohm-i" oninput="calcularLeyOhm()" placeholder="A"></div>
+                    <div class="input-group"><label>Resistencia (R)</label><input type="number" id="ohm-r" oninput="calcularLeyOhm()" placeholder="Ω"></div>
+                    <div class="input-group"><label>Potencia (P)</label><input type="number" id="ohm-p" oninput="calcularLeyOhm()" placeholder="W"></div>
                 </div>
-                <button class="btn-agregar" style="margin-top:15px; background:#6c757d;" onclick="limpiarOhm()">Limpiar</button>
+                <button class="btn-agregar" style="margin-top:15px; background:#6c757d;" onclick="limpiarOhm()">Limpiar Campos</button>
             </div>
         </section>
 
