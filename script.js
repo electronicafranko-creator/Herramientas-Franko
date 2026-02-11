@@ -1,10 +1,7 @@
-/**
- * LÓGICA DE NAVEGACIÓN
- */
+// --- NAVEGACIÓN ---
 function abrirSubventana(id) {
     document.getElementById('ventana-inicio').style.display = 'none';
     document.getElementById(id).style.display = 'block';
-    window.scrollTo(0, 0);
 }
 
 function cerrarSubventana(id) {
@@ -15,15 +12,18 @@ function cerrarSubventana(id) {
 function abrirHerramienta(id) {
     document.getElementById('cat-conexiones').style.display = 'none';
     document.getElementById(id).style.display = 'block';
-    window.scrollTo(0, 0);
     
-    // Al abrir resistencias, inicializamos con dos filas
     if(id === 'herram-resistencias') {
-        const contenedor = document.getElementById('lista-valores');
-        contenedor.innerHTML = '';
+        document.getElementById('lista-valores').innerHTML = '';
         agregarFilaResistencia();
         agregarFilaResistencia();
-        cambiarEsquema(); // Carga el esquema inicial (Serie)
+        cambiarEsquema();
+    } 
+    else if(id === 'herram-bobinas') {
+        document.getElementById('lista-valores-bobina').innerHTML = '';
+        agregarFilaBobina();
+        agregarFilaBobina();
+        cambiarEsquemaBobina();
     }
 }
 
@@ -32,14 +32,11 @@ function cerrarHerramienta(id) {
     document.getElementById('cat-conexiones').style.display = 'block';
 }
 
-/**
- * LÓGICA DE INTERCAMBIO DE IMÁGENES DE ESQUEMA
- */
+// --- LÓGICA DE RESISTENCIAS (SIN TOCAR) ---
 function cambiarEsquema() {
     const modo = document.getElementById('modo-calculo').value;
     const imgSerie = document.getElementById('img-serie');
     const imgParalelo = document.getElementById('img-paralelo');
-
     if (modo === 'serie') {
         imgSerie.style.display = 'block';
         imgParalelo.style.display = 'none';
@@ -47,73 +44,98 @@ function cambiarEsquema() {
         imgSerie.style.display = 'none';
         imgParalelo.style.display = 'block';
     }
-    
-    // Recalcula automáticamente al cambiar el modo
     calcularResistencias();
 }
 
-/**
- * LÓGICA DE CÁLCULOS MATEMÁTICOS
- */
-
 function agregarFilaResistencia() {
     const contenedor = document.getElementById('lista-valores');
-    const divFila = document.createElement('div');
-    divFila.className = 'fila-valor';
-    
-    divFila.innerHTML = `
-        <input type="number" class="res-input" placeholder="Valor" oninput="calcularResistencias()" inputmode="decimal">
+    const div = document.createElement('div');
+    div.className = 'fila-valor';
+    div.innerHTML = `
+        <input type="number" class="res-input" placeholder="0" oninput="calcularResistencias()" inputmode="decimal">
         <select class="unit-select" onchange="calcularResistencias()">
             <option value="1">Ω</option>
             <option value="1000">kΩ</option>
             <option value="1000000">MΩ</option>
         </select>
     `;
-    contenedor.appendChild(divFila);
+    contenedor.appendChild(div);
 }
 
 function calcularResistencias() {
-    const filas = document.querySelectorAll('.fila-valor');
+    const filas = document.querySelectorAll('#lista-valores .fila-valor');
     const modo = document.getElementById('modo-calculo').value;
     const factorSalida = parseFloat(document.getElementById('unidad-resultado').value);
-    
-    let valoresEnOhmios = [];
-
-    // Recolectar datos de los inputs
-    filas.forEach(fila => {
-        const inputVal = parseFloat(fila.querySelector('.res-input').value);
-        const multiplicador = parseFloat(fila.querySelector('.unit-select').value);
-        
-        if (!isNaN(inputVal) && inputVal > 0) {
-            valoresEnOhmios.push(inputVal * multiplicador);
-        }
+    let ohmios = [];
+    filas.forEach(f => {
+        const val = parseFloat(f.querySelector('.res-input').value);
+        const uni = parseFloat(f.querySelector('.unit-select').value);
+        if(!isNaN(val) && val > 0) ohmios.push(val * uni);
     });
-
-    // Validar que haya al menos dos resistencias para calcular
-    if (valoresEnOhmios.length < 2) {
+    if(ohmios.length < 2) {
         document.getElementById('resultado-final').innerText = "Total: --";
         return;
     }
-
-    let resistenciaTotalOhmios = 0;
-
-    if (modo === 'serie') {
-        // SERIE: RT = R1 + R2 + ... + Rn
-        resistenciaTotalOhmios = valoresEnOhmios.reduce((acc, val) => acc + val, 0);
+    let total = 0;
+    if(modo === 'serie') {
+        total = ohmios.reduce((a, b) => a + b, 0);
     } else {
-        // PARALELO: RT = 1 / ( (1/R1) + (1/R2) + ... + (1/Rn) )
-        let sumaInversas = valoresEnOhmios.reduce((acc, val) => acc + (1 / val), 0);
-        resistenciaTotalOhmios = 1 / sumaInversas;
+        total = 1 / ohmios.reduce((a, b) => a + (1/b), 0);
     }
+    let final = total / factorSalida;
+    document.getElementById('resultado-final').innerText = `Total: ${final.toLocaleString(undefined, {maximumFractionDigits: 3})}`;
+}
 
-    // Conversión a la unidad seleccionada para el resultado
-    let resultadoFinal = resistenciaTotalOhmios / factorSalida;
+// --- LÓGICA DE BOBINAS (NUEVA SECCIÓN) ---
+function cambiarEsquemaBobina() {
+    const modo = document.getElementById('modo-calculo-bobina').value;
+    const imgSerie = document.getElementById('img-serie-bobina');
+    const imgParalelo = document.getElementById('img-paralelo-bobina');
+    if (modo === 'serie') {
+        imgSerie.style.display = 'block';
+        imgParalelo.style.display = 'none';
+    } else {
+        imgSerie.style.display = 'none';
+        imgParalelo.style.display = 'block';
+    }
+    calcularBobinas();
+}
 
-    // Formateo de texto
-    let textoFinal = resultadoFinal.toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 3
+function agregarFilaBobina() {
+    const contenedor = document.getElementById('lista-valores-bobina');
+    const div = document.createElement('div');
+    div.className = 'fila-valor';
+    div.innerHTML = `
+        <input type="number" class="bob-input" placeholder="0" oninput="calcularBobinas()" inputmode="decimal">
+        <select class="unit-select-bobina" onchange="calcularBobinas()">
+            <option value="0.000001">µH</option>
+            <option value="0.001">mH</option>
+            <option value="1">H</option>
+        </select>
+    `;
+    contenedor.appendChild(div);
+}
+
+function calcularBobinas() {
+    const filas = document.querySelectorAll('#lista-valores-bobina .fila-valor');
+    const modo = document.getElementById('modo-calculo-bobina').value;
+    const factorSalida = parseFloat(document.getElementById('unidad-resultado-bobina').value);
+    let henrios = [];
+    filas.forEach(f => {
+        const val = parseFloat(f.querySelector('.bob-input').value);
+        const uni = parseFloat(f.querySelector('.unit-select-bobina').value);
+        if(!isNaN(val) && val > 0) henrios.push(val * uni);
     });
-
-    document.getElementById('resultado-final').innerText = `Total: ${textoFinal}`;
+    if(henrios.length < 2) {
+        document.getElementById('resultado-final-bobina').innerText = "Total: --";
+        return;
+    }
+    let total = 0;
+    if(modo === 'serie') {
+        total = henrios.reduce((a, b) => a + b, 0);
+    } else {
+        total = 1 / henrios.reduce((a, b) => a + (1/b), 0);
+    }
+    let final = total / factorSalida;
+    document.getElementById('resultado-final-bobina').innerText = `Total: ${final.toLocaleString(undefined, {maximumFractionDigits: 4})}`;
 }
