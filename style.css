@@ -1,23 +1,32 @@
-/* Añadir esto al final de tu style.css anterior */
-.form-ohm {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.input-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-.input-group label {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 4px;
-    color: var(--azul);
-}
-.input-group input {
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
+:root { --fondo: #f4f7f9; --blanco: #ffffff; --azul: #007bff; --texto: #333; --verde: #28a745; }
+* { box-sizing: border-box; font-family: sans-serif; }
+body { margin: 0; background: var(--fondo); color: var(--texto); }
+header { background: var(--blanco); padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+#main-logo { max-height: 50px; }
+main { padding: 15px; max-width: 500px; margin: 0 auto; }
+
+.menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+.card, .card-mini { background: var(--blanco); padding: 20px; border-radius: 15px; border: 1px solid #ddd; text-align: center; cursor: pointer; }
+.ventana-icon { width: 60px; height: 60px; margin-bottom: 10px; }
+.ventana-icon-mini { width: 50px; height: 50px; }
+
+.ventana-capa { display: none; }
+.btn-atras { background: none; border: none; color: var(--azul); font-weight: bold; cursor: pointer; padding: 10px 0; }
+.contenido-herramienta { background: var(--blanco); padding: 20px; border-radius: 15px; border: 1px solid #ddd; }
+
+.contenedor-esquemas { background: #fff; padding: 10px; border: 1px solid #eee; margin-bottom: 10px; min-height: 100px; display: flex; justify-content: center; align-items: center; }
+.img-circuito { max-width: 100%; max-height: 120px; }
+
+.fila-valor { display: flex; gap: 5px; margin-bottom: 10px; }
+.fila-valor input { flex: 2; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+.fila-valor select { flex: 1; border-radius: 8px; }
+
+.btn-agregar { width: 100%; padding: 12px; border: none; background: #6c757d; color: #fff; border-radius: 8px; font-weight: bold; }
+.btn-calcular { width: 100%; padding: 15px; background: var(--verde); color: #fff; border: none; border-radius: 8px; font-weight: bold; margin-top: 10px; }
+.caja-resultado { font-size: 1.4rem; font-weight: bold; margin: 15px 0; text-align: center; }
+
+/* Ley de Ohm */
+.form-ohm { display: flex; flex-direction: column; gap: 10px; }
+.input-group { display: flex; flex-direction: column; text-align: left; }
+.input-group label { font-size: 0.9rem; font-weight: bold; color: var(--azul); }
+.input-group input { padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
