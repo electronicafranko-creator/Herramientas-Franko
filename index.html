@@ -125,7 +125,7 @@
             <button class="back-btn" onclick="showDashboard()">← Volver al Menú</button>
             
             <div id="sub-menu-conexiones">
-                <h2 style="margin-bottom:20px;">Serie y Paralelo</h2>
+                <h2>Serie y Paralelo</h2>
                 <div class="menu-grid">
                     <div class="menu-card" onclick="openSubCalc('R')"><div class="icon">🔌</div><span>Resistencias</span></div>
                     <div class="menu-card" onclick="openSubCalc('C')"><div class="icon">🔲</div><span>Capacitores</span></div>
@@ -135,15 +135,19 @@
 
             <div id="ventana-calculo" style="display:none;">
                 <button class="back-btn" onclick="backToSubMenu()">← Cambiar Componente</button>
-                <h2 id="titulo-sub-calc">Calculadora</h2>
-                <input type="number" id="c_val1" placeholder="Valor 1">
-                <input type="number" id="c_val2" placeholder="Valor 2">
-                <div style="display: flex; gap: 10px; margin-top:10px;">
-                    <button class="action-btn" style="flex:1" onclick="ejecutarCalculo('serie')">Serie</button>
-                    <button class="action-btn" style="flex:1; background:#6c757d;" onclick="ejecutarCalculo('paralelo')">Paralelo</button>
+                <h3 id="titulo-sub-calc">Calculadora</h3>
+                
+                <div id="diagrama-container" class="diagrama-box"></div>
+
+                <div id="inputs-dinamicos"></div>
+                
+                <button class="add-btn" onclick="agregarCampo()">+ Agregar otro valor</button>
+
+                <div style="display: flex; gap: 10px; margin-top:15px;">
+                    <button class="action-btn" style="flex:1" onclick="ejecutarCalculoDinamico('serie')">En Serie</button>
+                    <button class="action-btn" style="flex:1; background:#6c757d;" onclick="ejecutarCalculoDinamico('paralelo')">En Paralelo</button>
                 </div>
                 <div id="res-circuito" class="result">Resultado</div>
-                <p id="nota-tecnica" style="font-size: 0.8rem; color: #666; margin-top: 15px; text-align: center;"></p>
             </div>
         </section>
 
@@ -151,12 +155,11 @@
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Guía de Empaques</h2>
             <div class="info-box">
-                <p><b>SMD:</b> 0402, 0603, 0805, 1206, 2512</p>
-                <p><b>Diodos:</b> DO-41 (1N4007), DO-35 (Zener)</p>
+                <p><b>SMD:</b> 0402, 0603, 0805, 1206</p>
                 <p><b>Transistores:</b> TO-92, TO-220, SOT-23</p>
-                <p><b>IC:</b> DIP-8, SOIC-8, TQFP-32</p>
+                <p><b>Diodos:</b> DO-41, SMA, SMB</p>
             </div>
-            <div class="result">Stock Permanente</div>
+            <div class="result">Consulta en tienda</div>
         </section>
     </main>
 
