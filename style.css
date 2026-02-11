@@ -1,108 +1,106 @@
-/* --- CONFIGURACIÓN BASE --- */
+/* --- RESET Y VARIABLES --- */
 :root {
-    --color-fondo: #f0f2f5;
-    --color-tarjeta: #ffffff;
-    --color-primario: #007bff; /* Azul para botones y acentos */
-    --color-texto: #333333;
+    --fondo: #f4f7f9;
+    --blanco: #ffffff;
+    --azul: #007bff;
+    --texto: #333;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Quita el cuadro azul al tocar en móvil */
 }
 
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--fondo);
+    color: var(--texto);
 }
 
-/* --- HEADER Y LOGO --- */
+/* --- LOGO PEQUEÑO Y HEADER --- */
 header {
-    background: white;
-    padding: 20px;
+    background: var(--blanco);
+    padding: 10px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 #main-logo {
-    max-height: 50px;
+    max-height: 35px; /* Tamaño reducido para que no sea gigante en el cel */
     width: auto;
-}
-
-/* --- CONTENEDOR DE VENTANAS --- */
-main {
-    padding: 15px;
-    max-width: 600px; /* Tamaño ideal para celulares y tablets */
+    display: block;
     margin: 0 auto;
 }
 
-/* Las secciones (ventanas) que están ocultas por defecto */
-.ventana-capa {
-    animation: slideIn 0.3s ease-out; /* Animación para que la ventana aparezca suave */
+/* --- CONTENEDOR PRINCIPAL --- */
+main {
+    padding: 15px;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- BOTÓN ATRÁS --- */
+/* --- NAVEGACIÓN --- */
 .btn-atras {
     background: none;
     border: none;
-    color: var(--color-primario);
+    color: var(--azul);
     font-weight: bold;
-    font-size: 1rem;
     padding: 10px 0;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    font-size: 1rem;
 }
 
-/* --- DISEÑO DE TARJETAS (Cards) --- */
+.titulo-seccion {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 10px 0 20px 0;
+}
+
+/* --- TARJETAS --- */
 .menu-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Una columna por fila */
-    gap: 15px;
+    grid-template-columns: 1fr 1fr; /* Dos columnas para que quepan más botones */
+    gap: 12px;
+}
+
+/* La tarjeta del inicio la dejamos de 1 sola columna para que destaque */
+#ventana-inicio .menu-grid {
+    grid-template-columns: 1fr;
 }
 
 .card, .card-mini {
-    background: var(--color-tarjeta);
-    padding: 25px 15px;
+    background: var(--blanco);
+    padding: 20px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid #e1e4e8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .card:active, .card-mini:active {
+    background-color: #f0f0f0;
     transform: scale(0.98);
-    background-color: #f8f9fa;
 }
 
-.card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
+.card-icon { font-size: 2rem; display: block; margin-bottom: 5px; }
+.mini-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+.card-text { font-weight: bold; }
 
-.card-text {
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-/* --- CONTENIDO DE HERRAMIENTA --- */
+/* --- CONTENIDO --- */
 .contenido-herramienta {
-    background: white;
+    background: var(--blanco);
     padding: 20px;
-    border-radius: 20px;
-    min-height: 200px;
+    border-radius: 15px;
     border: 1px solid #ddd;
+    text-align: center;
+}
+
+.ventana-capa {
+    display: none; /* Se controla con JS */
 }
 
