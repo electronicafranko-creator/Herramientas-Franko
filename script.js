@@ -15,7 +15,7 @@ function abrirHerramienta(id) {
         document.getElementById('lista-valores').innerHTML = '';
         agregarFilaResistencia();
         agregarFilaResistencia();
-        cambiarEsquema();
+        cambiarEsquema(); // Asegura que empiece en serie
     }
 }
 
@@ -24,17 +24,18 @@ function cerrarHerramienta(id) {
     document.getElementById('cat-conexiones').style.display = 'block';
 }
 
+// Función clave para cambiar el esquema visual
 function cambiarEsquema() {
     const modo = document.getElementById('modo-calculo').value;
-    const imgSerie = document.getElementById('img-serie');
-    const imgParalelo = document.getElementById('img-paralelo');
+    const boxSerie = document.getElementById('box-serie');
+    const boxParalelo = document.getElementById('box-paralelo');
 
     if (modo === 'serie') {
-        imgSerie.style.display = 'block';
-        imgParalelo.style.display = 'none';
+        boxSerie.style.display = 'block';
+        boxParalelo.style.display = 'none';
     } else {
-        imgSerie.style.display = 'none';
-        imgParalelo.style.display = 'block';
+        boxSerie.style.display = 'none';
+        boxParalelo.style.display = 'block';
     }
     calcularResistencias();
 }
