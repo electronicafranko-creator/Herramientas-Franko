@@ -1,4 +1,4 @@
-const MI_TELEFONO = "51987654321"; // <--- CAMBIA TU NUMERO
+const MI_TELEFONO = "51987654321";
 
 const colorMap = [
     { name: "Negro", val: 0, mul: 1, tol: null, hex: "#000000" },
@@ -18,6 +18,9 @@ const colorMap = [
 let componenteActual = "";
 let camposContador = 0;
 
+// Inicializar el botón "+" fuera de la función para que no se dupliquen eventos
+document.getElementById('btn-add-val').addEventListener('click', agregarCampo);
+
 function showDashboard() {
     document.querySelectorAll('.calc-section').forEach(s => s.style.display = 'none');
     document.getElementById('dashboard').style.display = 'grid';
@@ -32,15 +35,18 @@ function showSection(id) {
     if(id === 'conexiones') backToSubMenu();
 }
 
-// LOGICA SERIE/PARALELO MULTICOMPONENTE
+// LOGICA SERIE/PARALELO
 function openSubCalc(tipo) {
     componenteActual = tipo;
     camposContador = 0;
     document.getElementById('sub-menu-conexiones').style.display = 'none';
     document.getElementById('ventana-calculo').style.display = 'block';
-    document.getElementById('inputs-dinamicos').innerHTML = "";
-    document.getElementById('titulo-sub-calc').innerText = tipo === 'R' ? "Resistencias" : (tipo === 'C' ? "Capacitores" : "Bobinas");
-    agregarCampo(); agregarCampo(); // Inicia con 2 campos
+    document.getElementById('inputs-dinamicos').innerHTML = ""; // Limpiar
+    
+    document.getElementById('titulo-sub-calc').innerText = tipo === 'R' ? "Resistencias (Ω)" : (tipo === 'C' ? "Capacitores (µF)" : "Bobinas (µH)");
+    
+    agregarCampo(); // Campo 1
+    agregarCampo(); // Campo 2
     actualizarDiagrama('serie');
 }
 
@@ -51,17 +57,29 @@ function backToSubMenu() {
 
 function agregarCampo() {
     camposContador++;
+    const container = document.getElementById('inputs-dinamicos');
+    
     const div = document.createElement('div');
     div.className = "input-row";
     div.id = `row-${camposContador}`;
-    div.innerHTML = `
-        <input type="number" class="val-input" placeholder="Valor ${camposContador}">
-        ${camposContador > 2 ? `<span class="remove-btn" onclick="eliminarCampo(${camposContador})">✕</span>` : ''}
-    `;
-    document.getElementById('inputs-dinamicos').appendChild(div);
-}
+    
+    const input = document.createElement('input');
+    input.type = "number";
+    input.className = "val-input";
+    input.placeholder = `Valor ${camposContador}`;
+    
+    div.appendChild(input);
 
-function eliminarCampo(id) { document.getElementById(`row-${id}`).remove(); }
+    if (camposContador > 2) {
+        const removeBtn = document.createElement('span');
+        removeBtn.className = "remove-btn";
+        removeBtn.innerHTML = "✕";
+        removeBtn.onclick = function() { div.remove(); };
+        div.appendChild(removeBtn);
+    }
+
+    container.appendChild(div);
+}
 
 function actualizarDiagrama(modo) {
     const container = document.getElementById('diagrama-container');
@@ -76,21 +94,25 @@ function ejecutarCalculoDinamico(modo) {
     actualizarDiagrama(modo);
     const inputs = document.querySelectorAll('.val-input');
     let vals = [];
-    inputs.forEach(i => { if(i.value) vals.push(parseFloat(i.value)); });
-    if(vals.length < 2) return;
+    inputs.forEach(i => { if(i.value && !isNaN(i.value)) vals.push(parseFloat(i.value)); });
+    
+    if(vals.length < 2) {
+        document.getElementById('res-circuito').innerHTML = "Mínimo 2 valores";
+        return;
+    }
 
     let total = 0;
     let u = componenteActual === 'R' ? " Ω" : (componenteActual === 'C' ? " µF" : " µH");
 
     if (componenteActual === 'R' || componenteActual === 'L') {
-        total = (modo === 'serie') ? vals.reduce((a,b)=>a+b,0) : 1 / vals.reduce((a,b)=>a+(1/b),0);
+        total = (modo === 'serie') ? vals.reduce((a,b)=>a+b, 0) : 1 / vals.reduce((a,b)=>a+(1/b), 0);
     } else {
-        total = (modo === 'serie') ? 1 / vals.reduce((a,b)=>a+(1/b),0) : vals.reduce((a,b)=>a+b,0);
+        total = (modo === 'serie') ? 1 / vals.reduce((a,b)=>a+(1/b), 0) : vals.reduce((a,b)=>a+b, 0);
     }
     document.getElementById('res-circuito').innerHTML = `Total ${modo}:<br>${total.toFixed(2)}${u}`;
 }
 
-// RESTO DE FUNCIONES
+// RESTO DE FUNCIONES (OHM, SMD, ETC.)
 function changeBandType() {
     const type = document.getElementById('num-bands').value;
     const container = document.getElementById('controls-container'); container.innerHTML = "";
@@ -138,9 +160,16 @@ function calcOhm() {
     else if(i && r) document.getElementById('res-ohm').innerText = (i*r).toFixed(1) + " V";
 }
 
-function calcWatt() {
-    let v = parseFloat(document.getElementById('w_v').value), i = parseFloat(document.getElementById('w_i').value);
-    if(v && i) document.getElementById('res-watt').innerText = (v*i).toFixed(1) + " W";
+function initInduct() {
+    const container = document.getElementById('controls-induct'); container.innerHTML = "";
+    ["B1", "B2", "Mult", "Tol"].forEach((label, i) => {
+        let opt = ""; colorMap.forEach((c, idx) => { if(i < 2 && c.val === null) return; opt += `<option value="${idx}">${c.name}</option>`; });
+        container.innerHTML += `<div class="control-group"><label>${label}</label><select id="si-${i}" onchange="calcInd()"> ${opt} </select></div>`;
+    });
+}
+function calcInd() {
+    let v1 = colorMap[document.getElementById('si-0').value].val, v2 = colorMap[document.getElementById('si-1').value].val, m = colorMap[document.getElementById('si-2').value].mul, t = colorMap[document.getElementById('si-3').value].tol;
+    document.getElementById('res-induct').innerText = ((v1*10+v2)*m).toFixed(1) + " µH ±" + t + "%";
 }
 
 function calcCap() {
