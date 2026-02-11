@@ -18,41 +18,30 @@
         
         <section id="ventana-inicio">
             <div class="menu-grid">
-                <div class="card" onclick="abrirSubventana('cat-calculadoras')">
-                    <span class="card-icon">📟</span>
-                    <span class="card-text">Calculadoras Electrónicas</span>
+                <div class="card" onclick="abrirSubventana('cat-conexiones')">
+                    <span class="card-icon">🔗</span>
+                    <span class="card-text">Conexiones Esquematicas</span>
                 </div>
                 </div>
         </section>
 
-        <section id="cat-calculadoras" class="ventana-capa" style="display:none;">
-            <button class="btn-atras" onclick="cerrarSubventana('cat-calculadoras')">← Volver al Inicio</button>
-            <h2 class="titulo-seccion">Calculadoras</h2>
+        <section id="cat-conexiones" class="ventana-capa" style="display:none;">
+            <button class="btn-atras" onclick="cerrarSubventana('cat-conexiones')">← Volver al Inicio</button>
+            <h2 class="titulo-seccion">Conexiones Esquematicas</h2>
+            
             <div class="menu-grid">
                 <div class="card-mini" onclick="abrirHerramienta('herram-redes')">
                     <span class="mini-icon">🔌</span>
                     <p>Serie y Paralelo</p>
                 </div>
-                <div class="card-mini" onclick="abrirHerramienta('herram-ohm')">
-                    <span class="mini-icon">⚡</span>
-                    <p>Ley de Ohm</p>
-                </div>
             </div>
         </section>
 
         <section id="herram-redes" class="ventana-capa" style="display:none;">
-            <button class="btn-atras" onclick="cerrarHerramienta('herram-redes')">← Volver a Calculadoras</button>
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-redes')">← Volver a Conexiones</button>
             <div class="contenido-herramienta">
                 <h3>Serie y Paralelo</h3>
                 <p>Aquí configuraremos R, C y L en el siguiente paso.</p>
-            </div>
-        </section>
-
-        <section id="herram-ohm" class="ventana-capa" style="display:none;">
-            <button class="btn-atras" onclick="cerrarHerramienta('herram-ohm')">← Volver a Calculadoras</button>
-            <div class="contenido-herramienta">
-                <h3>Ley de Ohm</h3>
-                <p>Espacio para Voltaje, Corriente y Resistencia.</p>
             </div>
         </section>
 
