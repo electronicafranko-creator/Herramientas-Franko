@@ -69,7 +69,7 @@ function calcularResistencias() {
     });
     if(vals.length < 2) { document.getElementById('resultado-final').innerText = "Total: --"; return; }
     let total = modo === 'serie' ? vals.reduce((a,b)=>a+b,0) : 1/vals.reduce((a,b)=>a+(1/b),0);
-    document.getElementById('resultado-final').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:3})}`;
+    document.getElementById('resultado-final').innerText = `Total: ${(total/factor).toFixed(2)}`;
 }
 
 // LÓGICA BOBINAS
@@ -100,7 +100,7 @@ function calcularBobinas() {
     });
     if(vals.length < 2) { document.getElementById('resultado-final-bobina').innerText = "Total: --"; return; }
     let total = modo === 'serie' ? vals.reduce((a,b)=>a+b,0) : 1/vals.reduce((a,b)=>a+(1/b),0);
-    document.getElementById('resultado-final-bobina').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:4})}`;
+    document.getElementById('resultado-final-bobina').innerText = `Total: ${(total/factor).toFixed(3)}`;
 }
 
 // LÓGICA CAPACITORES
@@ -131,10 +131,10 @@ function calcularCapacitores() {
     });
     if(vals.length < 2) { document.getElementById('resultado-final-cap').innerText = "Total: --"; return; }
     let total = modo === 'paralelo' ? vals.reduce((a,b)=>a+b,0) : 1/vals.reduce((a,b)=>a+(1/b),0);
-    document.getElementById('resultado-final-cap').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:6})}`;
+    document.getElementById('resultado-final-cap').innerText = `Total: ${(total/factor).toFixed(3)}`;
 }
 
-// LÓGICA FUENTES (V y A)
+// LÓGICA FUENTES (V y A) - CORREGIDO PARA MOSTRAR SOLO 2 DECIMALES
 function cambiarEsquemaFuente() {
     const modo = document.getElementById('modo-calculo-fnt').value;
     document.getElementById('img-serie-fnt').style.display = modo === 'serie' ? 'block' : 'none';
@@ -156,9 +156,13 @@ function calcularFuentes() {
     let volts = [], amps = [];
     document.querySelectorAll('.fnt-v-input').forEach(i => { if(i.value) volts.push(parseFloat(i.value)); });
     document.querySelectorAll('.fnt-a-input').forEach(i => { if(i.value) amps.push(parseFloat(i.value)); });
+    
     if(volts.length < 1) return;
+    
+    // .toFixed(2) asegura que 11.1000000001 sea solo 11.10
     let tV = modo === 'serie' ? volts.reduce((a,b)=>a+b,0) : Math.max(...volts);
     let tA = modo === 'serie' ? Math.min(...amps) : amps.reduce((a,b)=>a+b,0);
-    document.getElementById('resultado-v').innerText = `Voltaje Total: ${tV} V`;
-    document.getElementById('resultado-a').innerText = `Amperaje Total: ${tA} A`;
+    
+    document.getElementById('resultado-v').innerText = `Voltaje Total: ${tV.toFixed(2)} V`;
+    document.getElementById('resultado-a').innerText = `Amperaje Total: ${tA.toFixed(2)} A`;
 }
