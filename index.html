@@ -38,20 +38,16 @@
             <h2 class="titulo-seccion">Conexiones Esquemáticas</h2>
             <div class="menu-grid" style="grid-template-columns: 1fr 1fr;">
                 <div class="card-mini" onclick="abrirHerramienta('herram-resistencias')">
-                    <img src="resistencia.png" class="ventana-icon-mini">
-                    <p>Resistencias</p>
+                    <img src="resistencia.png" class="ventana-icon-mini"><p>Resistencias</p>
                 </div>
                 <div class="card-mini" onclick="abrirHerramienta('herram-bobinas')">
-                    <img src="bobina.png" class="ventana-icon-mini">
-                    <p>Bobinas</p>
+                    <img src="bobina.png" class="ventana-icon-mini"><p>Bobinas</p>
                 </div>
                 <div class="card-mini" onclick="abrirHerramienta('herram-capacitores')">
-                    <img src="capacitor.png" class="ventana-icon-mini">
-                    <p>Capacitores</p>
+                    <img src="capacitor.png" class="ventana-icon-mini"><p>Capacitores</p>
                 </div>
                 <div class="card-mini" onclick="abrirHerramienta('herram-fuentes')">
-                    <img src="fuente.png" class="ventana-icon-mini">
-                    <p>Voltaje y Amperaje</p>
+                    <img src="fuente.png" class="ventana-icon-mini"><p>Voltaje y Amperaje</p>
                 </div>
             </div>
         </section>
@@ -61,8 +57,7 @@
             <h2 class="titulo-seccion">Calculadora de Componentes</h2>
             <div class="menu-grid" style="grid-template-columns: 1fr 1fr;">
                 <div class="card-mini" onclick="abrirHerramienta('herram-ley-ohm')">
-                    <img src="ohm.png" class="ventana-icon-mini">
-                    <p>Ley de Ohm</p>
+                    <img src="ohm.png" class="ventana-icon-mini"><p>Ley de Ohm</p>
                 </div>
             </div>
         </section>
@@ -75,9 +70,7 @@
                     <img src="serie.png" id="img-serie" class="img-circuito">
                     <img src="paralelo.png" id="img-paralelo" class="img-circuito" style="display:none;">
                 </div>
-                <div class="selector-modo">
-                    <select id="modo-calculo" onchange="cambiarEsquema()"><option value="serie">Serie</option><option value="paralelo">Paralelo</option></select>
-                </div>
+                <select id="modo-calculo" onchange="cambiarEsquema()"><option value="serie">Serie</option><option value="paralelo">Paralelo</option></select>
                 <div id="lista-valores"></div>
                 <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Añadir Valor</button>
                 <div class="seccion-resultado">
@@ -137,8 +130,8 @@
                 <button class="btn-agregar" onclick="agregarFilaFuente()">+ Añadir Fuente</button>
                 <div class="seccion-resultado">
                     <button class="btn-calcular" onclick="calcularFuentes()">CALCULAR TOTAL</button>
-                    <div id="resultado-v" class="caja-resultado" style="color: #d32f2f;">-- V</div>
-                    <div id="resultado-a" class="caja-resultado" style="color: #388e3c;">-- A</div>
+                    <div id="resultado-v" class="caja-resultado" style="color: #d32f2f;">V Total: --</div>
+                    <div id="resultado-a" class="caja-resultado" style="color: #388e3c;">A Total: --</div>
                 </div>
             </div>
         </section>
@@ -148,12 +141,12 @@
             <div class="contenido-herramienta">
                 <h3>Ley de Ohm</h3>
                 <div class="form-ohm">
-                    <div class="input-group"><label>Voltaje (V)</label><input type="number" id="ohm-v" oninput="calcularLeyOhm()" placeholder="V"></div>
-                    <div class="input-group"><label>Corriente (I)</label><input type="number" id="ohm-i" oninput="calcularLeyOhm()" placeholder="A"></div>
-                    <div class="input-group"><label>Resistencia (R)</label><input type="number" id="ohm-r" oninput="calcularLeyOhm()" placeholder="Ω"></div>
-                    <div class="input-group"><label>Potencia (P)</label><input type="number" id="ohm-p" oninput="calcularLeyOhm()" placeholder="W"></div>
+                    <div class="input-group"><label>Voltaje (V)</label><input type="number" id="ohm-v" oninput="calcularLeyOhm()"></div>
+                    <div class="input-group"><label>Corriente (I)</label><input type="number" id="ohm-i" oninput="calcularLeyOhm()"></div>
+                    <div class="input-group"><label>Resistencia (R)</label><input type="number" id="ohm-r" oninput="calcularLeyOhm()"></div>
+                    <div class="input-group"><label>Potencia (P)</label><input type="number" id="ohm-p" oninput="calcularLeyOhm()"></div>
                 </div>
-                <button class="btn-agregar" style="margin-top:15px; background:#6c757d;" onclick="limpiarOhm()">Limpiar Campos</button>
+                <button class="btn-agregar" style="margin-top:15px; background:#6c757d;" onclick="limpiarOhm()">Limpiar</button>
             </div>
         </section>
 
