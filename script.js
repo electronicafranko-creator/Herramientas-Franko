@@ -86,7 +86,7 @@ function calcularResistencias() {
     document.getElementById('resultado-final').innerText = `Total: ${final.toLocaleString(undefined, {maximumFractionDigits: 3})}`;
 }
 
-// --- LÓGICA DE BOBINAS (NUEVA SECCIÓN) ---
+// --- LÓGICA DE BOBINAS (NUEVA) ---
 function cambiarEsquemaBobina() {
     const modo = document.getElementById('modo-calculo-bobina').value;
     const imgSerie = document.getElementById('img-serie-bobina');
