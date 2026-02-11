@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ElectroFranko Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -27,24 +27,32 @@
 
         <section id="cat-calculadoras" class="ventana-capa" style="display:none;">
             <button class="btn-atras" onclick="cerrarSubventana('cat-calculadoras')">← Volver al Inicio</button>
+            <h2 class="titulo-seccion">Calculadoras</h2>
             <div class="menu-grid">
                 <div class="card-mini" onclick="abrirHerramienta('herram-redes')">
-                    🔌 Serie y Paralelo
+                    <span class="mini-icon">🔌</span>
+                    <p>Serie y Paralelo</p>
                 </div>
                 <div class="card-mini" onclick="abrirHerramienta('herram-ohm')">
-                    ⚡ Ley de Ohm
+                    <span class="mini-icon">⚡</span>
+                    <p>Ley de Ohm</p>
                 </div>
             </div>
         </section>
 
         <section id="herram-redes" class="ventana-capa" style="display:none;">
             <button class="btn-atras" onclick="cerrarHerramienta('herram-redes')">← Volver a Calculadoras</button>
-            
             <div class="contenido-herramienta">
-                <h3 id="titulo-redes">Cálculo de Redes (R, C, L)</h3>
-                <div id="espacio-trabajo-redes">
-                    <p style="text-align:center; color:#888;">Aquí irán los campos de R, C y L...</p>
-                </div>
+                <h3>Serie y Paralelo</h3>
+                <p>Aquí configuraremos R, C y L en el siguiente paso.</p>
+            </div>
+        </section>
+
+        <section id="herram-ohm" class="ventana-capa" style="display:none;">
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-ohm')">← Volver a Calculadoras</button>
+            <div class="contenido-herramienta">
+                <h3>Ley de Ohm</h3>
+                <p>Espacio para Voltaje, Corriente y Resistencia.</p>
             </div>
         </section>
 
@@ -53,7 +61,6 @@
     <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
