@@ -1,4 +1,4 @@
-const MI_TELEFONO = "51987654321"; // <--- TU NÚMERO AQUÍ
+const MI_TELEFONO = "51987654321"; // <--- CAMBIA TU NUMERO
 
 const colorMap = [
     { name: "Negro", val: 0, mul: 1, tol: null, hex: "#000000" },
@@ -16,6 +16,7 @@ const colorMap = [
 ];
 
 let componenteActual = "";
+let camposContador = 0;
 
 function showDashboard() {
     document.querySelectorAll('.calc-section').forEach(s => s.style.display = 'none');
@@ -31,16 +32,16 @@ function showSection(id) {
     if(id === 'conexiones') backToSubMenu();
 }
 
-// LÓGICA CONEXIONES (SUB-MENÚ)
+// LOGICA SERIE/PARALELO MULTICOMPONENTE
 function openSubCalc(tipo) {
     componenteActual = tipo;
+    camposContador = 0;
     document.getElementById('sub-menu-conexiones').style.display = 'none';
     document.getElementById('ventana-calculo').style.display = 'block';
-    const titulo = document.getElementById('titulo-sub-calc');
-    const nota = document.getElementById('nota-tecnica');
-    if(tipo === 'R') { titulo.innerText = "Resistencias (Ω)"; nota.innerText = "Serie: Suma directa | Paralelo: Inverso"; }
-    else if(tipo === 'C') { titulo.innerText = "Capacitores (µF)"; nota.innerText = "Serie: Inverso | Paralelo: Suma directa"; }
-    else { titulo.innerText = "Bobinas (µH)"; nota.innerText = "Serie: Suma directa | Paralelo: Inverso"; }
+    document.getElementById('inputs-dinamicos').innerHTML = "";
+    document.getElementById('titulo-sub-calc').innerText = tipo === 'R' ? "Resistencias" : (tipo === 'C' ? "Capacitores" : "Bobinas");
+    agregarCampo(); agregarCampo(); // Inicia con 2 campos
+    actualizarDiagrama('serie');
 }
 
 function backToSubMenu() {
@@ -48,52 +49,130 @@ function backToSubMenu() {
     document.getElementById('ventana-calculo').style.display = 'none';
 }
 
-function ejecutarCalculo(modo) {
-    let v1 = parseFloat(document.getElementById('c_val1').value), v2 = parseFloat(document.getElementById('c_val2').value);
-    if(isNaN(v1) || isNaN(v2)) return;
+function agregarCampo() {
+    camposContador++;
+    const div = document.createElement('div');
+    div.className = "input-row";
+    div.id = `row-${camposContador}`;
+    div.innerHTML = `
+        <input type="number" class="val-input" placeholder="Valor ${camposContador}">
+        ${camposContador > 2 ? `<span class="remove-btn" onclick="eliminarCampo(${camposContador})">✕</span>` : ''}
+    `;
+    document.getElementById('inputs-dinamicos').appendChild(div);
+}
+
+function eliminarCampo(id) { document.getElementById(`row-${id}`).remove(); }
+
+function actualizarDiagrama(modo) {
+    const container = document.getElementById('diagrama-container');
+    if (modo === 'serie') {
+        container.innerHTML = `<div class="esquema-linea"></div><div class="componente-dibujo"></div><div class="componente-dibujo"></div><div class="componente-dibujo"></div>`;
+    } else {
+        container.innerHTML = `<div class="esquema-linea" style="width:2px; height:50px; left:20%;"></div><div class="paralelo-dibujo"><div class="componente-dibujo"></div><div class="componente-dibujo"></div></div><div class="esquema-linea" style="width:2px; height:50px; right:20%;"></div>`;
+    }
+}
+
+function ejecutarCalculoDinamico(modo) {
+    actualizarDiagrama(modo);
+    const inputs = document.querySelectorAll('.val-input');
+    let vals = [];
+    inputs.forEach(i => { if(i.value) vals.push(parseFloat(i.value)); });
+    if(vals.length < 2) return;
+
     let total = 0;
-    if(componenteActual === 'R' || componenteActual === 'L') total = (modo === 'serie') ? (v1+v2) : ((v1*v2)/(v1+v2));
-    else total = (modo === 'serie') ? ((v1*v2)/(v1+v2)) : (v1+v2);
-    document.getElementById('res-circuito').innerHTML = `Total: ${total.toFixed(2)}`;
-}
+    let u = componenteActual === 'R' ? " Ω" : (componenteActual === 'C' ? " µF" : " µH");
 
-// RESTO DE FUNCIONES (SMD, LED, OHM, ETC)
-function calcCap() {
-    let c = document.getElementById('cap-code').value;
-    if(c.length === 3) {
-        let v = parseInt(c.substring(0,2)) * Math.pow(10, parseInt(c.substring(2)));
-        document.getElementById('res-capac').innerHTML = `${v} pF | ${v/1000} nF`;
+    if (componenteActual === 'R' || componenteActual === 'L') {
+        total = (modo === 'serie') ? vals.reduce((a,b)=>a+b,0) : 1 / vals.reduce((a,b)=>a+(1/b),0);
+    } else {
+        total = (modo === 'serie') ? 1 / vals.reduce((a,b)=>a+(1/b),0) : vals.reduce((a,b)=>a+b,0);
     }
+    document.getElementById('res-circuito').innerHTML = `Total ${modo}:<br>${total.toFixed(2)}${u}`;
 }
 
-function calcSMD() {
-    let c = document.getElementById('smd-code').value.toUpperCase();
-    if(c.includes('R')) { document.getElementById('res-smd').innerHTML = c.replace('R','.') + " Ω"; return; }
-    if(c.length >= 3) {
-        let v = parseInt(c.slice(0,-1)) * Math.pow(10, parseInt(c.slice(-1)));
-        document.getElementById('res-smd').innerHTML = format(v);
+// RESTO DE FUNCIONES
+function changeBandType() {
+    const type = document.getElementById('num-bands').value;
+    const container = document.getElementById('controls-container'); container.innerHTML = "";
+    const struct = type === "4" ? ["Banda 1", "Banda 2", "Multiplicador", "Tolerancia"] : ["Banda 1", "Banda 2", "Banda 3", "Multiplicador", "Tolerancia"];
+    struct.forEach((label, i) => {
+        let opt = ""; colorMap.forEach((c, idx) => {
+            if(label.includes("Banda") && c.val === null) return;
+            if(label === "Tolerancia" && c.tol === null) return;
+            opt += `<option value="${idx}">${c.name}</option>`;
+        });
+        container.innerHTML += `<div class="control-group"><label>${label}</label><select id="sel-${i}" onchange="calculate()"> ${opt} </select></div>`;
+    });
+    calculate();
+}
+
+function calculate() {
+    const type = document.getElementById('num-bands').value;
+    document.getElementById('v-band3').style.display = (type === "4") ? "none" : "block";
+    let v1 = colorMap[document.getElementById('sel-0').value], v2 = colorMap[document.getElementById('sel-1').value];
+    let res = 0, colors = [];
+    if(type === "4") {
+        let mul = colorMap[document.getElementById('sel-2').value], tol = colorMap[document.getElementById('sel-3').value];
+        res = (v1.val * 10 + v2.val) * mul.mul;
+        colors = [v1.hex, v2.hex, "transparent", mul.hex, tol.hex];
+        document.getElementById('res-colors').innerText = format(res) + " ±" + tol.tol + "%";
+    } else {
+        let v3 = colorMap[document.getElementById('sel-2').value], mul = colorMap[document.getElementById('sel-3').value], tol = colorMap[document.getElementById('sel-4').value];
+        res = (v1.val * 100 + v2.val * 10 + v3.val) * mul.mul;
+        colors = [v1.hex, v2.hex, v3.hex, mul.hex, tol.hex];
+        document.getElementById('res-colors').innerText = format(res) + " ±" + tol.tol + "%";
     }
+    ['v-band1','v-band2','v-band3','v-mul','v-tol'].forEach((id, i) => { if(colors[i]) document.getElementById(id).style.backgroundColor = colors[i]; });
 }
-
-function calcOhm() {
-    let v = parseFloat(document.getElementById('v').value), i = parseFloat(document.getElementById('i').value), r = parseFloat(document.getElementById('r').value);
-    if(v && i) document.getElementById('res-ohm').innerHTML = (v/i).toFixed(2) + " Ω";
-    else if(v && r) document.getElementById('res-ohm').innerHTML = (v/r).toFixed(2) + " A";
-    else if(i && r) document.getElementById('res-ohm').innerHTML = (i*r).toFixed(2) + " V";
-}
-
-function calcLED() {
-    let vf = parseFloat(document.getElementById('v_fuente').value), vl = parseFloat(document.getElementById('v_led').value);
-    if(vf > vl) document.getElementById('res-led').innerHTML = ((vf-vl)/0.02).toFixed(0) + " Ω";
-}
-
-// (Omití por brevedad el código de bandas de colores que ya tienes, asegúrate de pegarlo o mantenerlo si ya estaba completo)
-// ... funciones calculate(), changeBandType(), format(), sendWhatsApp(), initInduct() ...
 
 function format(v) {
     if(v >= 1000000) return (v/1000000).toFixed(1) + " MΩ";
     if(v >= 1000) return (v/1000).toFixed(1) + " kΩ";
     return v.toFixed(0) + " Ω";
+}
+
+function calcOhm() {
+    let v = parseFloat(document.getElementById('v').value), i = parseFloat(document.getElementById('i').value), r = parseFloat(document.getElementById('r').value);
+    if(v && i) document.getElementById('res-ohm').innerText = (v/i).toFixed(1) + " Ω";
+    else if(v && r) document.getElementById('res-ohm').innerText = (v/r).toFixed(2) + " A";
+    else if(i && r) document.getElementById('res-ohm').innerText = (i*r).toFixed(1) + " V";
+}
+
+function calcWatt() {
+    let v = parseFloat(document.getElementById('w_v').value), i = parseFloat(document.getElementById('w_i').value);
+    if(v && i) document.getElementById('res-watt').innerText = (v*i).toFixed(1) + " W";
+}
+
+function calcCap() {
+    let c = document.getElementById('cap-code').value;
+    if(c.length === 3) {
+        let v = parseInt(c.substring(0,2)) * Math.pow(10, parseInt(c.substring(2)));
+        document.getElementById('res-capac').innerText = `${v} pF | ${v/1000} nF`;
+    }
+}
+
+function calcSMD() {
+    let c = document.getElementById('smd-code').value.toUpperCase();
+    if(c.includes('R')) { document.getElementById('res-smd').innerText = c.replace('R','.') + " Ω"; return; }
+    if(c.length >= 3) {
+        let v = parseInt(c.slice(0,-1)) * Math.pow(10, parseInt(c.slice(-1)));
+        document.getElementById('res-smd').innerText = format(v);
+    }
+}
+
+function calcLED() {
+    let vf = parseFloat(document.getElementById('v_fuente').value), vl = parseFloat(document.getElementById('v_led').value);
+    if(vf > vl) document.getElementById('res-led').innerText = ((vf-vl)/0.02).toFixed(0) + " Ω";
+}
+
+function calcDivisor() {
+    let v = parseFloat(document.getElementById('div_vin').value), r1 = parseFloat(document.getElementById('div_r1').value), r2 = parseFloat(document.getElementById('div_r2').value);
+    if(v && r1 && r2) document.getElementById('res-divisor').innerText = (v * (r2/(r1+r2))).toFixed(2) + " V";
+}
+
+function calcLM317() {
+    let r1 = parseFloat(document.getElementById('lm_r1').value), r2 = parseFloat(document.getElementById('lm_r2').value);
+    if(r1 && r2) document.getElementById('res-lm').innerText = (1.25 * (1 + (r2/r1))).toFixed(2) + " V";
 }
 
 function sendWhatsApp() {
