@@ -3,42 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElectroFranko App</title>
+    <title>ElectroFranko Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>ELECTROFRANKO</h1>
+        <div class="logo-container">
+            <img src="logo.png" alt="FRANKO ELECTRONICA" id="main-logo">
+        </div>
     </header>
 
     <main id="app">
         
-        <section id="dashboard">
+        <section id="ventana-inicio">
             <div class="menu-grid">
-                <div class="card" onclick="irA('seccion-calculos')">
-                    <span>📟 Calculadoras Electrónicas</span>
+                <div class="card" onclick="abrirSubventana('cat-calculadoras')">
+                    <span class="card-icon">📟</span>
+                    <span class="card-text">Calculadoras Electrónicas</span>
                 </div>
                 </div>
         </section>
 
-        <section id="seccion-calculos" style="display:none;">
-            <button class="btn-volver" onclick="irA('dashboard')">← Volver al Inicio</button>
-            
-            <div id="submenu-componentes">
-                <h2>¿Qué componente calcularás?</h2>
-                <div class="menu-grid">
-                    <div class="card-mini" onclick="abrirConfiguracion('R')">🔌 Resistencias</div>
-                    <div class="card-mini" onclick="abrirConfiguracion('C')">🔲 Capacitores</div>
-                    <div class="card-mini" onclick="abrirConfiguracion('L')">🌀 Bobinas</div>
+        <section id="cat-calculadoras" class="ventana-capa" style="display:none;">
+            <button class="btn-atras" onclick="cerrarSubventana('cat-calculadoras')">← Volver al Inicio</button>
+            <div class="menu-grid">
+                <div class="card-mini" onclick="abrirHerramienta('herram-redes')">
+                    🔌 Serie y Paralelo
+                </div>
+                <div class="card-mini" onclick="abrirHerramienta('herram-ohm')">
+                    ⚡ Ley de Ohm
                 </div>
             </div>
+        </section>
 
-            <div id="configuracion-final" style="display:none;">
-                <button class="btn-volver" onclick="volverAlSubmenu()">← Cambiar Componente</button>
-                <h3 id="titulo-componente"></h3>
-                <div id="zona-entradas">
-                    </div>
+        <section id="herram-redes" class="ventana-capa" style="display:none;">
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-redes')">← Volver a Calculadoras</button>
+            
+            <div class="contenido-herramienta">
+                <h3 id="titulo-redes">Cálculo de Redes (R, C, L)</h3>
+                <div id="espacio-trabajo-redes">
+                    <p style="text-align:center; color:#888;">Aquí irán los campos de R, C y L...</p>
+                </div>
             </div>
         </section>
 
@@ -47,6 +53,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
