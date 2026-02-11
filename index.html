@@ -22,40 +22,49 @@
                     <div class="card-icon-container">
                         <img src="esquema.png" alt="Icono Conexiones" class="ventana-icon">
                     </div>
-                    <span class="card-text">Conexiones Esquematicas</span>
+                    <span class="card-text">Conexiones Esquemáticas</span>
+                </div>
+                <div class="card" onclick="abrirSubventana('cat-calculadoras')">
+                    <div class="card-icon-container">
+                        <img src="calculadora.png" alt="Icono Calculadoras" class="ventana-icon">
+                    </div>
+                    <span class="card-text">Calculadora de Componentes</span>
                 </div>
             </div>
         </section>
 
         <section id="cat-conexiones" class="ventana-capa" style="display:none;">
             <button class="btn-atras" onclick="cerrarSubventana('cat-conexiones')">← Volver al Inicio</button>
-            <h2 class="titulo-seccion">Conexiones Esquematicas</h2>
+            <h2 class="titulo-seccion">Conexiones Esquemáticas</h2>
             <div class="menu-grid" style="grid-template-columns: 1fr 1fr;">
                 <div class="card-mini" onclick="abrirHerramienta('herram-resistencias')">
-                    <div class="card-icon-container">
-                        <img src="resistencia.png" alt="Icono Resistencia" class="ventana-icon-mini">
-                    </div>
+                    <img src="resistencia.png" class="ventana-icon-mini">
                     <p>Resistencias</p>
                 </div>
                 <div class="card-mini" onclick="abrirHerramienta('herram-bobinas')">
-                    <div class="card-icon-container">
-                        <img src="bobina.png" alt="Icono Bobina" class="ventana-icon-mini">
-                    </div>
+                    <img src="bobina.png" class="ventana-icon-mini">
                     <p>Bobinas</p>
                 </div>
                 <div class="card-mini" onclick="abrirHerramienta('herram-capacitores')">
-                    <div class="card-icon-container">
-                        <img src="capacitor.png" alt="Icono Capacitor" class="ventana-icon-mini">
-                    </div>
+                    <img src="capacitor.png" class="ventana-icon-mini">
                     <p>Capacitores</p>
                 </div>
                 <div class="card-mini" onclick="abrirHerramienta('herram-fuentes')">
-                    <div class="card-icon-container">
-                        <img src="fuente.png" alt="Icono Fuentes" class="ventana-icon-mini">
-                    </div>
+                    <img src="fuente.png" class="ventana-icon-mini">
                     <p>Voltaje y Amperaje</p>
                 </div>
             </div>
+        </section>
+
+        <section id="cat-calculadoras" class="ventana-capa" style="display:none;">
+            <button class="btn-atras" onclick="cerrarSubventana('cat-calculadoras')">← Volver al Inicio</button>
+            <h2 class="titulo-seccion">Calculadora de Componentes</h2>
+            <div class="menu-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card-mini" onclick="abrirHerramienta('herram-ley-ohm')">
+                    <img src="ohm.png" class="ventana-icon-mini">
+                    <p>Ley de Ohm</p>
+                </div>
+                </div>
         </section>
 
         <section id="herram-resistencias" class="ventana-capa" style="display:none;">
@@ -63,86 +72,45 @@
             <div class="contenido-herramienta">
                 <h3>Resistencias</h3>
                 <div class="contenedor-esquemas">
-                    <img src="serie.png" id="img-serie" class="img-circuito" alt="Esquema Serie">
-                    <img src="paralelo.png" id="img-paralelo" class="img-circuito" alt="Esquema Paralelo" style="display:none;">
+                    <img src="serie.png" id="img-serie" class="img-circuito">
+                    <img src="paralelo.png" id="img-paralelo" class="img-circuito" style="display:none;">
                 </div>
-                <div class="selector-modo">
-                    <label>Tipo de Conexión:</label>
-                    <select id="modo-calculo" onchange="cambiarEsquema()">
-                        <option value="serie">Serie</option>
-                        <option value="paralelo">Paralelo</option>
-                    </select>
-                </div>
+                <select id="modo-calculo" onchange="cambiarEsquema()"><option value="serie">Serie</option><option value="paralelo">Paralelo</option></select>
                 <div id="lista-valores"></div>
                 <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Añadir Valor</button>
                 <div class="seccion-resultado">
                     <button class="btn-calcular" onclick="calcularResistencias()">CALCULAR TOTAL</button>
                     <div id="resultado-final" class="caja-resultado">Total: --</div>
-                    <select id="unidad-resultado" onchange="calcularResistencias()">
-                        <option value="1">Ω (Ohmios)</option>
-                        <option value="1000">kΩ (k-Ohmios)</option>
-                        <option value="1000000">MΩ (M-Ohmios)</option>
-                    </select>
+                    <select id="unidad-resultado" onchange="calcularResistencias()"><option value="1">Ω</option><option value="1000">kΩ</option></select>
                 </div>
             </div>
         </section>
 
-        <section id="herram-bobinas" class="ventana-capa" style="display:none;">
-            <button class="btn-atras" onclick="cerrarHerramienta('herram-bobinas')">← Volver</button>
+        <section id="herram-ley-ohm" class="ventana-capa" style="display:none;">
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-ley-ohm')">← Volver</button>
             <div class="contenido-herramienta">
-                <h3>Bobinas / Inductores</h3>
-                <div class="contenedor-esquemas">
-                    <img src="bobina-serie.png" id="img-serie-bobina" class="img-circuito" alt="Bobina Serie">
-                    <img src="bobina-paralelo.png" id="img-paralelo-bobina" class="img-circuito" alt="Bobina Paralelo" style="display:none;">
+                <h3>Ley de Ohm</h3>
+                
+                <p style="font-size: 0.8rem; color: #666;">Ingresa dos valores para calcular los demás:</p>
+                <div class="form-ohm">
+                    <div class="input-group">
+                        <label>Voltaje (V)</label>
+                        <input type="number" id="ohm-v" placeholder="Voltios" oninput="calcularLeyOhm()">
+                    </div>
+                    <div class="input-group">
+                        <label>Corriente (I)</label>
+                        <input type="number" id="ohm-i" placeholder="Amperios" oninput="calcularLeyOhm()">
+                    </div>
+                    <div class="input-group">
+                        <label>Resistencia (R)</label>
+                        <input type="number" id="ohm-r" placeholder="Ohmios" oninput="calcularLeyOhm()">
+                    </div>
+                    <div class="input-group">
+                        <label>Potencia (P)</label>
+                        <input type="number" id="ohm-p" placeholder="Watts" oninput="calcularLeyOhm()">
+                    </div>
                 </div>
-                <div class="selector-modo">
-                    <label>Tipo de Conexión:</label>
-                    <select id="modo-calculo-bobina" onchange="cambiarEsquemaBobina()">
-                        <option value="serie">Serie</option>
-                        <option value="paralelo">Paralelo</option>
-                    </select>
-                </div>
-                <div id="lista-valores-bobina"></div>
-                <button class="btn-agregar" onclick="agregarFilaBobina()">+ Añadir Valor</button>
-                <div class="seccion-resultado">
-                    <button class="btn-calcular" onclick="calcularBobinas()">CALCULAR TOTAL</button>
-                    <div id="resultado-final-bobina" class="caja-resultado">Total: --</div>
-                    <select id="unidad-resultado-bobina" onchange="calcularBobinas()">
-                        <option value="0.000001">µH (microHenrios)</option>
-                        <option value="0.001">mH (miliHenrios)</option>
-                        <option value="1">H (Henrios)</option>
-                    </select>
-                </div>
-            </div>
-        </section>
-
-        <section id="herram-capacitores" class="ventana-capa" style="display:none;">
-            <button class="btn-atras" onclick="cerrarHerramienta('herram-capacitores')">← Volver</button>
-            <div class="contenido-herramienta">
-                <h3>Capacitores / Condensadores</h3>
-                <div class="contenedor-esquemas">
-                    <img src="capacitor-serie.png" id="img-serie-cap" class="img-circuito" alt="Capacitor Serie">
-                    <img src="capacitor-paralelo.png" id="img-paralelo-cap" class="img-circuito" alt="Capacitor Paralelo" style="display:none;">
-                </div>
-                <div class="selector-modo">
-                    <label>Tipo de Conexión:</label>
-                    <select id="modo-calculo-cap" onchange="cambiarEsquemaCapacitor()">
-                        <option value="serie">Serie</option>
-                        <option value="paralelo">Paralelo</option>
-                    </select>
-                </div>
-                <div id="lista-valores-cap"></div>
-                <button class="btn-agregar" onclick="agregarFilaCapacitor()">+ Añadir Valor</button>
-                <div class="seccion-resultado">
-                    <button class="btn-calcular" onclick="calcularCapacitores()">CALCULAR TOTAL</button>
-                    <div id="resultado-final-cap" class="caja-resultado">Total: --</div>
-                    <select id="unidad-resultado-cap" onchange="calcularCapacitores()">
-                        <option value="0.000000000001">pF</option>
-                        <option value="0.000000001">nF</option>
-                        <option value="0.000001" selected>µF</option>
-                        <option value="1">F</option>
-                    </select>
-                </div>
+                <button class="btn-agregar" style="margin-top:10px; background:#f44336;" onclick="limpiarOhm()">Limpiar Campos</button>
             </div>
         </section>
 
@@ -151,22 +119,16 @@
             <div class="contenido-herramienta">
                 <h3>Voltaje y Amperaje</h3>
                 <div class="contenedor-esquemas">
-                    <img src="fuente-serie.png" id="img-serie-fnt" class="img-circuito" alt="Fuentes Serie">
-                    <img src="fuente-paralelo.png" id="img-paralelo-fnt" class="img-circuito" alt="Fuentes Paralelo" style="display:none;">
+                    <img src="fuente-serie.png" id="img-serie-fnt" class="img-circuito">
+                    <img src="fuente-paralelo.png" id="img-paralelo-fnt" class="img-circuito" style="display:none;">
                 </div>
-                <div class="selector-modo">
-                    <label>Tipo de Conexión:</label>
-                    <select id="modo-calculo-fnt" onchange="cambiarEsquemaFuente()">
-                        <option value="serie">Serie (Suma V)</option>
-                        <option value="paralelo">Paralelo (Suma A)</option>
-                    </select>
-                </div>
+                <select id="modo-calculo-fnt" onchange="cambiarEsquemaFuente()"><option value="serie">Serie (Suma V)</option><option value="paralelo">Paralelo (Suma A)</option></select>
                 <div id="lista-valores-fnt"></div>
                 <button class="btn-agregar" onclick="agregarFilaFuente()">+ Añadir Fuente</button>
                 <div class="seccion-resultado">
                     <button class="btn-calcular" onclick="calcularFuentes()">CALCULAR TOTAL</button>
-                    <div id="resultado-v" class="caja-resultado" style="font-size: 1.2rem; color: #d32f2f;">Voltaje Total: -- V</div>
-                    <div id="resultado-a" class="caja-resultado" style="font-size: 1.2rem; color: #388e3c;">Amperaje Total: -- A</div>
+                    <div id="resultado-v" class="caja-resultado" style="font-size: 1.2rem; color: #d32f2f;">-- V</div>
+                    <div id="resultado-a" class="caja-resultado" style="font-size: 1.2rem; color: #388e3c;">-- A</div>
                 </div>
             </div>
         </section>
