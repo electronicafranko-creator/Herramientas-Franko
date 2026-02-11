@@ -37,6 +37,12 @@
                     </div>
                     <p>Resistencias</p>
                 </div>
+                <div class="card-mini" onclick="abrirHerramienta('herram-bobinas')">
+                    <div class="card-icon-container">
+                        <img src="bobina.png" alt="Icono Bobina" class="ventana-icon-mini">
+                    </div>
+                    <p>Bobinas</p>
+                </div>
             </div>
         </section>
 
@@ -44,43 +50,70 @@
             <button class="btn-atras" onclick="cerrarHerramienta('herram-resistencias')">← Volver a Conexiones</button>
             
             <div class="contenido-herramienta">
-                <h3 class="titulo-herramienta">Cálculo de Resistencias</h3>
+                <h3>Resistencias</h3>
                 
                 <div class="contenedor-esquemas">
-                    <img src="serie.png" id="img-serie" class="img-circuito" alt="Esquema Serie">
-                    <img src="paralelo.png" id="img-paralelo" class="img-circuito" alt="Esquema Paralelo" style="display:none;">
+                    <img src="esquema-serie.png" id="img-serie" class="img-circuito" alt="Esquema Serie">
+                    <img src="esquema-paralelo.png" id="img-paralelo" class="img-circuito" alt="Esquema Paralelo" style="display:none;">
                 </div>
                 
                 <div class="selector-modo">
-                    <label for="modo-calculo">Tipo de Conexión:</label>
+                    <label>Tipo de Conexión:</label>
                     <select id="modo-calculo" onchange="cambiarEsquema()">
                         <option value="serie">Serie</option>
                         <option value="paralelo">Paralelo</option>
                     </select>
                 </div>
 
-                <div id="lista-valores">
-                    </div>
+                <div id="lista-valores"></div>
 
-                <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Agregar Resistencia</button>
-                
-                <hr class="divisor">
+                <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Añadir Valor</button>
                 
                 <div class="seccion-resultado">
-                    <button class="btn-calcular" onclick="calcularResistencias()">CALCULAR RESISTENCIA TOTAL</button>
-                    
-                    <div class="resultado-display">
-                        <span id="resultado-final" class="caja-resultado">Total: --</span>
-                    </div>
+                    <button class="btn-calcular" onclick="calcularResistencias()">CALCULAR TOTAL</button>
+                    <div id="resultado-final" class="caja-resultado">Total: --</div>
+                    <select id="unidad-resultado" onchange="calcularResistencias()">
+                        <option value="1">Ω (Ohmios)</option>
+                        <option value="1000">kΩ (k-Ohmios)</option>
+                        <option value="1000000">MΩ (M-Ohmios)</option>
+                    </select>
+                </div>
+            </div>
+        </section>
 
-                    <div class="selector-unidad-final">
-                        <label>Mostrar resultado en:</label>
-                        <select id="unidad-resultado" onchange="calcularResistencias()">
-                            <option value="1">Ω (Ohmios)</option>
-                            <option value="1000">kΩ (Kilo-Ohmios)</option>
-                            <option value="1000000">MΩ (Mega-Ohmios)</option>
-                        </select>
-                    </div>
+        <section id="herram-bobinas" class="ventana-capa" style="display:none;">
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-bobinas')">← Volver a Conexiones</button>
+            
+            <div class="contenido-herramienta">
+                <h3>Bobinas / Inductores</h3>
+                
+                <div class="contenedor-esquemas">
+                    <img src="bobina-serie.png" id="img-serie-bobina" class="img-circuito" alt="Bobina Serie">
+                    <img src="bobina-paralelo.png" id="img-paralelo-bobina" class="img-circuito" alt="Bobina Paralelo" style="display:none;">
+                </div>
+                
+                
+
+                <div class="selector-modo">
+                    <label>Tipo de Conexión:</label>
+                    <select id="modo-calculo-bobina" onchange="cambiarEsquemaBobina()">
+                        <option value="serie">Serie</option>
+                        <option value="paralelo">Paralelo</option>
+                    </select>
+                </div>
+
+                <div id="lista-valores-bobina"></div>
+
+                <button class="btn-agregar" onclick="agregarFilaBobina()">+ Añadir Valor</button>
+                
+                <div class="seccion-resultado">
+                    <button class="btn-calcular" onclick="calcularBobinas()">CALCULAR TOTAL</button>
+                    <div id="resultado-final-bobina" class="caja-resultado">Total: --</div>
+                    <select id="unidad-resultado-bobina" onchange="calcularBobinas()">
+                        <option value="0.000001">µH (microHenrios)</option>
+                        <option value="0.001">mH (miliHenrios)</option>
+                        <option value="1">H (Henrios)</option>
+                    </select>
                 </div>
             </div>
         </section>
