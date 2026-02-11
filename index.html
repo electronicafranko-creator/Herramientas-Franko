@@ -44,45 +44,43 @@
             <button class="btn-atras" onclick="cerrarHerramienta('herram-resistencias')">← Volver a Conexiones</button>
             
             <div class="contenido-herramienta">
-                <h3>Resistencias</h3>
+                <h3 class="titulo-herramienta">Cálculo de Resistencias</h3>
                 
                 <div class="contenedor-esquemas">
-                    <div id="box-serie" class="status-esquema">
-                        <img src="esquema-serie.png" class="img-circuito" alt="
-
-[Image of resistors in series circuit diagram]
-">
-                        <p class="label-esquema">CIRCUITO EN SERIE</p>
-                    </div>
-                    <div id="box-paralelo" class="status-esquema" style="display:none;">
-                        <img src="esquema-paralelo.png" class="img-circuito" alt="
-
-[Image of resistors in parallel circuit diagram]
-">
-                        <p class="label-esquema">CIRCUITO EN PARALELO</p>
-                    </div>
+                    <img src="esquema-serie.png" id="serie.png" class="img-circuito" alt="Esquema Serie">
+                    <img src="esquema-paralelo.png" id="paralelo.png" class="img-circuito" alt="Esquema Paralelo" style="display:none;">
                 </div>
                 
                 <div class="selector-modo">
-                    <label>Tipo de Conexión:</label>
+                    <label for="modo-calculo">Tipo de Conexión:</label>
                     <select id="modo-calculo" onchange="cambiarEsquema()">
                         <option value="serie">Serie</option>
                         <option value="paralelo">Paralelo</option>
                     </select>
                 </div>
 
-                <div id="lista-valores"></div>
+                <div id="lista-valores">
+                    </div>
 
-                <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Añadir Valor</button>
+                <button class="btn-agregar" onclick="agregarFilaResistencia()">+ Agregar Resistencia</button>
+                
+                <hr class="divisor">
                 
                 <div class="seccion-resultado">
-                    <button class="btn-calcular" onclick="calcularResistencias()">CALCULAR TOTAL</button>
-                    <div id="resultado-final" class="caja-resultado">Total: --</div>
-                    <select id="unidad-resultado" onchange="calcularResistencias()">
-                        <option value="1">Ω (Ohmios)</option>
-                        <option value="1000">kΩ (k-Ohmios)</option>
-                        <option value="1000000">MΩ (M-Ohmios)</option>
-                    </select>
+                    <button class="btn-calcular" onclick="calcularResistencias()">CALCULAR RESISTENCIA TOTAL</button>
+                    
+                    <div class="resultado-display">
+                        <span id="resultado-final" class="caja-resultado">Total: --</span>
+                    </div>
+
+                    <div class="selector-unidad-final">
+                        <label>Mostrar resultado en:</label>
+                        <select id="unidad-resultado" onchange="calcularResistencias()">
+                            <option value="1">Ω (Ohmios)</option>
+                            <option value="1000">kΩ (Kilo-Ohmios)</option>
+                            <option value="1000000">MΩ (Mega-Ohmios)</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </section>
@@ -92,6 +90,8 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
 
