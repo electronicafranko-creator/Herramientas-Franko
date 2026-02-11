@@ -31,7 +31,6 @@ main { padding: 15px; max-width: 500px; margin: 0 auto; }
 .btn-atras { background: none; border: none; color: var(--azul); font-weight: bold; padding: 10px 0; cursor: pointer; }
 .titulo-seccion { text-align: center; font-size: 1.2rem; margin: 15px 0; }
 .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-#cat-conexiones .menu-grid { grid-template-columns: 1fr 1fr; }
 
 .card, .card-mini {
     background: var(--blanco);
@@ -66,13 +65,12 @@ main { padding: 15px; max-width: 500px; margin: 0 auto; }
 .img-circuito { max-width: 100%; max-height: 120px; height: auto; }
 .contenido-herramienta { background: var(--blanco); padding: 20px; border-radius: 15px; border: 1px solid #ddd; }
 .selector-modo { margin-bottom: 15px; text-align: left; }
-.selector-modo select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; }
+.selector-modo select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
 .fila-valor { display: flex; gap: 5px; margin-bottom: 8px; }
 .fila-valor input { flex: 2; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
 .fila-valor select { flex: 1; border-radius: 8px; border: 1px solid #ccc; }
 .btn-agregar { width: 100%; background: var(--gris); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; }
 .btn-calcular { width: 100%; background: var(--verde); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; margin-top: 15px; cursor: pointer; }
 .caja-resultado { font-size: 1.5rem; font-weight: bold; color: var(--azul); margin: 15px 0; text-align: center; }
-#unidad-resultado, #unidad-resultado-bobina { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+#unidad-resultado, #unidad-resultado-bobina, #unidad-resultado-cap { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
 .card-text { font-weight: bold; font-size: 1.1rem; }
-
