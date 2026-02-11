@@ -1,44 +1,34 @@
-:root { --azul: #007bff; --verde: #25d366; --oscuro: #1a1a1a; }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root { --azul: #007bff; --verde: #25d366; --rojo: #dc3545; --gris: #f8f9fa; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Segoe UI', Arial, sans-serif; }
 
-body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 90px; }
-header { background: #fff; padding: 10px; display: flex; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-#main-logo { height: 45px; width: auto; }
+body { background: #eaeff2; margin: 0; padding-bottom: 90px; }
+header { background: white; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+#main-logo { height: 40px; }
 
-.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; max-width: 500px; margin: auto; }
-.menu-card { background: white; padding: 15px 5px; border-radius: 12px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #eee; }
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+.menu-card { background: white; padding: 20px 10px; border-radius: 15px; text-align: center; border: 1px solid #ddd; cursor: pointer; transition: 0.2s; }
+.menu-card:active { transform: scale(0.95); background: #f0f0f0; }
 .menu-card .icon { font-size: 1.8rem; margin-bottom: 5px; }
-.menu-card span { font-weight: bold; font-size: 0.85rem; color: #444; }
+.menu-card span { font-weight: bold; font-size: 0.9rem; color: #333; }
 
-.calc-section { padding: 15px; width: 100%; max-width: 450px; margin: auto; animation: slide 0.3s ease; }
-.back-btn { background: none; border: none; color: var(--azul); font-weight: bold; cursor: pointer; margin-bottom: 15px; }
+.calc-section { padding: 15px; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-input, select { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; }
-.action-btn { background: var(--azul); color: white; border: none; padding: 12px; width: 100%; border-radius: 30px; font-weight: bold; margin-top: 5px; cursor: pointer; }
+.back-btn { background: none; border: none; color: var(--azul); font-weight: bold; font-size: 1rem; margin-bottom: 10px; cursor: pointer; }
+input { width: 100%; padding: 15px; margin: 8px 0; border: 2px solid #ddd; border-radius: 12px; font-size: 1.1rem; }
+input:focus { border-color: var(--azul); outline: none; }
 
-.result { margin-top: 15px; padding: 15px; background: #e8f5e9; border-radius: 10px; color: #2e7d32; font-weight: bold; font-size: 1.2rem; border: 2px solid #2e7d32; text-align: center; }
+.action-btn { background: var(--azul); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 1.1rem; margin-top: 10px; }
+.action-btn.secondary { background: #6c757d; }
+.add-btn { background: #e9ecef; border: 2px dashed #adb5bd; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; margin: 15px 0; color: #495057; font-size: 1rem; }
 
-/* DIAGRAMA */
-.diagrama-box { background: #fff; height: 80px; margin-bottom: 15px; border-radius: 10px; border: 1px dashed #bbb; display: flex; align-items: center; justify-content: center; position: relative; }
-.esquema-linea { height: 2px; background: #333; position: absolute; width: 80%; }
-.componente-dibujo { width: 25px; height: 12px; border: 2px solid #333; background: #fff; z-index: 2; margin: 0 5px; }
-.paralelo-dibujo { display: flex; flex-direction: column; gap: 5px; }
+.input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.remove-btn { background: var(--rojo); color: white; width: 45px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; }
 
-/* INPUTS DINAMICOS */
-.input-row { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
-.val-input { flex: 1; }
-.remove-btn { color: red; font-weight: bold; padding: 10px; cursor: pointer; font-size: 1.2rem; }
-.add-btn { background: #f8f9fa; border: 1px solid #ddd; padding: 10px; width: 100%; border-radius: 8px; font-weight: bold; color: var(--azul); margin-top: 5px; cursor: pointer; }
+.result { margin-top: 20px; padding: 20px; background: #d4edda; border-radius: 12px; color: #155724; font-weight: bold; text-align: center; font-size: 1.3rem; border: 2px solid #c3e6cb; }
 
-.resistor-preview { display: flex; align-items: center; justify-content: center; margin: 15px 0; }
-.wire { width: 20px; height: 6px; background: #bbb; }
-.resistor-body { width: 150px; height: 45px; background: #d1b48c; border-radius: 10px; display: flex; justify-content: space-between; padding: 0 10px; align-items: center; }
-.band { width: 8px; height: 100%; }
-.spacer { margin-left: 8px; }
+.diagrama-box { height: 80px; background: #fff; margin-bottom: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; }
 
-#whatsapp-btn { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); background: var(--verde); color: white; padding: 12px 20px; border-radius: 50px; display: flex; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 100; width: 85%; max-width: 280px; justify-content: center; font-weight: bold; }
-#whatsapp-btn img { width: 18px; margin-right: 8px; }
-
-@keyframes slide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+#whatsapp-btn { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); background: var(--verde); color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 80%; text-align: center; z-index: 1000; }
 
 
