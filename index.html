@@ -49,11 +49,17 @@
                     </div>
                     <p>Capacitores</p>
                 </div>
+                <div class="card-mini" onclick="abrirHerramienta('herram-fuentes')">
+                    <div class="card-icon-container">
+                        <img src="fuente.png" alt="Icono Fuentes" class="ventana-icon-mini">
+                    </div>
+                    <p>Voltaje y Amperaje</p>
+                </div>
             </div>
         </section>
 
         <section id="herram-resistencias" class="ventana-capa" style="display:none;">
-            <button class="btn-atras" onclick="cerrarHerramienta('herram-resistencias')">← Volver a Conexiones</button>
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-resistencias')">← Volver</button>
             <div class="contenido-herramienta">
                 <h3>Resistencias</h3>
                 <div class="contenedor-esquemas">
@@ -82,7 +88,7 @@
         </section>
 
         <section id="herram-bobinas" class="ventana-capa" style="display:none;">
-            <button class="btn-atras" onclick="cerrarHerramienta('herram-bobinas')">← Volver a Conexiones</button>
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-bobinas')">← Volver</button>
             <div class="contenido-herramienta">
                 <h3>Bobinas / Inductores</h3>
                 <div class="contenedor-esquemas">
@@ -111,7 +117,7 @@
         </section>
 
         <section id="herram-capacitores" class="ventana-capa" style="display:none;">
-            <button class="btn-atras" onclick="cerrarHerramienta('herram-capacitores')">← Volver a Conexiones</button>
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-capacitores')">← Volver</button>
             <div class="contenido-herramienta">
                 <h3>Capacitores / Condensadores</h3>
                 <div class="contenedor-esquemas">
@@ -131,17 +137,41 @@
                     <button class="btn-calcular" onclick="calcularCapacitores()">CALCULAR TOTAL</button>
                     <div id="resultado-final-cap" class="caja-resultado">Total: --</div>
                     <select id="unidad-resultado-cap" onchange="calcularCapacitores()">
-                        <option value="0.000000000001">pF (picoFaradios)</option>
-                        <option value="0.000000001">nF (nanoFaradios)</option>
-                        <option value="0.000001" selected>µF (microFaradios)</option>
-                        <option value="1">F (Faradios)</option>
+                        <option value="0.000000000001">pF</option>
+                        <option value="0.000000001">nF</option>
+                        <option value="0.000001" selected>µF</option>
+                        <option value="1">F</option>
                     </select>
                 </div>
             </div>
         </section>
 
-    </main>
+        <section id="herram-fuentes" class="ventana-capa" style="display:none;">
+            <button class="btn-atras" onclick="cerrarHerramienta('herram-fuentes')">← Volver</button>
+            <div class="contenido-herramienta">
+                <h3>Voltaje y Amperaje</h3>
+                <div class="contenedor-esquemas">
+                    <img src="fuente-serie.png" id="img-serie-fnt" class="img-circuito" alt="Fuentes Serie">
+                    <img src="fuente-paralelo.png" id="img-paralelo-fnt" class="img-circuito" alt="Fuentes Paralelo" style="display:none;">
+                </div>
+                <div class="selector-modo">
+                    <label>Tipo de Conexión:</label>
+                    <select id="modo-calculo-fnt" onchange="cambiarEsquemaFuente()">
+                        <option value="serie">Serie (Suma V)</option>
+                        <option value="paralelo">Paralelo (Suma A)</option>
+                    </select>
+                </div>
+                <div id="lista-valores-fnt"></div>
+                <button class="btn-agregar" onclick="agregarFilaFuente()">+ Añadir Fuente</button>
+                <div class="seccion-resultado">
+                    <button class="btn-calcular" onclick="calcularFuentes()">CALCULAR TOTAL</button>
+                    <div id="resultado-v" class="caja-resultado" style="font-size: 1.2rem; color: #d32f2f;">Voltaje Total: -- V</div>
+                    <div id="resultado-a" class="caja-resultado" style="font-size: 1.2rem; color: #388e3c;">Amperaje Total: -- A</div>
+                </div>
+            </div>
+        </section>
 
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
