@@ -1,4 +1,3 @@
-// --- NAVEGACIÓN ---
 function abrirSubventana(id) {
     document.getElementById('ventana-inicio').style.display = 'none';
     document.getElementById(id).style.display = 'block';
@@ -16,6 +15,7 @@ function abrirHerramienta(id) {
         document.getElementById('lista-valores').innerHTML = '';
         agregarFilaResistencia();
         agregarFilaResistencia();
+        cambiarEsquema();
     }
 }
 
@@ -24,18 +24,19 @@ function cerrarHerramienta(id) {
     document.getElementById('cat-conexiones').style.display = 'block';
 }
 
-// --- LÓGICA DE RESISTENCIAS ---
-
 function cambiarEsquema() {
     const modo = document.getElementById('modo-calculo').value;
+    const imgSerie = document.getElementById('img-serie');
+    const imgParalelo = document.getElementById('img-paralelo');
+
     if (modo === 'serie') {
-        document.getElementById('esquema-serie').style.display = 'block';
-        document.getElementById('esquema-paralelo').style.display = 'none';
+        imgSerie.style.display = 'block';
+        imgParalelo.style.display = 'none';
     } else {
-        document.getElementById('esquema-serie').style.display = 'none';
-        document.getElementById('esquema-paralelo').style.display = 'block';
+        imgSerie.style.display = 'none';
+        imgParalelo.style.display = 'block';
     }
-    calcularResistencias(); // Recalcular al cambiar modo
+    calcularResistencias();
 }
 
 function agregarFilaResistencia() {
@@ -43,7 +44,7 @@ function agregarFilaResistencia() {
     const div = document.createElement('div');
     div.className = 'fila-valor';
     div.innerHTML = `
-        <input type="number" class="res-input" placeholder="Valor" oninput="calcularResistencias()">
+        <input type="number" class="res-input" placeholder="0" oninput="calcularResistencias()" inputmode="decimal">
         <select class="unit-select" onchange="calcularResistencias()">
             <option value="1">Ω</option>
             <option value="1000">kΩ</option>
@@ -59,7 +60,6 @@ function calcularResistencias() {
     const factorSalida = parseFloat(document.getElementById('unidad-resultado').value);
     
     let ohmios = [];
-
     filas.forEach(f => {
         const val = parseFloat(f.querySelector('.res-input').value);
         const uni = parseFloat(f.querySelector('.unit-select').value);
