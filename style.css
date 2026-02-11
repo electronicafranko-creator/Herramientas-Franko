@@ -1,34 +1,27 @@
-:root { --azul: #007bff; --verde: #25d366; --rojo: #dc3545; --gris: #f8f9fa; }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Segoe UI', Arial, sans-serif; }
+:root { --azul: #007bff; --verde: #25d366; --rojo: #dc3545; --fondo: #f4f7f9; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: sans-serif; }
 
-body { background: #eaeff2; margin: 0; padding-bottom: 90px; }
-header { background: white; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+body { background: var(--fondo); margin: 0; padding-bottom: 90px; }
+header { background: white; padding: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 #main-logo { height: 40px; }
 
 .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-.menu-card { background: white; padding: 20px 10px; border-radius: 15px; text-align: center; border: 1px solid #ddd; cursor: pointer; transition: 0.2s; }
-.menu-card:active { transform: scale(0.95); background: #f0f0f0; }
-.menu-card .icon { font-size: 1.8rem; margin-bottom: 5px; }
-.menu-card span { font-weight: bold; font-size: 0.9rem; color: #333; }
+.menu-card { background: white; padding: 20px 10px; border-radius: 15px; text-align: center; border: 1px solid #ddd; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.menu-card:active { transform: scale(0.96); background: #fafafa; }
 
-.calc-section { padding: 15px; animation: fadeIn 0.3s; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.calc-section { padding: 15px; max-width: 500px; margin: auto; }
+.back-btn { background: none; border: none; color: var(--azul); font-weight: bold; font-size: 1rem; cursor: pointer; margin-bottom: 10px; }
 
-.back-btn { background: none; border: none; color: var(--azul); font-weight: bold; font-size: 1rem; margin-bottom: 10px; cursor: pointer; }
-input { width: 100%; padding: 15px; margin: 8px 0; border: 2px solid #ddd; border-radius: 12px; font-size: 1.1rem; }
-input:focus { border-color: var(--azul); outline: none; }
+/* FILAS DE INPUT */
+.input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; background: white; padding: 5px 10px; border-radius: 12px; border: 1px solid #eee; }
+input { flex: 1; border: none; padding: 12px; font-size: 1.1rem; outline: none; border-radius: 10px; }
+.unit-label { font-weight: bold; color: #888; width: 40px; }
+.remove-btn { color: var(--rojo); font-weight: bold; padding: 10px; font-size: 1.2rem; }
 
-.action-btn { background: var(--azul); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 1.1rem; margin-top: 10px; }
-.action-btn.secondary { background: #6c757d; }
-.add-btn { background: #e9ecef; border: 2px dashed #adb5bd; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; margin: 15px 0; color: #495057; font-size: 1rem; }
+.action-btn { background: var(--azul); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 1rem; margin-top: 10px; }
+.action-btn.secondary { background: #495057; }
+.add-btn { background: white; border: 2px dashed var(--azul); color: var(--azul); padding: 12px; width: 100%; border-radius: 12px; font-weight: bold; margin: 10px 0; }
 
-.input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.remove-btn { background: var(--rojo); color: white; width: 45px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; }
+.result { margin-top: 20px; padding: 20px; background: #e7f3ff; border: 2px solid var(--azul); border-radius: 15px; color: var(--azul); font-weight: bold; text-align: center; font-size: 1.4rem; }
 
-.result { margin-top: 20px; padding: 20px; background: #d4edda; border-radius: 12px; color: #155724; font-weight: bold; text-align: center; font-size: 1.3rem; border: 2px solid #c3e6cb; }
-
-.diagrama-box { height: 80px; background: #fff; margin-bottom: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; }
-
-#whatsapp-btn { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); background: var(--verde); color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 80%; text-align: center; z-index: 1000; }
-
-
+#whatsapp-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--verde); color: white; padding: 15px; border-radius: 50px; font-weight: bold; width: 85%; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 1000; }
