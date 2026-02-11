@@ -12,28 +12,33 @@ main { padding: 15px; max-width: 500px; margin: 0 auto; }
 .titulo-seccion { text-align: center; font-size: 1.2rem; margin: 15px 0; }
 
 .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-#cat-conexiones .menu-grid { grid-template-columns: 1fr; }
+#cat-conexiones .menu-grid { grid-template-columns: 1fr 1fr; }
 
 .card, .card-mini { background: var(--blanco); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #ddd; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; cursor: pointer;}
-.card-icon-container { width: 100%; margin-bottom: 12px; display: flex; justify-content: center; }
+
+/* Iconos */
+.card-icon-container { width: 100%; margin-bottom: 10px; display: flex; justify-content: center; }
 .ventana-icon { width: 70px; height: 70px; object-fit: contain; }
+.ventana-icon-mini { width: 50px; height: 50px; object-fit: contain; }
 
-/* CALCULADORA STYLES */
+/* Esquemas */
+.contenedor-esquemas { background: #eee; border-radius: 10px; padding: 10px; margin-bottom: 15px; min-height: 100px; display: flex; align-items: center; justify-content: center; }
+.esquema-box p { font-size: 0.8rem; font-weight: bold; color: #666; margin: 0 0 5px 0; }
+
+/* Calculadora */
 .contenido-herramienta { background: var(--blanco); padding: 15px; border-radius: 15px; border: 1px solid #ddd; }
-.selector-modo { margin: 15px 0; text-align: left; }
-.selector-modo select, .unit-select { padding: 8px; border-radius: 8px; border: 1px solid #ccc; background: #fff; }
+.selector-modo { margin-bottom: 15px; text-align: left; }
+.selector-modo select { width: 100%; padding: 10px; border-radius: 8px; }
 
-.fila-valor { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
-.fila-valor input { flex: 2; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
-.fila-valor select { flex: 1; }
+.fila-valor { display: flex; gap: 5px; margin-bottom: 8px; }
+.fila-valor input { flex: 2; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+.fila-valor select { flex: 1; border-radius: 8px; }
 
-.btn-agregar { width: 100%; background: #6c757d; color: white; border: none; padding: 10px; border-radius: 8px; margin-top: 10px; cursor: pointer;}
-.btn-calcular { width: 100%; background: var(--verde); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; margin-top: 20px; cursor: pointer;}
+.btn-agregar { width: 100%; background: #6c757d; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; }
+.btn-calcular { width: 100%; background: var(--verde); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; margin-top: 15px; cursor: pointer; }
 
-.seccion-resultado { margin-top: 20px; padding-top: 15px; border-top: 2px dashed #ddd; }
-.caja-resultado { font-size: 1.5rem; font-weight: bold; color: var(--azul); margin: 15px 0; }
+.caja-resultado { font-size: 1.4rem; font-weight: bold; color: var(--azul); margin: 15px 0; }
 #unidad-resultado { width: 100%; padding: 10px; border-radius: 8px; }
 
 .card:active, .card-mini:active { transform: scale(0.97); background: #f9f9f9; }
-.mini-icon { font-size: 1.8rem; display: block; margin-bottom: 5px; }
 .card-text { font-weight: bold; font-size: 1.1rem; }
