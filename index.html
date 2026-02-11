@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ElectroFranko Pro</title>
+    <title>ElectroFranko Pro - Suite</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,6 +24,7 @@
             <div class="menu-card" onclick="showSection('led')"><div class="icon">💡</div><span>Calc. LED</span></div>
             <div class="menu-card" onclick="showSection('divisor')"><div class="icon">📉</div><span>Divisor V</span></div>
             <div class="menu-card" onclick="showSection('lm317')"><div class="icon">🔌</div><span>LM317</span></div>
+            <div class="menu-card" onclick="showSection('conexiones')"><div class="icon">🔗</div><span>Serie/Paralelo</span></div>
             <div class="menu-card" onclick="showSection('empaques')"><div class="icon">📦</div><span>Empaques</span></div>
         </section>
 
@@ -121,6 +122,23 @@
             <div id="res-lm" class="result">Vout = 1.25V</div>
         </section>
 
+        <section id="conexiones" class="calc-section" style="display:none;">
+            <button class="back-btn" onclick="showDashboard()">← Volver</button>
+            <h2>Conexiones Serie/Paralelo</h2>
+            <label>Componente:</label>
+            <select id="comp-type">
+                <option value="res-ind">Resistencias / Bobinas</option>
+                <option value="cap">Capacitores</option>
+            </select>
+            <input type="number" id="c_val1" placeholder="Valor 1">
+            <input type="number" id="c_val2" placeholder="Valor 2">
+            <div style="display: flex; gap: 10px; margin-top:10px;">
+                <button class="action-btn" style="flex:1" onclick="calcCircuito('serie')">Serie</button>
+                <button class="action-btn" style="flex:1; background:#6c757d;" onclick="calcCircuito('paralelo')">Paralelo</button>
+            </div>
+            <div id="res-circuito" class="result">Resultado</div>
+        </section>
+
         <section id="empaques" class="calc-section" style="display:none;">
             <button class="back-btn" onclick="showDashboard()">← Volver</button>
             <h2>Guía de Empaques</h2>
@@ -129,7 +147,7 @@
                 <p><b>Transistores:</b> SOT-23, TO-92, TO-220, TO-3</p>
                 <p><b>Diodos:</b> DO-41, SOD-123, SMA, SMB</p>
             </div>
-            <div class="result">Consultar disponibilidad</div>
+            <div class="result">Venta en Tienda</div>
         </section>
     </main>
 
@@ -141,5 +159,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
