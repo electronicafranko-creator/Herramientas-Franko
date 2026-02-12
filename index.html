@@ -182,54 +182,73 @@
 </body>
 </html>
 
-<section id="cat-calculadoras" class="ventana-capa" style="display:none;">
-    <button class="btn-atras" onclick="cerrarSubventana('cat-calculadoras')">← Volver al Inicio</button>
-    <h2 class="titulo-seccion">Calculadoras Electrónicas</h2>
-    <div class="menu-grid">
-        <div class="card-mini" onclick="abrirHerramienta('calc-colores')">
-            <div class="card-icon-container"><img src="icon-colores.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de Códigos de Colores de Resistencias</p>
+<section id="calc-colores" class="ventana-capa" style="display:none;">
+    <button class="btn-atras" onclick="cerrarHerramienta('calc-colores')">← Volver</button>
+    <div class="contenido-herramienta">
+        <h3>Código de Colores (4 Bandas)</h3>
+        
+        <div class="resistor-visual">
+            <div class="resistor-body">
+                <div id="v-band1" class="band"></div>
+                <div id="v-band2" class="band"></div>
+                <div id="v-multi" class="band"></div>
+                <div id="v-tol" class="band"></div>
+            </div>
         </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-smd-res')">
-            <div class="card-icon-container"><img src="icon-smd-res.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de Código del Resistor SMD</p>
+
+        <div class="controles-colores">
+            <label>Banda 1</label>
+            <select id="band1" onchange="calcularResistenciaColor()">
+                <option value="0" style="background:black;color:white;">Negro (0)</option>
+                <option value="1" style="background:brown;color:white;">Marrón (1)</option>
+                <option value="2" style="background:red;color:white;">Rojo (2)</option>
+                <option value="3" style="background:orange;">Naranja (3)</option>
+                <option value="4" style="background:yellow;">Amarillo (4)</option>
+                <option value="5" style="background:green;color:white;">Verde (5)</option>
+                <option value="6" style="background:blue;color:white;">Azul (6)</option>
+                <option value="7" style="background:violet;">Violeta (7)</option>
+                <option value="8" style="background:gray;color:white;">Gris (8)</option>
+                <option value="9" style="background:white;">Blanco (9)</option>
+            </select>
+
+            <label>Banda 2</label>
+            <select id="band2" onchange="calcularResistenciaColor()">
+                <option value="0" style="background:black;color:white;">Negro (0)</option>
+                <option value="1" style="background:brown;color:white;">Marrón (1)</option>
+                <option value="2" style="background:red;color:white;">Rojo (2)</option>
+                <option value="3" style="background:orange;">Naranja (3)</option>
+                <option value="4" style="background:yellow;">Amarillo (4)</option>
+                <option value="5" style="background:green;color:white;">Verde (5)</option>
+                <option value="6" style="background:blue;color:white;">Azul (6)</option>
+                <option value="7" style="background:violet;">Violeta (7)</option>
+                <option value="8" style="background:gray;color:white;">Gris (8)</option>
+                <option value="9" style="background:white;">Blanco (9)</option>
+            </select>
+
+            <label>Multiplicador</label>
+            <select id="multi" onchange="calcularResistenciaColor()">
+                <option value="1" style="background:black;color:white;">x1 (Negro)</option>
+                <option value="10" style="background:brown;color:white;">x10 (Marrón)</option>
+                <option value="100" style="background:red;color:white;">x100 (Rojo)</option>
+                <option value="1000" style="background:orange;">x1k (Naranja)</option>
+                <option value="10000" style="background:yellow;">x10k (Amarillo)</option>
+                <option value="100000" style="background:green;color:white;">x100k (Verde)</option>
+                <option value="1000000" style="background:blue;color:white;">x1M (Azul)</option>
+                <option value="0.1" style="background:gold;">x0.1 (Oro)</option>
+                <option value="0.01" style="background:silver;">x0.01 (Plata)</option>
+            </select>
+
+            <label>Tolerancia</label>
+            <select id="tol" onchange="calcularResistenciaColor()">
+                <option value="1" style="background:brown;color:white;">±1% (Marrón)</option>
+                <option value="2" style="background:red;color:white;">±2% (Rojo)</option>
+                <option value="5" style="background:gold;">±5% (Oro)</option>
+                <option value="10" style="background:silver;">±10% (Plata)</option>
+            </select>
         </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-smd-cap')">
-            <div class="card-icon-container"><img src="icon-smd-cap.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de Código del Condensador SMD</p>
-        </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-ohm')">
-            <div class="card-icon-container"><img src="icon-ohm.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de Ley de Ohm</p>
-        </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-bateria')">
-            <div class="card-icon-container"><img src="icon-bateria.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de Vida Útil de una Batería</p>
-        </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-div-corriente')">
-            <div class="card-icon-container"><img src="icon-div-corriente.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de División de Corriente</p>
-        </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-div-voltaje')">
-            <div class="card-icon-container"><img src="icon-div-voltaje.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de División de Voltaje</p>
-        </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-led')">
-            <div class="card-icon-container"><img src="icon-led.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de Resistencia Serie LED</p>
-        </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-pcb')">
-            <div class="card-icon-container"><img src="icon-pcb.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de Ancho de Trazas de PCB</p>
-        </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-555')">
-            <div class="card-icon-container"><img src="icon-555.png" class="ventana-icon-mini"></div>
-            <p>Calculadora para Temporizador 555</p>
-        </div>
-        <div class="card-mini" onclick="abrirHerramienta('calc-cable')">
-            <div class="card-icon-container"><img src="icon-cable.png" class="ventana-icon-mini"></div>
-            <p>Calculadora de Conversión de Tamaño de Cable</p>
+
+        <div class="caja-resultado" id="res-color-total" style="background: #eef; border: 2px solid #007bff; border-radius: 10px; padding: 15px; margin-top: 20px;">
+            Resultado: --
         </div>
     </div>
 </section>
-
