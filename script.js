@@ -162,3 +162,42 @@ function calcularFuentes() {
     document.getElementById('resultado-v').innerText = `Voltaje Total: ${tV} V`;
     document.getElementById('resultado-a').innerText = `Amperaje Total: ${tA} A`;
 }
+// --- SECCIÓN DE CALCULADORAS (BLOQUE INDEPENDIENTE) ---
+
+function abrirMenuCalculadoras() {
+    document.getElementById('ventana-inicio').style.display = 'none';
+    document.getElementById('cat-calculadoras').style.display = 'block';
+}
+
+function abrirCalculadoraColores() {
+    document.getElementById('cat-calculadoras').style.display = 'none';
+    document.getElementById('calc-colores').style.display = 'block';
+    calcularColores(); // Calcula el valor inicial al abrir
+}
+
+function volverAlMenuCalculadoras() {
+    document.getElementById('calc-colores').style.display = 'none';
+    document.getElementById('cat-calculadoras').style.display = 'block';
+}
+
+function calcularColores() {
+    const b1 = document.getElementById('band1').value;
+    const b2 = document.getElementById('band2').value;
+    const m = parseFloat(document.getElementById('multi').value);
+    const t = document.getElementById('tol').value;
+
+    const valorBase = (parseInt(b1 + b2) * m);
+    let mostrar = valorBase;
+    let unidad = " Ω";
+
+    if (valorBase >= 1000000) {
+        mostrar = valorBase / 1000000;
+        unidad = " MΩ";
+    } else if (valorBase >= 1000) {
+        mostrar = valorBase / 1000;
+        unidad = " kΩ";
+    }
+
+    document.getElementById('res-colores-txt').innerHTML = `<b>${mostrar}${unidad}</b> <br> <small>Tolerancia: ±${t}%</small>`;
+}
+
