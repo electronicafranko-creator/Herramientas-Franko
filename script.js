@@ -227,3 +227,14 @@ function calcularResistenciaColor() {
         <span style="font-size:0.9rem">Tolerancia: ±${t}%</span>
     `;
 }
+
+function calcularResistenciaColor() {
+    const b1 = document.getElementById('band1').value;
+    const b2 = document.getElementById('band2').value;
+    const m = document.getElementById('multi').value;
+    
+    const total = (parseInt(b1 + b2)) * parseFloat(m);
+    
+    document.getElementById('res-color-total').innerText = "Resultado: " + total + " Ω";
+}
+
