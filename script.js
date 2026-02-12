@@ -162,3 +162,27 @@ function calcularFuentes() {
     document.getElementById('resultado-v').innerText = `Voltaje Total: ${tV} V`;
     document.getElementById('resultado-a').innerText = `Amperaje Total: ${tA} A`;
 }
+
+function calcularResistenciaColor() {
+    // Obtener valores
+    const b1 = document.getElementById('band1');
+    const b2 = document.getElementById('band2');
+    const m = document.getElementById('multi');
+    const t = document.getElementById('tol');
+
+    const valorBase = (parseInt(b1.value) * 10) + parseInt(b2.value);
+    const resultado = valorBase * parseFloat(m.value);
+
+    // Actualizar colores visuales
+    document.getElementById('v-band1').style.backgroundColor = b1.options[b1.selectedIndex].style.backgroundColor;
+    document.getElementById('v-band2').style.backgroundColor = b2.options[b2.selectedIndex].style.backgroundColor;
+    document.getElementById('v-multi').style.backgroundColor = m.options[m.selectedIndex].style.backgroundColor;
+    document.getElementById('v-tol').style.backgroundColor = t.options[t.selectedIndex].style.backgroundColor;
+
+    // Mostrar resultado
+    let textoResultado = resultado >= 1000 ? (resultado / 1000) + " kΩ" : resultado + " Ω";
+    if (resultado >= 1000000) textoResultado = (resultado / 1000000) + " MΩ";
+
+    document.getElementById('res-color-total').innerText = "Valor: " + textoResultado + " ±" + t.value + "%";
+}
+
