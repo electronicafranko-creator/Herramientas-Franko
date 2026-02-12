@@ -171,7 +171,53 @@
             </div>
         </section>
 
-    </main>
-    <script src="script.js"></script>
-</body>
-</html>
+    <div class="card" onclick="abrirMenuCalculadoras()" style="margin-top:15px;">
+    <div class="card-icon-container">
+        <img src="resistencia.png" class="ventana-icon">
+    </div>
+    <span class="card-text">Calculadoras Electrónicas</span>
+</div>
+
+<section id="cat-calculadoras" class="ventana-capa" style="display:none;">
+    <button class="btn-atras" onclick="cerrarSubventana('cat-calculadoras')">← Volver al Inicio</button>
+    <h2 class="titulo-seccion">Calculadoras</h2>
+    <div class="menu-grid">
+        <div class="card-mini" onclick="abrirCalculadoraColores()">
+            <div class="card-icon-container">
+                <img src="resistencia.png" class="ventana-icon-mini">
+            </div>
+            <p>Código de Colores</p>
+        </div>
+    </div>
+</section>
+
+<section id="calc-colores" class="ventana-capa" style="display:none;">
+    <button class="btn-atras" onclick="volverAlMenuCalculadoras()">← Volver</button>
+    <div class="contenido-herramienta">
+        <h3>Resistencia por Colores</h3>
+        <div style="display:grid; gap:10px; padding:15px; background:#fff; border-radius:10px; color:#333;">
+            <label>Banda 1</label>
+            <select id="band1" onchange="calcularColores()">
+                <option value="1">Marrón (1)</option><option value="2">Rojo (2)</option>
+                <option value="3">Naranja (3)</option><option value="4">Amarillo (4)</option>
+                <option value="5">Verde (5)</option><option value="6">Azul (6)</option>
+            </select>
+            <label>Banda 2</label>
+            <select id="band2" onchange="calcularColores()">
+                <option value="0">Negro (0)</option><option value="1">Marrón (1)</option>
+                <option value="2">Rojo (2)</option><option value="3">Naranja (3)</option>
+            </select>
+            <label>Multiplicador</label>
+            <select id="multi" onchange="calcularColores()">
+                <option value="1">x1 Ω</option><option value="10">x10 Ω</option>
+                <option value="1000">x1 kΩ</option><option value="1000000">x1 MΩ</option>
+            </select>
+            <label>Tolerancia</label>
+            <select id="tol" onchange="calcularColores()">
+                <option value="5">Oro (5%)</option><option value="10">Plata (10%)</option>
+            </select>
+        </div>
+        <div id="res-colores-txt" style="margin-top:20px; text-align:center; font-size:1.5rem; background:#222; color:#0f0; padding:15px; border-radius:8px;">--</div>
+    </div>
+</section>
+
