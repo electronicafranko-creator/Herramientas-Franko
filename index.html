@@ -182,30 +182,29 @@
 </body>
 </html>
 
-</div> </section> ```
-<section id="calc-colores" class="ventana-capa" style="display:none;">
+<section id="calc-colores" class="ventana-capa" style="display:none; border: 5px solid red;">
     <button class="btn-atras" onclick="cerrarHerramienta('calc-colores')">← Volver</button>
     <div class="contenido-herramienta">
-        <h3>Resistencias por Color</h3>
+        <h3 style="text-align:center;">Resistencias por Color</h3>
         
         <div class="selector-modo" style="margin-bottom: 15px; display: flex; justify-content: center; gap: 10px;">
-            <button onclick="cambiarBandas(4)" id="btn4b" class="btn-modo activo">4 Bandas</button>
-            <button onclick="cambiarBandas(5)" id="btn5b" class="btn-modo">5 Bandas</button>
+            <button onclick="cambiarBandas(4)" id="btn4b" class="btn-modo activo" style="padding:10px;">4 Bandas</button>
+            <button onclick="cambiarBandas(5)" id="btn5b" class="btn-modo" style="padding:10px;">5 Bandas</button>
         </div>
 
-        <div class="resistor-visual">
-            <div class="resistor-body">
-                <div id="v-band1" class="band" style="background:brown"></div>
-                <div id="v-band2" class="band" style="background:black"></div>
-                <div id="v-band3" class="band" style="display:none; background:black"></div>
-                <div id="v-multi" class="band" style="background:red"></div>
-                <div id="v-tol" class="band" style="background:gold"></div>
+        <div class="resistor-visual" style="display:flex; justify-content:center; margin:20px;">
+            <div class="resistor-body" style="width:150px; height:40px; background:#d1b48c; border-radius:20px; display:flex; justify-content:space-around; padding:0 15px; border:2px solid #000;">
+                <div id="v-band1" style="width:10px; height:100%; background:brown"></div>
+                <div id="v-band2" style="width:10px; height:100%; background:black"></div>
+                <div id="v-band3" style="width:10px; height:100%; display:none; background:black"></div>
+                <div id="v-multi" style="width:10px; height:100%; background:red"></div>
+                <div id="v-tol" style="width:10px; height:100%; background:gold"></div>
             </div>
         </div>
 
-        <div class="controles-colores">
+        <div class="controles-colores" style="display:grid; gap:10px;">
             <label>Banda 1</label>
-            <select id="band1" onchange="calcularResistenciaColor()">
+            <select id="band1" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
                 <option value="0" style="background:black;color:white;">Negro</option>
                 <option value="1" style="background:brown;color:white;" selected>Marrón</option>
                 <option value="2" style="background:red;color:white;">Rojo</option>
@@ -219,7 +218,7 @@
             </select>
 
             <label>Banda 2</label>
-            <select id="band2" onchange="calcularResistenciaColor()">
+            <select id="band2" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
                 <option value="0" style="background:black;color:white;" selected>Negro</option>
                 <option value="1" style="background:brown;color:white;">Marrón</option>
                 <option value="2" style="background:red;color:white;">Rojo</option>
@@ -234,7 +233,7 @@
 
             <div id="grupo-b3" style="display:none;">
                 <label>Banda 3</label>
-                <select id="band3" onchange="calcularResistenciaColor()">
+                <select id="band3" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
                     <option value="0" style="background:black;color:white;">Negro</option>
                     <option value="1" style="background:brown;color:white;">Marrón</option>
                     <option value="2" style="background:red;color:white;">Rojo</option>
@@ -249,7 +248,7 @@
             </div>
 
             <label>Multiplicador</label>
-            <select id="multi" onchange="calcularResistenciaColor()">
+            <select id="multi" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
                 <option value="1" style="background:black;color:white;">x1 (Negro)</option>
                 <option value="10" style="background:brown;color:white;">x10 (Marrón)</option>
                 <option value="100" style="background:red;color:white;" selected>x100 (Rojo)</option>
@@ -262,7 +261,7 @@
             </select>
 
             <label>Tolerancia</label>
-            <select id="tol" onchange="calcularResistenciaColor()">
+            <select id="tol" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
                 <option value="1" style="background:brown;color:white;">±1% (Marrón)</option>
                 <option value="2" style="background:red;color:white;">±2% (Rojo)</option>
                 <option value="5" style="background:gold;" selected>±5% (Oro)</option>
@@ -270,11 +269,10 @@
             </select>
         </div>
 
-        <div class="caja-resultado" id="res-color-total" style="background: #eef; border: 2px solid #007bff; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: center; font-weight: bold;">
+        <div id="res-color-total" style="background: #eef; border: 2px solid #007bff; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: center; font-weight: bold;">
             Valor: 1.0 kΩ <br> Tolerancia: ±5%
         </div>
     </div>
 </section>
-
 
 
