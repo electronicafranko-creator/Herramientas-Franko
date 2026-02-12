@@ -182,97 +182,84 @@
 </body>
 </html>
 
-<section id="calc-colores" class="ventana-capa" style="display:none; border: 5px solid red;">
-    <button class="btn-atras" onclick="cerrarHerramienta('calc-colores')">← Volver</button>
-    <div class="contenido-herramienta">
-        <h3 style="text-align:center;">Resistencias por Color</h3>
-        
-        <div class="selector-modo" style="margin-bottom: 15px; display: flex; justify-content: center; gap: 10px;">
-            <button onclick="cambiarBandas(4)" id="btn4b" class="btn-modo activo" style="padding:10px;">4 Bandas</button>
-            <button onclick="cambiarBandas(5)" id="btn5b" class="btn-modo" style="padding:10px;">5 Bandas</button>
-        </div>
+let modoBandas = 4;
 
-        <div class="resistor-visual" style="display:flex; justify-content:center; margin:20px;">
-            <div class="resistor-body" style="width:150px; height:40px; background:#d1b48c; border-radius:20px; display:flex; justify-content:space-around; padding:0 15px; border:2px solid #000;">
-                <div id="v-band1" style="width:10px; height:100%; background:brown"></div>
-                <div id="v-band2" style="width:10px; height:100%; background:black"></div>
-                <div id="v-band3" style="width:10px; height:100%; display:none; background:black"></div>
-                <div id="v-multi" style="width:10px; height:100%; background:red"></div>
-                <div id="v-tol" style="width:10px; height:100%; background:gold"></div>
-            </div>
-        </div>
+function cambiarBandas(n) {
+    modoBandas = n;
+    document.getElementById('btn4b').classList.toggle('activo', n === 4);
+    document.getElementById('btn5b').classList.toggle('activo', n === 5);
+    
+    const b3Visual = document.getElementById('v-band3');
+    const b3Grupo = document.getElementById('grupo-b3');
+    
+    if (n === 5) {
+        b3Visual.style.display = 'block';
+        b3Grupo.style.display = 'block';
+    } else {
+        b3Visual.style.display = 'none';
+        b3Grupo.style.display = 'none';
+    }
+    calcularResistenciaColor();
+}
 
-        <div class="controles-colores" style="display:grid; gap:10px;">
-            <label>Banda 1</label>
-            <select id="band1" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
-                <option value="0" style="background:black;color:white;">Negro</option>
-                <option value="1" style="background:brown;color:white;" selected>Marrón</option>
-                <option value="2" style="background:red;color:white;">Rojo</option>
-                <option value="3" style="background:orange;">Naranja</option>
-                <option value="4" style="background:yellow;">Amarillo</option>
-                <option value="5" style="background:green;color:white;">Verde</option>
-                <option value="6" style="background:blue;color:white;">Azul</option>
-                <option value="7" style="background:violet;">Violeta</option>
-                <option value="8" style="background:gray;color:white;">Gris</option>
-                <option value="9" style="background:white;">Blanco</option>
-            </select>
+function calcularResistenciaColor() {
+    const b1 = document.getElementById('band1').value;
+    const b2 = document.getElementById('band2').value;
+    const b3Element = document.getElementById('band3');
+    const b3 = b3Element ? b3Element.value : "0";
+    const m = document.getElementById('multi').value;
+    const t = document.getElementById('tol').value;
 
-            <label>Banda 2</label>
-            <select id="band2" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
-                <option value="0" style="background:black;color:white;" selected>Negro</option>
-                <option value="1" style="background:brown;color:white;">Marrón</option>
-                <option value="2" style="background:red;color:white;">Rojo</option>
-                <option value="3" style="background:orange;">Naranja</option>
-                <option value="4" style="background:yellow;">Amarillo</option>
-                <option value="5" style="background:green;color:white;">Verde</option>
-                <option value="6" style="background:blue;color:white;">Azul</option>
-                <option value="7" style="background:violet;">Violeta</option>
-                <option value="8" style="background:gray;color:white;">Gris</option>
-                <option value="9" style="background:white;">Blanco</option>
-            </select>
+    let valorBase;
+    if (modoBandas === 4) {
+        valorBase = parseInt(b1 + b2);
+    } else {
+        valorBase = parseInt(b1 + b2 + b3);
+    }
 
-            <div id="grupo-b3" style="display:none;">
-                <label>Banda 3</label>
-                <select id="band3" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
-                    <option value="0" style="background:black;color:white;">Negro</option>
-                    <option value="1" style="background:brown;color:white;">Marrón</option>
-                    <option value="2" style="background:red;color:white;">Rojo</option>
-                    <option value="3" style="background:orange;">Naranja</option>
-                    <option value="4" style="background:yellow;">Amarillo</option>
-                    <option value="5" style="background:green;color:white;">Verde</option>
-                    <option value="6" style="background:blue;color:white;">Azul</option>
-                    <option value="7" style="background:violet;">Violeta</option>
-                    <option value="8" style="background:gray;color:white;">Gris</option>
-                    <option value="9" style="background:white;">Blanco</option>
-                </select>
-            </div>
+    const resultado = valorBase * parseFloat(m);
 
-            <label>Multiplicador</label>
-            <select id="multi" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
-                <option value="1" style="background:black;color:white;">x1 (Negro)</option>
-                <option value="10" style="background:brown;color:white;">x10 (Marrón)</option>
-                <option value="100" style="background:red;color:white;" selected>x100 (Rojo)</option>
-                <option value="1000" style="background:orange;">x1k (Naranja)</option>
-                <option value="10000" style="background:yellow;">x10k (Amarillo)</option>
-                <option value="100000" style="background:green;color:white;">x100k (Verde)</option>
-                <option value="1000000" style="background:blue;color:white;">x1M (Azul)</option>
-                <option value="0.1" style="background:gold;">x0.1 (Oro)</option>
-                <option value="0.01" style="background:silver;">x0.01 (Plata)</option>
-            </select>
+    // Actualizar Colores Visuales
+    document.getElementById('v-band1').style.backgroundColor = document.getElementById('band1').options[document.getElementById('band1').selectedIndex].style.backgroundColor;
+    document.getElementById('v-band2').style.backgroundColor = document.getElementById('band2').options[document.getElementById('band2').selectedIndex].style.backgroundColor;
+    if(modoBandas === 5 && b3Element) {
+        document.getElementById('v-band3').style.backgroundColor = b3Element.options[b3Element.selectedIndex].style.backgroundColor;
+    }
+    document.getElementById('v-multi').style.backgroundColor = document.getElementById('multi').options[document.getElementById('multi').selectedIndex].style.backgroundColor;
+    document.getElementById('v-tol').style.backgroundColor = document.getElementById('tol').options[document.getElementById('tol').selectedIndex].style.backgroundColor;
 
-            <label>Tolerancia</label>
-            <select id="tol" onchange="calcularResistenciaColor()" style="width:100%; padding:8px;">
-                <option value="1" style="background:brown;color:white;">±1% (Marrón)</option>
-                <option value="2" style="background:red;color:white;">±2% (Rojo)</option>
-                <option value="5" style="background:gold;" selected>±5% (Oro)</option>
-                <option value="10" style="background:silver;">±10% (Plata)</option>
-            </select>
-        </div>
+    // Formatear resultado
+    let unidad = " Ω";
+    let valorFinal = resultado;
+    if (resultado >= 1000000) {
+        valorFinal = resultado / 1000000;
+        unidad = " MΩ";
+    } else if (resultado >= 1000) {
+        valorFinal = resultado / 1000;
+        unidad = " kΩ";
+    }
 
-        <div id="res-color-total" style="background: #eef; border: 2px solid #007bff; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: center; font-weight: bold;">
-            Valor: 1.0 kΩ <br> Tolerancia: ±5%
-        </div>
-    </div>
-</section>
+    document.getElementById('res-color-total').innerHTML = `
+        <strong>Valor: ${valorFinal}${unidad}</strong><br>
+        <span style="font-size:0.9rem">Tolerancia: ±${t}%</span>
+    `;
+}
+
+// FUNCIONES DE NAVEGACIÓN
+function abrirHerramienta(id) {
+    document.querySelectorAll('.ventana-capa').forEach(capa => capa.style.display = 'none');
+    const destino = document.getElementById(id);
+    if (destino) {
+        destino.style.display = 'block';
+        window.scrollTo(0,0);
+        // Calculamos una vez al abrir para que no salga vacío
+        if(id === 'calc-colores') calcularResistenciaColor();
+    }
+}
+
+function cerrarHerramienta(id) {
+    document.getElementById(id).style.display = 'none';
+    document.getElementById('cat-calculadoras').style.display = 'block';
+}
 
 
