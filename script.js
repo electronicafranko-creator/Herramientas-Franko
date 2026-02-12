@@ -238,6 +238,8 @@ function ejecutarCalculoColores() {
         cajaRes.innerHTML = `<strong style="font-size:1.5rem;">${valorFinal}${unidad}</strong><br>Tolerancia: ±${t}%`;
     }
 }
+ejecutarCalculoColores()
+
 
 
 
