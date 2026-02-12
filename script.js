@@ -211,19 +211,17 @@ function ejecutarCalculoColores() {
     document.getElementById('v-multi').style.backgroundColor = document.getElementById('multi').options[document.getElementById('multi').selectedIndex].style.backgroundColor;
     document.getElementById('v-tol').style.backgroundColor = document.getElementById('tol').options[document.getElementById('tol').selectedIndex].style.backgroundColor;
 }
+
+// ... aquí termina tu última función vieja con su llave de cierre }
+
 function ejecutarCalculoColores() {
     const b1 = document.getElementById('band1').value;
     const b2 = document.getElementById('band2').value;
     const m = parseFloat(document.getElementById('multi').value);
     const t = document.getElementById('tol').value;
-
-    // Calculamos el valor base (ej: 1 y 2 = 12) y multiplicamos
     const resultado = parseInt(b1 + b2) * m;
-    
     let unidad = " Ω";
     let valorFinal = resultado;
-
-    // Conversión de unidades para lectura clara (sin simplificar el valor)
     if (resultado >= 1000000) {
         valorFinal = resultado / 1000000;
         unidad = " MΩ";
@@ -231,14 +229,13 @@ function ejecutarCalculoColores() {
         valorFinal = resultado / 1000;
         unidad = " kΩ";
     }
-
-    // Mostramos el resultado en la caja
     const cajaRes = document.getElementById('resultado-colores');
     if(cajaRes) {
-        cajaRes.innerHTML = `<strong style="font-size:1.5rem;">${valorFinal}${unidad}</strong><br>Tolerancia: ±${t}%`;
+        cajaRes.innerHTML = `<strong>${valorFinal}${unidad}</strong><br>Tolerancia: ±${t}%`;
     }
 }
-ejecutarCalculoColores()
+
+
 
 
 
