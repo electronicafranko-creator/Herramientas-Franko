@@ -182,73 +182,50 @@
 </body>
 </html>
 
-<section id="cat-calculadoras" class="ventana-capa" style="display:none;">
+<section id="calc-colores" class="ventana-capa" style="display:none;">
     <button class="btn-atras" onclick="cerrarHerramienta('calc-colores')">← Volver</button>
     <div class="contenido-herramienta">
-        <h3>Código de Colores (4 Bandas)</h3>
+        <h3>Resistencias por Color</h3>
         
+        <div class="selector-modo" style="margin-bottom: 15px;">
+            <button onclick="cambiarBandas(4)" id="btn4b" class="btn-modo activo">4 Bandas</button>
+            <button onclick="cambiarBandas(5)" id="btn5b" class="btn-modo">5 Bandas</button>
+        </div>
+
         <div class="resistor-visual">
             <div class="resistor-body">
                 <div id="v-band1" class="band"></div>
                 <div id="v-band2" class="band"></div>
-                <div id="v-multi" class="band"></div>
+                <div id="v-band3" class="band" style="display:none;"></div> <div id="v-multi" class="band"></div>
                 <div id="v-tol" class="band"></div>
             </div>
         </div>
 
         <div class="controles-colores">
-            <label>Banda 1</label>
-            <select id="band1" onchange="calcularResistenciaColor()">
-                <option value="0" style="background:black;color:white;">Negro (0)</option>
-                <option value="1" style="background:brown;color:white;">Marrón (1)</option>
-                <option value="2" style="background:red;color:white;">Rojo (2)</option>
-                <option value="3" style="background:orange;">Naranja (3)</option>
-                <option value="4" style="background:yellow;">Amarillo (4)</option>
-                <option value="5" style="background:green;color:white;">Verde (5)</option>
-                <option value="6" style="background:blue;color:white;">Azul (6)</option>
-                <option value="7" style="background:violet;">Violeta (7)</option>
-                <option value="8" style="background:gray;color:white;">Gris (8)</option>
-                <option value="9" style="background:white;">Blanco (9)</option>
-            </select>
-
-            <label>Banda 2</label>
-            <select id="band2" onchange="calcularResistenciaColor()">
-                <option value="0" style="background:black;color:white;">Negro (0)</option>
-                <option value="1" style="background:brown;color:white;">Marrón (1)</option>
-                <option value="2" style="background:red;color:white;">Rojo (2)</option>
-                <option value="3" style="background:orange;">Naranja (3)</option>
-                <option value="4" style="background:yellow;">Amarillo (4)</option>
-                <option value="5" style="background:green;color:white;">Verde (5)</option>
-                <option value="6" style="background:blue;color:white;">Azul (6)</option>
-                <option value="7" style="background:violet;">Violeta (7)</option>
-                <option value="8" style="background:gray;color:white;">Gris (8)</option>
-                <option value="9" style="background:white;">Blanco (9)</option>
-            </select>
-
-            <label>Multiplicador</label>
-            <select id="multi" onchange="calcularResistenciaColor()">
-                <option value="1" style="background:black;color:white;">x1 (Negro)</option>
-                <option value="10" style="background:brown;color:white;">x10 (Marrón)</option>
-                <option value="100" style="background:red;color:white;">x100 (Rojo)</option>
-                <option value="1000" style="background:orange;">x1k (Naranja)</option>
-                <option value="10000" style="background:yellow;">x10k (Amarillo)</option>
-                <option value="100000" style="background:green;color:white;">x100k (Verde)</option>
-                <option value="1000000" style="background:blue;color:white;">x1M (Azul)</option>
-                <option value="0.1" style="background:gold;">x0.1 (Oro)</option>
-                <option value="0.01" style="background:silver;">x0.01 (Plata)</option>
-            </select>
-
-            <label>Tolerancia</label>
-            <select id="tol" onchange="calcularResistenciaColor()">
-                <option value="1" style="background:brown;color:white;">±1% (Marrón)</option>
-                <option value="2" style="background:red;color:white;">±2% (Rojo)</option>
-                <option value="5" style="background:gold;">±5% (Oro)</option>
-                <option value="10" style="background:silver;">±10% (Plata)</option>
-            </select>
+            <div id="grupo-b1">
+                <label>Banda 1</label>
+                <select id="band1" onchange="calcularResistenciaColor()"></select>
+            </div>
+            <div id="grupo-b2">
+                <label>Banda 2</label>
+                <select id="band2" onchange="calcularResistenciaColor()"></select>
+            </div>
+            <div id="grupo-b3" style="display:none;">
+                <label>Banda 3 (5 bandas)</label>
+                <select id="band3" onchange="calcularResistenciaColor()"></select>
+            </div>
+            <div id="grupo-multi">
+                <label>Multiplicador</label>
+                <select id="multi" onchange="calcularResistenciaColor()"></select>
+            </div>
+            <div id="grupo-tol">
+                <label>Tolerancia</label>
+                <select id="tol" onchange="calcularResistenciaColor()"></select>
+            </div>
         </div>
 
-        <div class="caja-resultado" id="res-color-total" style="background: #eef; border: 2px solid #007bff; border-radius: 10px; padding: 15px; margin-top: 20px;">
-            Resultado: --
+        <div class="caja-resultado" id="res-color-total">
+            Valor: --
         </div>
     </div>
 </section>
