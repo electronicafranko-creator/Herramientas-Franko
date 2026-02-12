@@ -1,61 +1,72 @@
-// --- TUS FUNCIONES DE NAVEGACIÓN ORIGINALES ---
+// --- NAVEGACIÓN RESCATADA ---
 function abrirSubventana(id) {
+    // Oculta el inicio y muestra la categoría (Conexiones o Calculadoras)
     document.getElementById('ventana-inicio').style.display = 'none';
     document.getElementById(id).style.display = 'block';
 }
 
 function cerrarSubventana(id) {
+    // Vuelve al inicio
     document.getElementById(id).style.display = 'none';
     document.getElementById('ventana-inicio').style.display = 'block';
 }
 
 function abrirHerramienta(id) {
-    // Esta línea cierra el menú que esté abierto (conexiones o calculadoras)
-    document.getElementById('cat-conexiones').style.display = 'none';
-    document.getElementById('cat-calculadoras').style.display = 'none'; 
-    
-    document.querySelectorAll('.ventana-capa').forEach(v => v.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-    
-    // Mantenemos tu lógica de carga para conexiones
-    if(id === 'herram-resistencias') {
-        document.getElementById('lista-valores').innerHTML = '';
-        agregarFilaResistencia(); agregarFilaResistencia();
-        cambiarEsquema();
+    // 1. Detectamos en qué menú estamos para saber qué ocultar
+    // Si el ID empieza por 'herram', venimos de Conexiones
+    if (id.startsWith('herram')) {
+        document.getElementById('cat-conexiones').style.display = 'none';
     } 
-    else if(id === 'herram-bobinas') {
-        document.getElementById('lista-valores-bobina').innerHTML = '';
-        agregarFilaBobina(); agregarFilaBobina();
-        cambiarEsquemaBobina();
+    // Si es de colores, venimos de Calculadoras
+    else if (id === 'calc-colores') {
+        document.getElementById('cat-calculadoras').style.display = 'none';
     }
-    else if(id === 'herram-capacitores') {
-        document.getElementById('lista-valores-cap').innerHTML = '';
-        agregarFilaCapacitor(); agregarFilaCapacitor();
-        cambiarEsquemaCapacitor();
-    }
-    else if(id === 'herram-fuentes') {
-        document.getElementById('lista-valores-fnt').innerHTML = '';
-        agregarFilaFuente(); agregarFilaFuente();
-        cambiarEsquemaFuente();
-    }
-    // Nueva lógica para inicializar calculadora de colores
-    else if(id === 'calc-colores') {
-        calcularResistenciaColor();
+
+    // 2. Mostramos la herramienta
+    const destino = document.getElementById(id);
+    if (destino) {
+        destino.style.display = 'block';
+        
+        // Inicialización de tus herramientas de siempre
+        if(id === 'herram-resistencias') {
+            document.getElementById('lista-valores').innerHTML = '';
+            agregarFilaResistencia(); agregarFilaResistencia();
+            cambiarEsquema();
+        } 
+        else if(id === 'herram-bobinas') {
+            document.getElementById('lista-valores-bobina').innerHTML = '';
+            agregarFilaBobina(); agregarFilaBobina();
+            cambiarEsquemaBobina();
+        }
+        else if(id === 'herram-capacitores') {
+            document.getElementById('lista-valores-cap').innerHTML = '';
+            agregarFilaCapacitor(); agregarFilaCapacitor();
+            cambiarEsquemaCapacitor();
+        }
+        else if(id === 'herram-fuentes') {
+            document.getElementById('lista-valores-fnt').innerHTML = '';
+            agregarFilaFuente(); agregarFilaFuente();
+            cambiarEsquemaFuente();
+        }
+        // Nueva inicialización para colores
+        else if(id === 'calc-colores') {
+            calcularResistenciaColor();
+        }
     }
 }
 
 function cerrarHerramienta(id) {
     document.getElementById(id).style.display = 'none';
-    // Si cerramos algo de conexiones, volvemos a su categoría
-    if(id.startsWith('herram')) {
+    
+    // Si cerramos una de tus herramientas viejas, vuelve a Conexiones
+    if (id.startsWith('herram')) {
         document.getElementById('cat-conexiones').style.display = 'block';
     } 
-    // Si cerramos algo de calculadoras, volvemos a calculadoras
-    else {
+    // Si cerramos la de colores, vuelve a Calculadoras
+    else if (id === 'calc-colores') {
         document.getElementById('cat-calculadoras').style.display = 'block';
     }
 }
-
 // --- TUS LÓGICAS DE CÁLCULO (Resistencias, Bobinas, Capacitores, Fuentes) ---
 // (Manten todas tus funciones: cambiarEsquema, agregarFilaResistencia, calcularResistencias, etc. tal cual las tienes)
 
@@ -90,3 +101,4 @@ function calcularResistenciaColor() {
     document.getElementById('v-multi').style.backgroundColor = document.getElementById('multi').options[document.getElementById('multi').selectedIndex].style.backgroundColor;
     document.getElementById('v-tol').style.backgroundColor = document.getElementById('tol').options[document.getElementById('tol').selectedIndex].style.backgroundColor;
 }
+
