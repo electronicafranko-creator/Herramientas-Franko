@@ -238,3 +238,30 @@ function calcularResistenciaColor() {
     document.getElementById('res-color-total').innerText = "Resultado: " + total + " Ω";
 }
 
+// --- FUNCIONES DE NAVEGACIÓN ---
+
+function abrirHerramienta(id) {
+    // Oculta todas las capas (incluyendo el menú de las 11 calculadoras)
+    const capas = document.querySelectorAll('.ventana-capa');
+    capas.forEach(capa => {
+        capa.style.display = 'none';
+    });
+
+    // Muestra la calculadora que seleccionaste
+    const destino = document.getElementById(id);
+    if (destino) {
+        destino.style.display = 'block';
+        window.scrollTo(0,0); // Sube al inicio de la pantalla
+    } else {
+        console.error("No se encontró la sección con ID: " + id);
+    }
+}
+
+function cerrarHerramienta(id) {
+    // Oculta la calculadora actual
+    document.getElementById(id).style.display = 'none';
+    // Regresa al menú de las 11 calculadoras
+    document.getElementById('cat-calculadoras').style.display = 'block';
+}
+
+
