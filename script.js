@@ -1,4 +1,4 @@
-// NAVEGACIÓN ORIGINAL (NO TOCAR)
+// --- NAVEGACIÓN ---
 function abrirSubventana(id) {
     document.getElementById('ventana-inicio').style.display = 'none';
     document.getElementById(id).style.display = 'block';
@@ -41,7 +41,7 @@ function cerrarHerramienta(id) {
     document.getElementById('cat-conexiones').style.display = 'block';
 }
 
-// LÓGICA RESISTENCIAS
+// --- LÓGICA CONEXIONES (RESISTENCIAS) ---
 function cambiarEsquema() {
     const modo = document.getElementById('modo-calculo').value;
     document.getElementById('img-serie').style.display = modo === 'serie' ? 'block' : 'none';
@@ -72,7 +72,7 @@ function calcularResistencias() {
     document.getElementById('resultado-final').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:3})}`;
 }
 
-// LÓGICA BOBINAS
+// --- LÓGICA CONEXIONES (BOBINAS) ---
 function cambiarEsquemaBobina() {
     const modo = document.getElementById('modo-calculo-bobina').value;
     document.getElementById('img-serie-bobina').style.display = modo === 'serie' ? 'block' : 'none';
@@ -103,7 +103,7 @@ function calcularBobinas() {
     document.getElementById('resultado-final-bobina').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:4})}`;
 }
 
-// LÓGICA CAPACITORES
+// --- LÓGICA CONEXIONES (CAPACITORES) ---
 function cambiarEsquemaCapacitor() {
     const modo = document.getElementById('modo-calculo-cap').value;
     document.getElementById('img-serie-cap').style.display = modo === 'serie' ? 'block' : 'none';
@@ -134,7 +134,7 @@ function calcularCapacitores() {
     document.getElementById('resultado-final-cap').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:6})}`;
 }
 
-// LÓGICA FUENTES (V y A)
+// --- LÓGICA CONEXIONES (FUENTES) ---
 function cambiarEsquemaFuente() {
     const modo = document.getElementById('modo-calculo-fnt').value;
     document.getElementById('img-serie-fnt').style.display = modo === 'serie' ? 'block' : 'none';
@@ -163,8 +163,7 @@ function calcularFuentes() {
     document.getElementById('resultado-a').innerText = `Amperaje Total: ${tA} A`;
 }
 
-// --- FUNCIONES PARA CALCULADORAS (NOMBRES DIFERENTES) ---
-
+// --- NUEVA SECCIÓN: CALCULADORAS ---
 function mostrarMenuCalculadoras(id) {
     document.getElementById('ventana-inicio').style.display = 'none';
     document.getElementById(id).style.display = 'block';
@@ -202,13 +201,5 @@ function ejecutarCalculoColores() {
     const cajaRes = document.getElementById('resultado-colores');
     if(cajaRes) {
         cajaRes.innerHTML = `<strong>Total: ${valorFinal}${unidad}</strong><br>Tolerancia: ±${t}%`;
-    }
-
-    // Actualización visual opcional (si existen los IDs de los colores)
-    if(document.getElementById('v-band1')) {
-        document.getElementById('v-band1').style.backgroundColor = document.getElementById('band1').options[document.getElementById('band1').selectedIndex].style.backgroundColor;
-        document.getElementById('v-band2').style.backgroundColor = document.getElementById('band2').options[document.getElementById('band2').selectedIndex].style.backgroundColor;
-        document.getElementById('v-multi').style.backgroundColor = document.getElementById('multi').options[document.getElementById('multi').selectedIndex].style.backgroundColor;
-        document.getElementById('v-tol').style.backgroundColor = document.getElementById('tol').options[document.getElementById('tol').selectedIndex].style.backgroundColor;
     }
 }
