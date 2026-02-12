@@ -110,3 +110,27 @@ main { padding: 15px; max-width: 500px; margin: 0 auto; }
     border: 1px solid #ccc;
 }
 
+.selector-modo {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.btn-modo {
+    padding: 8px 15px;
+    border: 2px solid #007bff;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-modo.activo {
+    background: #007bff;
+    color: white;
+}
+.res-info-adicional {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 10px;
+    text-align: center;
+}
+
