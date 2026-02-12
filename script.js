@@ -163,26 +163,67 @@ function calcularFuentes() {
     document.getElementById('resultado-a').innerText = `Amperaje Total: ${tA} A`;
 }
 
-function calcularResistenciaColor() {
-    // Obtener valores
-    const b1 = document.getElementById('band1');
-    const b2 = document.getElementById('band2');
-    const m = document.getElementById('multi');
-    const t = document.getElementById('tol');
+let modoBandas = 4;
 
-    const valorBase = (parseInt(b1.value) * 10) + parseInt(b2.value);
-    const resultado = valorBase * parseFloat(m.value);
-
-    // Actualizar colores visuales
-    document.getElementById('v-band1').style.backgroundColor = b1.options[b1.selectedIndex].style.backgroundColor;
-    document.getElementById('v-band2').style.backgroundColor = b2.options[b2.selectedIndex].style.backgroundColor;
-    document.getElementById('v-multi').style.backgroundColor = m.options[m.selectedIndex].style.backgroundColor;
-    document.getElementById('v-tol').style.backgroundColor = t.options[t.selectedIndex].style.backgroundColor;
-
-    // Mostrar resultado
-    let textoResultado = resultado >= 1000 ? (resultado / 1000) + " kΩ" : resultado + " Ω";
-    if (resultado >= 1000000) textoResultado = (resultado / 1000000) + " MΩ";
-
-    document.getElementById('res-color-total').innerText = "Valor: " + textoResultado + " ±" + t.value + "%";
+function cambiarBandas(n) {
+    modoBandas = n;
+    // Cambia el aspecto de los botones
+    document.getElementById('btn4b').classList.toggle('activo', n === 4);
+    document.getElementById('btn5b').classList.toggle('activo', n === 5);
+    
+    // Muestra u oculta la tercera banda (Banda 3)
+    const b3Visual = document.getElementById('v-band3');
+    const b3Grupo = document.getElementById('grupo-b3');
+    
+    if (n === 5) {
+        b3Visual.style.display = 'block';
+        b3Grupo.style.display = 'block';
+    } else {
+        b3Visual.style.display = 'none';
+        b3Grupo.style.display = 'none';
+    }
+    calcularResistenciaColor();
 }
 
+function calcularResistenciaColor() {
+    const b1 = document.getElementById('band1').value;
+    const b2 = document.getElementById('band2').value;
+    const b3 = document.getElementById('band3') ? document.getElementById('band3').value : 0;
+    const m = document.getElementById('multi').value;
+    const t = document.getElementById('tol').value;
+
+    let valorBase;
+    if (modoBandas === 4) {
+        valorBase = parseInt(b1 + b2);
+    } else {
+        valorBase = parseInt(b1 + b2 + b3);
+    }
+
+    const resultado = valorBase * parseFloat(m);
+
+    // Actualizar Colores de la Resistencia Visual
+    document.getElementById('v-band1').style.backgroundColor = document.getElementById('band1').options[document.getElementById('band1').selectedIndex].style.backgroundColor;
+    document.getElementById('v-band2').style.backgroundColor = document.getElementById('band2').options[document.getElementById('band2').selectedIndex].style.backgroundColor;
+    if(modoBandas === 5) {
+        document.getElementById('v-band3').style.backgroundColor = document.getElementById('band3').options[document.getElementById('band3').selectedIndex].style.backgroundColor;
+    }
+    document.getElementById('v-multi').style.backgroundColor = document.getElementById('multi').options[document.getElementById('multi').selectedIndex].style.backgroundColor;
+    document.getElementById('v-tol').style.backgroundColor = document.getElementById('tol').options[document.getElementById('tol').selectedIndex].style.backgroundColor;
+
+    // Formatear el resultado sin simplificar decimales (como pediste)
+    let unidad = " Ω";
+    let valorFinal = resultado;
+
+    if (resultado >= 1000000) {
+        valorFinal = resultado / 1000000;
+        unidad = " MΩ";
+    } else if (resultado >= 1000) {
+        valorFinal = resultado / 1000;
+        unidad = " kΩ";
+    }
+
+    document.getElementById('res-color-total').innerHTML = `
+        <strong>Valor: ${valorFinal}${unidad}</strong><br>
+        <span style="font-size:0.9rem">Tolerancia: ±${t}%</span>
+    `;
+}
