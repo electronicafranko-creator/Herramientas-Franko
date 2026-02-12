@@ -1,4 +1,4 @@
-// --- NAVEGACIÓN ---
+// NAVEGACIÓN
 function abrirSubventana(id) {
     document.getElementById('ventana-inicio').style.display = 'none';
     document.getElementById(id).style.display = 'block';
@@ -41,7 +41,7 @@ function cerrarHerramienta(id) {
     document.getElementById('cat-conexiones').style.display = 'block';
 }
 
-// --- LÓGICA CONEXIONES (RESISTENCIAS) ---
+// LÓGICA RESISTENCIAS
 function cambiarEsquema() {
     const modo = document.getElementById('modo-calculo').value;
     document.getElementById('img-serie').style.display = modo === 'serie' ? 'block' : 'none';
@@ -72,7 +72,7 @@ function calcularResistencias() {
     document.getElementById('resultado-final').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:3})}`;
 }
 
-// --- LÓGICA CONEXIONES (BOBINAS) ---
+// LÓGICA BOBINAS
 function cambiarEsquemaBobina() {
     const modo = document.getElementById('modo-calculo-bobina').value;
     document.getElementById('img-serie-bobina').style.display = modo === 'serie' ? 'block' : 'none';
@@ -103,7 +103,7 @@ function calcularBobinas() {
     document.getElementById('resultado-final-bobina').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:4})}`;
 }
 
-// --- LÓGICA CONEXIONES (CAPACITORES) ---
+// LÓGICA CAPACITORES
 function cambiarEsquemaCapacitor() {
     const modo = document.getElementById('modo-calculo-cap').value;
     document.getElementById('img-serie-cap').style.display = modo === 'serie' ? 'block' : 'none';
@@ -134,7 +134,7 @@ function calcularCapacitores() {
     document.getElementById('resultado-final-cap').innerText = `Total: ${(total/factor).toLocaleString(undefined,{maximumFractionDigits:6})}`;
 }
 
-// --- LÓGICA CONEXIONES (FUENTES) ---
+// LÓGICA FUENTES (V y A)
 function cambiarEsquemaFuente() {
     const modo = document.getElementById('modo-calculo-fnt').value;
     document.getElementById('img-serie-fnt').style.display = modo === 'serie' ? 'block' : 'none';
@@ -161,45 +161,4 @@ function calcularFuentes() {
     let tA = modo === 'serie' ? Math.min(...amps) : amps.reduce((a,b)=>a+b,0);
     document.getElementById('resultado-v').innerText = `Voltaje Total: ${tV} V`;
     document.getElementById('resultado-a').innerText = `Amperaje Total: ${tA} A`;
-}
-
-// --- NUEVA SECCIÓN: CALCULADORAS ---
-function mostrarMenuCalculadoras(id) {
-    document.getElementById('ventana-inicio').style.display = 'none';
-    document.getElementById(id).style.display = 'block';
-}
-
-function mostrarHerramientaColor(id) {
-    document.getElementById('cat-calculadoras').style.display = 'none';
-    document.getElementById(id).style.display = 'block';
-    ejecutarCalculoColores();
-}
-
-function volverDeColor(id) {
-    document.getElementById(id).style.display = 'none';
-    document.getElementById('cat-calculadoras').style.display = 'block';
-}
-
-function ejecutarCalculoColores() {
-    const b1 = document.getElementById('band1').value;
-    const b2 = document.getElementById('band2').value;
-    const m = parseFloat(document.getElementById('multi').value);
-    const t = document.getElementById('tol').value;
-
-    const resultado = parseInt(b1 + b2) * m;
-    let unidad = " Ω";
-    let valorFinal = resultado;
-
-    if (resultado >= 1000000) {
-        valorFinal = resultado / 1000000;
-        unidad = " MΩ";
-    } else if (resultado >= 1000) {
-        valorFinal = resultado / 1000;
-        unidad = " kΩ";
-    }
-
-    const cajaRes = document.getElementById('resultado-colores');
-    if(cajaRes) {
-        cajaRes.innerHTML = `<strong>Total: ${valorFinal}${unidad}</strong><br>Tolerancia: ±${t}%`;
-    }
 }
