@@ -1,33 +1,35 @@
-// --- NAVEGACIÓN RESCATADA ---
+// --- NAVEGACIÓN TOTALMENTE RESPETUOSA ---
 function abrirSubventana(id) {
-    // Oculta el inicio y muestra la categoría (Conexiones o Calculadoras)
-    document.getElementById('ventana-inicio').style.display = 'none';
-    document.getElementById(id).style.display = 'block';
+    // Solo ocultamos el inicio para que no estorbe
+    const inicio = document.getElementById('ventana-inicio');
+    if(inicio) inicio.style.display = 'none';
+    
+    // Mostramos la categoría (cat-conexiones o cat-calculadoras)
+    const destino = document.getElementById(id);
+    if(destino) destino.style.display = 'block';
 }
 
 function cerrarSubventana(id) {
-    // Vuelve al inicio
-    document.getElementById(id).style.display = 'none';
-    document.getElementById('ventana-inicio').style.display = 'block';
+    // Ocultamos la categoría y volvemos a mostrar el inicio
+    const ventana = document.getElementById(id);
+    if(ventana) ventana.style.display = 'none';
+    
+    const inicio = document.getElementById('ventana-inicio');
+    if(inicio) inicio.style.display = 'block';
 }
 
 function abrirHerramienta(id) {
-    // 1. Detectamos en qué menú estamos para saber qué ocultar
-    // Si el ID empieza por 'herram', venimos de Conexiones
-    if (id.startsWith('herram')) {
-        document.getElementById('cat-conexiones').style.display = 'none';
-    } 
-    // Si es de colores, venimos de Calculadoras
-    else if (id === 'calc-colores') {
-        document.getElementById('cat-calculadoras').style.display = 'none';
-    }
+    // Cerramos ambos menús principales para estar seguros
+    if(document.getElementById('cat-conexiones')) document.getElementById('cat-conexiones').style.display = 'none';
+    if(document.getElementById('cat-calculadoras')) document.getElementById('cat-calculadoras').style.display = 'none';
 
-    // 2. Mostramos la herramienta
+    // Mostramos la herramienta específica (tus 4 de siempre o la nueva de colores)
     const destino = document.getElementById(id);
     if (destino) {
         destino.style.display = 'block';
+        window.scrollTo(0,0);
         
-        // Inicialización de tus herramientas de siempre
+        // Ejecutamos la lógica de carga de tus herramientas originales
         if(id === 'herram-resistencias') {
             document.getElementById('lista-valores').innerHTML = '';
             agregarFilaResistencia(); agregarFilaResistencia();
@@ -48,24 +50,28 @@ function abrirHerramienta(id) {
             agregarFilaFuente(); agregarFilaFuente();
             cambiarEsquemaFuente();
         }
-        // Nueva inicialización para colores
-        else if(id === 'calc-colores') {
+        // Nueva lógica de colores
+        else if(id === 'calc-colores' && typeof calcularResistenciaColor === "function") {
             calcularResistenciaColor();
         }
     }
 }
 
 function cerrarHerramienta(id) {
-    document.getElementById(id).style.display = 'none';
+    const ventana = document.getElementById(id);
+    if(ventana) ventana.style.display = 'none';
     
-    // Si cerramos una de tus herramientas viejas, vuelve a Conexiones
-    if (id.startsWith('herram')) {
-        document.getElementById('cat-conexiones').style.display = 'block';
+    // Si el ID de la herramienta empieza por 'herram-', vuelve a Conexiones
+    if (id.includes('herram')) {
+        const conex = document.getElementById('cat-conexiones');
+        if(conex) conex.style.display = 'block';
     } 
-    // Si cerramos la de colores, vuelve a Calculadoras
+    // Si es la de colores, vuelve a Calculadoras
     else if (id === 'calc-colores') {
-        document.getElementById('cat-calculadoras').style.display = 'block';
+        const calcs = document.getElementById('cat-calculadoras');
+        if(calcs) calcs.style.display = 'block';
     }
+}
 }
 // --- TUS LÓGICAS DE CÁLCULO (Resistencias, Bobinas, Capacitores, Fuentes) ---
 // (Manten todas tus funciones: cambiarEsquema, agregarFilaResistencia, calcularResistencias, etc. tal cual las tienes)
@@ -101,4 +107,5 @@ function calcularResistenciaColor() {
     document.getElementById('v-multi').style.backgroundColor = document.getElementById('multi').options[document.getElementById('multi').selectedIndex].style.backgroundColor;
     document.getElementById('v-tol').style.backgroundColor = document.getElementById('tol').options[document.getElementById('tol').selectedIndex].style.backgroundColor;
 }
+
 
