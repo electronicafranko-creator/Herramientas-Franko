@@ -163,3 +163,53 @@ function calcularFuentes() {
     document.getElementById('resultado-a').innerText = `Amperaje Total: ${tA} A`;
 }
 
+// --- FUNCIONES NUEVAS (NOMBRES DIFERENTES PARA NO TOCAR TUS CONEXIONES) ---
+
+function mostrarMenuCalculadoras(id) {
+    // Usamos la misma lógica que tu abrirSubventana pero sin tocar su nombre
+    document.getElementById('ventana-inicio').style.display = 'none';
+    document.getElementById(id).style.display = 'block';
+}
+
+function mostrarHerramientaColor(id) {
+    // Cerramos el menú de las 11 calculadoras
+    document.getElementById('cat-calculadoras').style.display = 'none';
+    // Mostramos la calculadora de colores
+    document.getElementById(id).style.display = 'block';
+    ejecutarCalculoColores();
+}
+
+function volverDeColor(id) {
+    document.getElementById(id).style.display = 'none';
+    document.getElementById('cat-calculadoras').style.display = 'block';
+}
+
+function ejecutarCalculoColores() {
+    const b1 = document.getElementById('band1').value;
+    const b2 = document.getElementById('band2').value;
+    const m = parseFloat(document.getElementById('multi').value);
+    const t = document.getElementById('tol').value;
+
+    const resultado = parseInt(b1 + b2) * m;
+    
+    let unidad = " Ω";
+    let valorFinal = resultado;
+
+    if (resultado >= 1000000) {
+        valorFinal = resultado / 1000000;
+        unidad = " MΩ";
+    } else if (resultado >= 1000) {
+        valorFinal = resultado / 1000;
+        unidad = " kΩ";
+    }
+
+    document.getElementById('resultado-colores').innerHTML = `Total: ${valorFinal}${unidad} <br> Tolerancia: ±${t}%`;
+    
+    // Actualización de colores del dibujo
+    document.getElementById('v-band1').style.backgroundColor = document.getElementById('band1').options[document.getElementById('band1').selectedIndex].style.backgroundColor;
+    document.getElementById('v-band2').style.backgroundColor = document.getElementById('band2').options[document.getElementById('band2').selectedIndex].style.backgroundColor;
+    document.getElementById('v-multi').style.backgroundColor = document.getElementById('multi').options[document.getElementById('multi').selectedIndex].style.backgroundColor;
+    document.getElementById('v-tol').style.backgroundColor = document.getElementById('tol').options[document.getElementById('tol').selectedIndex].style.backgroundColor;
+}
+
+
